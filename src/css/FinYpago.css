@@ -1,0 +1,166 @@
+#finYPago--container{
+    width: 100%;
+    height: 100vh;
+    margin: 0px;
+    background-color: #EB9800;
+}
+#finYPago--container h2{
+    font-weight: 400;
+    font-size: 1.3em;
+}
+#finYPago--container .especificaciones-finYPago--container{
+    display: flex;
+    justify-content: space-around;
+}
+#finYPago--container .especificaciones-section--container, #finYPago--container .resumen-section--container{
+    background-color: white;
+    width: 45%;
+    border-radius: 10px;
+}
+#finYPago--container .especificaciones-section--container{
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+}
+#finYPago--container .especificaciones-section--container .direccion-texto{
+    font-weight: 500;
+    margin: 10px 0px;
+}
+#finYPago--container .especificaciones-section--container .info-adicional{
+    font-weight: 400;
+    font-size: smaller;
+    color: lightgray;
+}
+#finYPago--container .especificaciones-section--container .info-adicional{
+    font-weight: 400;
+    font-size: smaller;
+    color: lightgray;
+}
+#finYPago--container .especificaciones-section--container .info-adicional--input{
+    border: none;
+    border-radius: 5px;
+    padding: 8px 5px;
+    background-color: rgba(242, 242, 242, 0.503);
+    margin-bottom: 15px;
+}
+#finYPago--container .especificaciones-section--container .info-adicional--input::placeholder{
+    color: lightgray;
+}
+#finYPago--container .especificaciones-section--container .info-adicional--input:focus{
+    outline: none;
+}
+#finYPago--container .tienda-especificaciones--container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid lightgray;
+}
+#finYPago--container .tienda-especificaciones--container img{
+    width: 100px;
+}
+#finYPago--container .tienda-especificaciones--container .tienda-especificaciones--info{
+    display: flex;
+    align-items: center;
+    color: lightgray;
+}
+#finYPago--container .entrega-especification-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+#finYPago--container .entrega-especification-container .entrega-text{
+    color: lightgray;
+}
+#finYPago--container .metodo-pago--container{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgb(47, 218, 47);
+    border-left: 5px solid rgb(47, 218, 47);
+    border-radius: 10px;
+    padding: 5px 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#finYPago--container .metodo-pago--container .metodo-pago--info{
+    display: flex;
+    align-items: center;
+}
+#finYPago--container .metodo-pago--container .metodo-pago--info svg{
+    color: rgb(42, 195, 42);
+    margin-right: 5px;
+}
+#finYPago--container hr{
+    color: green;
+}
+#finYPago--container .agregar-tarjeta--container{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 5px 5px;
+    margin-bottom: 15px;
+}
+#finYPago--container .agregar-tarjeta--container .agregar-tarjeta--text{
+    display: flex;
+    align-items: center;
+}
+#finYPago--container .agregar-tarjeta--container .agregar-tarjeta--text SVG{
+    margin-right: 5PX;
+}
+#finYPago--container .propina--container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+#finYPago--container .propina--container .propinas-content--container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+}
+#finYPago--container .propina--container .propinas-content--container button{
+    background: none;
+    border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#finYPago--container .resumen-section--container{
+    background: none;
+}
+#finYPago--container .resumen-section--container .resumen-info-container{
+    background: white;
+    border-radius: 10px;
+    padding: 20px 20px;
+}
+#finYPago--container .resumen-section--container .resumen-info-container table{
+    margin-top: 15px;
+}
+#finYPago--container .resumen-section--container .resumen-info-container tr:last-child{
+    color: green;
+}
+#finYPago--container .resumen-section--container button{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1.1em;
+    background-color: white;
+    color: #EB9800;
+}

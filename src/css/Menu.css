@@ -1,0 +1,7 @@
+#prueba{
+    display: flex;
+    justify-content: space-around;
+}
+#prueba p:nth-child(3){
+    border-bottom: 2px solid #eb9800;
+}

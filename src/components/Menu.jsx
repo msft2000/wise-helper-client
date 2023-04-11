@@ -3,8 +3,11 @@ import "../css/Menu.css";
 
 function Menu() {
     return (
-        <div>
-        <h1>Progra web</h1>
+        <div id="prueba">
+            <p>Tareas</p>
+            <p>Historial</p>
+            <p>Perfil</p>
+            <p>Soporte</p>
         </div>
     );
     }
