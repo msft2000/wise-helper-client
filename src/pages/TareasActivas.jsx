@@ -11,6 +11,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 function TareasActivas() {
   const mostrarMenuLateral = (tarea) => {
     if (tarea === "1") {
+      setTareaActiva2("");
+      setTareaActiva3("");
+      setTareaActiva4("");
       if (tareaActiva1 === "tarea-activa") {
         setTareaActiva1("");
         setMenuLateralActivo("todas-tareas--container");
@@ -21,6 +24,9 @@ function TareasActivas() {
         setTareaContainer("tarea--container tarea-activo");
       }
     } else if (tarea === "2") {
+      setTareaActiva1("");
+      setTareaActiva3("");
+      setTareaActiva4("");
       if (tareaActiva2 === "tarea-activa") {
         setTareaActiva2("");
         setMenuLateralActivo("todas-tareas--container");
@@ -31,6 +37,9 @@ function TareasActivas() {
         setTareaContainer("tarea--container tarea-activo");
       }
     } else if (tarea === "3") {
+      setTareaActiva2("");
+      setTareaActiva1("");
+      setTareaActiva4("");
       if (tareaActiva3 === "tarea-activa") {
         setTareaActiva3("");
         setMenuLateralActivo("todas-tareas--container");
@@ -41,6 +50,9 @@ function TareasActivas() {
         setTareaContainer("tarea--container tarea-activo");
       }
     } else if (tarea === "4") {
+      setTareaActiva2("");
+      setTareaActiva3("");
+      setTareaActiva1("");
       if (tareaActiva4 === "tarea-activa") {
         setTareaActiva4("");
         setMenuLateralActivo("todas-tareas--container");
