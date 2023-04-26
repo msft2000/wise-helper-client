@@ -1,0 +1,62 @@
+#admin-login--page{
+    height: 100vh;
+    padding-top: 100px;
+    background-color: #f1b74d;
+}
+#admin-login--page .admin-login--container{
+    width: 60%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 50px 0;
+    font-size: larger;
+    background-color: white;
+    border-radius: 30px;
+}
+#admin-login--page .admin-login--container h2{
+    text-align: center;
+    margin-bottom: 40px;
+}
+#admin-login--page .admin-login--container form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 50px;
+}
+#admin-login--page .admin-login--container form label{
+    margin-bottom: 15px;
+}
+#admin-login--page .admin-login--container form input{
+    width: 100%;
+    margin-bottom: 30px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+}
+#admin-login--page .admin-login--container form input:focus{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+}
+#admin-login--page .admin-login--container form input#username::placeholder{
+    background-image: url("../assets/svg/admin-user-base-login.svg");
+    background-repeat: no-repeat;
+    background-size: 17px;
+    background-position: 5px 0px;
+    padding-left: 25px;
+}
+#admin-login--page .admin-login--container form input#password::placeholder{
+    background-image: url("../assets/svg/admin-block-login.svg");
+    background-repeat: no-repeat;
+    background-size: 17px;
+    background-position: 5px 0px;
+    padding-left: 25px;
+}
+#admin-login--page .admin-login--container button{
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: #f1b74d;
+}

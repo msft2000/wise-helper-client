@@ -1,6 +1,8 @@
 #prueba{
     display: flex;
     justify-content: space-around;
+    font-size: larger;
+    padding-top: 5px;
 }
 #prueba p:nth-child(3){
     border-bottom: 2px solid #eb9800;

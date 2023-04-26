@@ -1,11 +1,13 @@
 import React from "react";
 import { Menu } from "../components/Menu";
+import { useNavigate } from "react-router-dom";
 import "../css/PerfilAdultoMayor.css";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
 import mujerResenia from "../assets/img/resenia-ujer.png";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 
 function PerfilAdultoMayor() {
+    const  navigate  = useNavigate();
     return (
         <div id="perfil-adulto-mayor--page-container">
             <div className="perfil-datos--container">
@@ -44,7 +46,7 @@ function PerfilAdultoMayor() {
                 <p className="descripcion-ayudante--title">
                     Descripcion del Adulto Mayor
                 </p>
-                <button>Actualizar Informacion</button>
+                <button onClick={()=>navigate("/")}>Actualizar Informacion</button>
             </div>
             <div className="perfil-resenias--container">
                 <div className="resenias--container--titulo">
@@ -93,7 +95,8 @@ function PerfilAdultoMayor() {
                             <StarRateRoundedIcon />
                         </div>
                 </div>
-                <button>Registrar</button>
+                <button>Agregar Reseña</button>
+                <hr/>
             </div>
         </div>
     );

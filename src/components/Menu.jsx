@@ -5,7 +5,7 @@ function Menu() {
     return (
         <div id="prueba">
             <p>Tareas</p>
-            <p>Historial</p>
+            <p>Tareas Activas</p>
             <p>Perfil</p>
             <p>Soporte</p>
         </div>

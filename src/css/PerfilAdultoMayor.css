@@ -8,6 +8,8 @@
     color: yellow;
 }
 #perfil-adulto-mayor--page-container .perfil-datos--container {
+    position: fixed;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -88,6 +90,7 @@
     flex-direction: column;
     width: 50%;
     padding: 28px 20px;
+    margin-left: 58%;
 }
 #perfil-adulto-mayor--page-container
     .perfil-resenias--container
@@ -139,6 +142,7 @@
     color: white;
     background-color: #eb9800;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 #perfil-adulto-mayor--page-container .perfil-resenias--container .ratings {
     width: fit-content;
