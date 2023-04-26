@@ -19,7 +19,7 @@ function App() {
                 "display": "flex",
                 "flexDirection": "column",
                 "alignItems": "center",
-                "fontSize": "x-large",
+                "fontSize": "x-large"
               }}>
                 <h1>Pages</h1>
                 <Link to="/login">Login</Link>
