@@ -1,14 +1,15 @@
 import React from "react";
-import { Menu } from "../components/Menu.jsx";
+import { useNavigate } from "react-router-dom";
+import { Navbar2 } from "../components/Navbar2";
 import "../css/TareasActivas.css";
 import mujerResenia from "../assets/img/resenia-ujer.png";
-
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AddIcon from "@mui/icons-material/Add";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 function TareasActivas() {
+  const navigate = useNavigate();
   const mostrarMenuLateral = (tarea) => {
     if (tarea === "1") {
       setTareaActiva2("");
@@ -75,7 +76,7 @@ function TareasActivas() {
     React.useState("tarea--container");
   return (
     <div id="tareas-activas--page">
-      <Menu />
+      <Navbar2 flag={2}/>
       <div className="tareas-activas--container">
         <div className={menuLateralActivo}>
           <div className="todas-tareas--header">
@@ -83,10 +84,11 @@ function TareasActivas() {
               <FilterAltIcon />
               Filtrar Contenido
             </button>
-            <button>
+            <button onClick={()=>navigate("agregar-tarea")}>
               <AddIcon />
               Agregar Tarea
             </button>
+            
           </div>
           <div className="todas-tareas--body">
             <table>
@@ -96,7 +98,7 @@ function TareasActivas() {
                   <th>Fecha Limite</th>
                   <th>Estado</th>
                   <th>Tiempo Estimado</th>
-                  <th>Voluntario</th>
+                  <th>Adulto</th>
                 </tr>
               </thead>
               <tbody>
@@ -158,7 +160,7 @@ function TareasActivas() {
               <img src={mujerResenia} alt="foto-perfil-resenia" />
               <div className="info">
                 <h3>Carlos</h3>
-                <p>Voluntario</p>
+                <p>Adulto Mayor</p>
               </div>
             </div>
             <div className="ratings">
@@ -190,6 +192,7 @@ function TareasActivas() {
           <button className="btn-finalizar">Finalizar</button>
         </div>
       </div>
+      <p>Mateo Flores</p>
     </div>
   );
 }

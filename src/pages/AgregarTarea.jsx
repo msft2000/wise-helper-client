@@ -1,11 +1,13 @@
 import React from "react";
-import { Menu } from "../components/Menu.jsx";
+import { useNavigate } from "react-router-dom";
 import "../css/AgregarTarea.css";
+import { Navbar2 } from "../components/Navbar2.jsx";
 
 function AgregarTarea(){
+    const navigate = useNavigate();
     return(
         <div id="agregar-tareas">
-            <Menu />
+            <Navbar2 flag={2}/>
             <div className="agregar-tarea-general--container">
                 <div className="agregar-tareas--header">
                     <h1>Agregar Tarea</h1>
@@ -20,9 +22,10 @@ function AgregarTarea(){
                     <input type="time" name="tiempo-estimado" id="tiempo-estimado" />
                     <label htmlFor="descripcion">Descripcion</label>
                     <textarea name="descripcion" id="descripcion" cols="30" rows="5"></textarea>
-                    <button>Agregar Tarea</button>
+                    <button onClick={()=>navigate("/volunter/tareas")}>Agregar Tarea</button>
                 </div>
             </div>
+            <p>Mateo Flores</p>
         </div>
             
     )

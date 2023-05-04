@@ -1,0 +1,161 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+body {
+  margin: 0;
+}
+body * {
+  font-family: "DM Sans";
+  font-weight: normal;
+  margin: 0;
+}
+
+div.Login {
+  background-color: #eeac34;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column-reverse;
+}
+div.Login > div.content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 379px;
+  height: 525px;
+  background-color: white;
+  border-radius: 34px;
+}
+div.Login h1 {
+  font-size: 40px;
+  text-align: center;
+  margin: 34px 0 23px 0;
+}
+div.Login h2 {
+  margin-left: 76px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 15px;
+  color: black;
+  text-align: start;
+}
+div.Login form {
+  display: flex;
+  flex-direction: column;
+}
+div.Login form > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 227px;
+  margin: 0 76px;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 32px;
+}
+div.Login form > div input {
+  display: block;
+  width: 227px;
+  border: 0;
+  margin-left: 15px;
+  font-size: 15px;
+}
+div.Login input:active, div.Login input:focus {
+  outline: none;
+}
+div.Login svg {
+  color: gray;
+  font-size: 30px;
+}
+div.Login input[type=submit] {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 159px;
+  height: 40px;
+  background: #eeac34;
+  border-radius: 50px;
+  border: 0;
+  font-weight: bold;
+  font-size: 15px;
+  color: white;
+  cursor: pointer;
+}
+div.Login h3 {
+  margin: 42px 0 0 0;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  color: #666666;
+}
+div.Login a {
+  margin-top: 10px;
+  font-family: "DM Sans";
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  color: #666666;
+  text-decoration: none;
+  cursor: pointer;
+}
+div.Login p {
+  text-align: center;
+  color: red;
+}
+
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 480px) {
+  #root > div.Login {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    justify-content: center;
+  }
+  div.Login h1 {
+    font-size: 50px;
+  }
+  div.Login h2 {
+    text-align: center;
+    margin-left: 0;
+    font-size: 18px;
+  }
+  div.Login form {
+    width: 100%;
+  }
+  div.Login form div {
+    width: auto;
+    padding-right: 5px;
+    margin: 0 30px 30px 30px;
+  }
+  div.Login form div input {
+    width: 100%;
+    font-size: 18px;
+  }
+  div.Login input[type=submit] {
+    scale: 1.3;
+  }
+  div.Login h3 {
+    font-size: 18px;
+  }
+  div.Login a {
+    margin-top: 50px;
+    font-size: 24px;
+  }
+  div.Login svg {
+    font-size: 30px;
+  }
+}
+/* Estilos para tabletas */
+/* Estilos para escritorio */
+@media screen and (min-width: 769px) {
+  div.Login > div.content {
+    transform: scale(1.2);
+  }
+}
+
+/*# sourceMappingURL=login2.css.map */

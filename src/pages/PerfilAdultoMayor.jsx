@@ -5,13 +5,14 @@ import "../css/PerfilAdultoMayor.css";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
 import mujerResenia from "../assets/img/resenia-ujer.png";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
+import { Navbar } from "../components/Navbar";
 
 function PerfilAdultoMayor() {
     const  navigate  = useNavigate();
     return (
         <div id="perfil-adulto-mayor--page-container">
             <div className="perfil-datos--container">
-                <Menu />
+                <Navbar flag={3}/>
                 <div className="perfil-datos--container--titulo">
                     <p>Datos</p>
                     <hr />
@@ -46,7 +47,7 @@ function PerfilAdultoMayor() {
                 <p className="descripcion-ayudante--title">
                     Descripcion del Adulto Mayor
                 </p>
-                <button onClick={()=>navigate("/")}>Actualizar Informacion</button>
+                <button >Actualizar Informacion</button>
             </div>
             <div className="perfil-resenias--container">
                 <div className="resenias--container--titulo">
@@ -96,6 +97,7 @@ function PerfilAdultoMayor() {
                         </div>
                 </div>
                 <button>Agregar Reseña</button>
+                <p>Mateo Flores</p>
                 <hr/>
             </div>
         </div>

@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+
+div.PerfilAyudante body {
+    display: grid;
+    grid-template-areas: 
+    "seccion1 seccion2";
+    grid-template-columns: 55% 45%;
+    grid-template-rows: 500px;
+}
+div.PerfilAyudante body *{
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: normal;
+}
+
+div.PerfilAyudante input {
+    margin: 20px;
+    width: fit-content;
+    height: fit-content;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background: #f1b74d;
+    border-radius: 20px;
+    cursor: pointer;
+    border:0;
+    padding: 8px 20px 8px 20px;
+    align-self: center;
+  }
+
+  div.PerfilAyudante input:hover{
+    transform: scale(1.2)
+  }
+  div.PerfilAyudante .sec1{
+    grid-area: seccion1;
+    background-color:  rgb(222, 222, 222);
+    border-radius: 0px 10px 10px 0px;
+    display: grid;
+    grid-template-areas: 
+    "seccion3 seccion4"
+    "seccion3 seccion5";
+    grid-template-columns: 5% 95%;
+    grid-template-rows: 60px 100%;
+}
+
+div.PerfilAyudante .sec2{
+    grid-area: seccion2;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1%;
+}
+
+div.PerfilAyudante .sec2 > div{
+    align-self: center;
+    height: auto;
+    width: 99%;
+    background-color: rgb(222, 222, 222);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+
+}
+div.PerfilAyudante .sec2 p{
+    font-size: small;
+}
+div.PerfilAyudante .sec2 img{
+    height: 50px;
+    width: 50px;
+}
+
+
+
+div.PerfilAyudante .div3{
+    grid-area: seccion3;
+    background-color: rgba(235, 152, 0, 0.79);
+    border-radius: 0px 20px 20px 0px;
+}
+div.PerfilAyudante .sec4 {
+    grid-area: seccion4;
+    background-color: rgb(222, 222, 222);
+    border-radius: 0px 10px 0px 0px;
+    padding: 15px 0px 20px 0px;
+}
+
+div.PerfilAyudante .sec4 ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+div.PerfilAyudante .sec4 a {
+    text-decoration: none;
+    font-size: 15px;
+    color: black;
+}
+div.PerfilAyudante .sec4 li.selected {
+    border-bottom: 3px solid #d38713;
+  }
+  
+  div.PerfilAyudante .sec4 li:hover {
+    border-bottom: 3px solid #d38713;
+  }
+
+  div.PerfilAyudante .sec5{
+    grid-area: seccion5;
+    background-color: rgb(222, 222, 222);
+    border-radius: 0px 0px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    
+}
+
+div.PerfilAyudante .sec5 h3{
+    text-align: left;
+    margin-left: 1%;
+}
+
+div.PerfilAyudante .sec5 div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+div.PerfilAyudante .sec5 section{
+    background-color: #d38713;   
+    font-size: 15px;
+    border: 1px solid #333333;
+    border-radius: 10px;
+}
+div.PerfilAyudante .sec5 .descrip{    
+    width: 50%;
+    height: 120px;
+}
+
+div.PerfilAyudante img{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+
+div.PerfilAyudante .sec5 .descrip2{
+    margin-left: 5%;     
+    width: 90%;
+    height: 90px;
+}
+
+
