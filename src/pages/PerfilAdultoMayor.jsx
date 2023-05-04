@@ -1,5 +1,4 @@
 import React from "react";
-import { Menu } from "../components/Menu";
 import { useNavigate } from "react-router-dom";
 import "../css/PerfilAdultoMayor.css";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
@@ -11,8 +10,9 @@ function PerfilAdultoMayor() {
     const  navigate  = useNavigate();
     return (
         <div id="perfil-adulto-mayor--page-container">
+            <Navbar flag={3}/>
             <div className="perfil-datos--container">
-                <Navbar flag={3}/>
+                
                 <div className="perfil-datos--container--titulo">
                     <p>Datos</p>
                     <hr />

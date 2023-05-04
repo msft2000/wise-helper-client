@@ -7,7 +7,7 @@ function Navbar(props) {
   const navigate=useNavigate();
   const [flag,setFlag]=React.useState(false);
   return (
-    <header className="NavBar1" style={{"zIndex":"100"}}>
+    <header className="NavBar1">
     <nav>
       <img src={logo} onClick={()=>navigate("/")}/>
       <ul className={flag ? "show":""}>

@@ -6,7 +6,7 @@ import Rating from "@mui/material/Rating";
 import { FaImage } from "react-icons/fa";
 import { GrLink } from "react-icons/gr";
 import { RxCross2 } from "react-icons/rx";
-
+import { useNavigate } from "react-router-dom";
 function Tabla({
   data,
   set,
@@ -169,6 +169,7 @@ function DetalleTarea2({
 }
 
 function TareasAdulto() {
+  const navigate=useNavigate();
   const data = [
     {
       voluntario: "Ana Garcia",
@@ -227,7 +228,7 @@ function TareasAdulto() {
         <div className="panel" ref={refPanel}>
           <section className="tareas_content" ref={refTareasContent}>
             <div className="btns">
-              <div class="agregar">
+              <div class="agregar" onClick={()=>navigate("/adult/agregar-tarea")}>
                 <AiOutlinePlus />
                 <p>Agregar Tarea</p>
               </div>

@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/AgregarTarea.css";
-import { Navbar2 } from "../components/Navbar2.jsx";
+import { Navbar } from "../components/Navbar";
 
 function AgregarTarea(){
     const navigate = useNavigate();
     return(
         <div id="agregar-tareas">
-            <Navbar2 flag={2}/>
+            <Navbar flag={1}/>
             <div className="agregar-tarea-general--container">
                 <div className="agregar-tareas--header">
                     <h1>Agregar Tarea</h1>

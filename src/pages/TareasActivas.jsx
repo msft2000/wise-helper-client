@@ -79,7 +79,7 @@ function TareasActivas() {
       <Navbar2 flag={2}/>
       <div className="tareas-activas--container">
         <div className={menuLateralActivo}>
-          <div className="todas-tareas--header">
+          <div className="todas-tareas--header" style={{display:"none"}}>
             <button>
               <FilterAltIcon />
               Filtrar Contenido

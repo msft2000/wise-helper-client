@@ -1,30 +1,14 @@
 import React from "react";
 import "../css/PerfilAyudante.css";
-
+import { Navbar2 } from "../components/Navbar2";
+import img12 from "../assets/img/img12.png"
 function PerfilAyudante() {
   return (
     <React.Fragment>
       <div className="PerfilAyudante">
+      <Navbar2 flag={3}/>
         <section class="sec1">
           <section class="div3"></section>
-          <section class="sec4">
-            <nav>
-              <ul>
-                <li>
-                  <a href="#">Mis Tareas</a>
-                </li>
-                <li>
-                  <a href="#">Historial de Actividades</a>
-                </li>
-                <li class="selected">
-                  <a href="#">Perfil</a>
-                </li>
-                <li>
-                  <a href="#">Soporte</a>
-                </li>
-              </ul>
-            </nav>
-          </section>
           <section class="sec5">
             <h3>Datos</h3>
             <div>
@@ -39,7 +23,7 @@ function PerfilAyudante() {
         <section class="sec2">
           <h3>Reseñas</h3>
           <div>
-            <img src="./resourses/img12.png" alt="" />
+            <img src={img12} alt="" />
             <p>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum

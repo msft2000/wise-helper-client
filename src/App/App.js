@@ -13,6 +13,7 @@ import { TareasAdulto } from "../pages/Tareas_A";
 import { PerfilAyudante } from "../pages/PerfilAyudante";
 import { Soporte } from "../pages/Soporte";
 import { Soporte2 } from "../pages/Soporte2";
+import { Soporte3 } from "../pages/Soporte3";
 function App() {
   return (
     <BrowserRouter>
@@ -21,13 +22,16 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
+          <Route path="/support" element={<Soporte3/>} />
           <Route path="/adult" element={<TareasAdulto />}/>
+          <Route path="/adult/agregar-tarea" element={<AgregarTarea/>}/>
             <Route path="/adult/tareas"  />
+
             <Route path="/adult/perfil" element={<PerfilAdultoMayor/>}/>
             <Route path="/adult/support" element={<Soporte/>} />
           <Route path="/volunter" element={<TareasVoluntario/>}/>
             <Route path="/volunter/tareas" element={<TareasActivas />}/>
-              <Route path="/volunter/tareas/agregar-tarea" element={<AgregarTarea/>}/>
+              
             <Route path="/volunter/perfil" element={<PerfilAyudante />} />
             <Route path="/volunter/support" element={<Soporte2/>} />
             
