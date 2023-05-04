@@ -25,7 +25,7 @@ function SoporteMessage({ adultoMayor }) {
           </ul>
         </nav>
       </header> */}
-      {!url.includes("volunter") ? <Navbar flag={4}/> : <Navbar2 flag={4}/>}
+      {url.includes("adult") ? <Navbar flag={4}/> : (url.includes("volunter") ? <Navbar2 flag={4}/> : <></>)}
 
       <section>
         <h1> Ayudanos a mejorar WiseHelpers </h1>

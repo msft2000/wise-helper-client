@@ -18,6 +18,8 @@ import { TareaFinAdulto } from "../pages/TareaFinAdulto";
 import { TareaFinVoluntario} from "../pages/TareaFinVoluntario";
 import { TerminosCondiciones} from "../pages/TerminosCondiciones";
 import { SoporteMessage } from "../pages/SoporteMessage";
+import { TareasHistorialAdulto } from "../pages/Tareas_Historial_A";
+
 
 function App() {
 
@@ -35,7 +37,7 @@ function App() {
           <Route path="/tyc" element={<TerminosCondiciones />}/>
           <Route path="/adult/agregar-tarea" element={<AgregarTarea/>}/>
           <Route path="/adult/finalizar" element={<TareaFinVoluntario/>}/>
-            <Route path="/adult/tareas"  />
+            <Route path="/adult/tareas"  element={<TareasHistorialAdulto/>}/>
 
             <Route path="/adult/perfil" element={<PerfilAdultoMayor/>}/>
             <Route path="/adult/support" element={<Soporte/>} />

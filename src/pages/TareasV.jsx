@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { Navbar2 } from "../components/Navbar2";
-import "../css/tarea_v.css";
+import "../sass/tarea_v.scss";
 import { AiFillFilter } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
 import { MdLocationOn } from "react-icons/md";

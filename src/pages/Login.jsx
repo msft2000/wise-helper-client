@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { MdPerson, MdOutlineLock } from "react-icons/md";
-import styles from "../css/login2.css";
+import styles from "../sass/login2.scss";
 import { useNavigate } from "react-router-dom";
 
 function ErrorMsg() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar } from "../components/Navbar";
-import "../css/soporte2.css";
+import "../sass/soporte2.scss";
 import {MdMarkUnreadChatAlt, MdSend,MdLocalPhone,MdLiveHelp,MdHelp} from "react-icons/md"
 import {BsHeadset,BsFileEarmarkText} from "react-icons/bs"
 import { useNavigate } from "react-router-dom";

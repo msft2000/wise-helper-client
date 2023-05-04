@@ -1,13 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { Navbar } from "../components/Navbar";
-import "../sass/tarea_a.scss";
-import { AiOutlinePlus, AiFillFilter } from "react-icons/ai";
+import "../sass/tarea_historial_a.scss";
+import { AiFillFilter } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
-import { FaImage } from "react-icons/fa";
-import { GrLink } from "react-icons/gr";
 import { RxCross2 } from "react-icons/rx";
-import { useNavigate } from "react-router-dom";
 function Tabla({
   data,
   set,
@@ -94,7 +91,6 @@ function Tabla({
 }
 
 function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
-  const navigate=useNavigate();
   return (
     <section className="tarea_desc" style={{ display: detalle.display }}>
       <section>
@@ -122,56 +118,12 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
       <div>
         <p>Descripción de la tarea</p>
         <p> {detalle.desc}</p>
-        <input type="button" value="Finalizar Tarea" onClick={()=>navigate("/adult/finalizar")}/>
-      </div>
-
-      <div>
-        <p>Mensajes</p>
-
-        <div className="msgs"></div>
-
-        <div className="txtfield">
-          <textarea placeholder="Escriba un mensaje aquí"></textarea>
-          <div>
-            <FaImage />
-            <GrLink />
-          </div>
-        </div>
-        <input type="button" value="Enviar" />
       </div>
     </section>
   );
 }
 
-function DetalleTarea2({
-  detalle,
-  set,
-  setFilaSeleccionada,
-  refTareasContent,
-}) {
-  return (
-    <section className="tarea_desc2" style={{ display: detalle.display }}>
-      <section>
-        <RxCross2
-          onClick={() => {
-            set({ display: "none" });
-            setFilaSeleccionada(null);
-            refTareasContent.current.style.display = "flex";
-          }}
-        />
-      </section>
-
-      <div>
-        <p>Descripción de la tarea</p>
-        <p>{detalle.desc}</p>
-      </div>
-      <input type="submit" value="Cancelar" />
-    </section>
-  );
-}
-
-function TareasAdulto() {
-  const navigate=useNavigate();
+function TareasHistorialAdulto() {
   const data = [
     {
       voluntario: "Ana Garcia",
@@ -182,7 +134,7 @@ function TareasAdulto() {
       tarea_desc:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
       fecha: "12 Mar 2023",
-      estado: "En Proceso",
+      estado: "Finalizada",
       tiempo: "00:45:10",
     },
     {
@@ -191,20 +143,9 @@ function TareasAdulto() {
       score: "3.2",
       perfil: "./img7.png",
       tarea_titulo: "Limpieza de hogar",
-      tarea_desc: "Hola",
+      tarea_desc: "Lorem",
       fecha: "12 Mar 2023",
-      estado: "En Proceso",
-      tiempo: "00:45:10",
-    },
-    {
-      voluntario: "",
-      tipo: "Voluntaria",
-      score: "3.2",
-      perfil: "",
-      tarea_titulo: "Limpieza de hogar",
-      tarea_desc: "Hola",
-      fecha: "12 Mar 2023",
-      estado: "Activa",
+      estado: "Finalizada",
       tiempo: "00:45:10",
     },
   ];
@@ -224,17 +165,11 @@ function TareasAdulto() {
   const refPanel = React.useRef(null);
 
   return (
-    <div className="TareasA">
+    <div className="TareasHistorialA">
       <div className="container">
-        <Navbar flag={1} />
+        <Navbar flag={2} />
         <div className="panel" ref={refPanel}>
           <section className="tareas_content" ref={refTareasContent}>
-            <div className="btns">
-              <div class="agregar" onClick={()=>navigate("/adult/agregar-tarea")}>
-                <AiOutlinePlus />
-                <p>Agregar Tarea</p>
-              </div>
-            </div>
             <div className="table">
               <Tabla
                 data={data}
@@ -247,25 +182,16 @@ function TareasAdulto() {
               />
             </div>
           </section>
-          {detalle.nombre !== "" ? (
             <DetalleTarea
               detalle={detalle}
               set={setDetalle}
               setFilaSeleccionada={setFilaSeleccionada}
               refTareasContent={refTareasContent}
             />
-          ) : (
-            <DetalleTarea2
-              detalle={detalle}
-              set={setDetalle}
-              setFilaSeleccionada={setFilaSeleccionada}
-              refTareasContent={refTareasContent}
-            />
-          )}
         </div>
       </div>
       <footer>Realizado por Renato Berrezueta</footer>
     </div>
   );
 }
-export { TareasAdulto };
+export { TareasHistorialAdulto };
