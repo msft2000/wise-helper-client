@@ -93,6 +93,7 @@ function Tabla({
 }
 
 function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
+  const navigate=useNavigate();
   return (
     <section className="tarea_desc" style={{ display: detalle.display }}>
       <section>
@@ -120,7 +121,7 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
       <div>
         <p>Descripción de la tarea</p>
         <p> {detalle.desc}</p>
-        <input type="button" value="Finalizar Tarea" />
+        <input type="button" value="Finalizar Tarea" onClick={()=>navigate("/adult/finalizar")}/>
       </div>
 
       <div>

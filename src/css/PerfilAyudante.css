@@ -1,13 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
 
-div.PerfilAyudante body {
+div.PerfilAyudante{
+    margin-top: 150px;
     display: grid;
     grid-template-areas: 
     "seccion1 seccion2";
     grid-template-columns: 55% 45%;
-    grid-template-rows: 500px;
+    grid-template-rows: auto;
 }
-div.PerfilAyudante body *{
+div.PerfilAyudante *{
     font-family: "DM Sans";
     font-style: normal;
     font-weight: normal;
@@ -31,8 +32,8 @@ div.PerfilAyudante input {
   div.PerfilAyudante input:hover{
     transform: scale(1.2)
   }
+
   div.PerfilAyudante .sec1{
-    margin-top: 150px;
     grid-area: seccion1;
     background-color:  rgb(222, 222, 222);
     border-radius: 0px 10px 10px 0px;
@@ -41,7 +42,7 @@ div.PerfilAyudante input {
     "seccion3 seccion4"
     "seccion3 seccion5";
     grid-template-columns: 5% 95%;
-    grid-template-rows: 60px 100%;
+    grid-template-rows: 60px auto;
 }
 
 div.PerfilAyudante .sec2{
@@ -60,6 +61,7 @@ div.PerfilAyudante .sec2 > div{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 25px;
     
 
 
@@ -73,12 +75,13 @@ div.PerfilAyudante .sec2 img{
 }
 
 
-
+/*Decoración*/
 div.PerfilAyudante .div3{
     grid-area: seccion3;
     background-color: rgba(235, 152, 0, 0.79);
     border-radius: 0px 20px 20px 0px;
 }
+/*Barra de Tareas*/
 div.PerfilAyudante .sec4 {
     grid-area: seccion4;
     background-color: rgb(222, 222, 222);
@@ -104,7 +107,8 @@ div.PerfilAyudante .sec4 li.selected {
     border-bottom: 3px solid #d38713;
   }
 
-  div.PerfilAyudante .sec5{
+ /*Datos del Perfil*/ 
+div.PerfilAyudante .sec5{
     grid-area: seccion5;
     background-color: rgb(222, 222, 222);
     border-radius: 0px 0px 10px 0px;
@@ -118,6 +122,7 @@ div.PerfilAyudante .sec5 h3{
     text-align: left;
     margin-left: 1%;
 }
+
 
 div.PerfilAyudante .sec5 div{
     display: flex;
@@ -146,5 +151,6 @@ div.PerfilAyudante .sec5 .descrip2{
     width: 90%;
     height: 90px;
 }
+
 
 

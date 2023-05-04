@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+div.TareaFinAdulto *{
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: normal;
+  }
+  
+  div.TareaFinAdulto{
+    margin-top: 150px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background: rgba(235, 152, 0, 0.79);
+    width: 100%;
+    height: 100vh;
+}
+
+div.TareaFinAdulto section{
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    background: white;
+    border-radius: 34px;
+    top: 50%;
+    left: 50%;
+    width: 410px;
+    height: 520px;
+    padding: 50px;
+}
+
+div.TareaFinAdulto section div{
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+/*Imagen y nombre*/
+div.TareaFinAdulto section > :nth-child(2){
+    background: #f1b74d;
+    border-radius: 34px;
+    width: 250px;
+    height: 120px;
+}
+/* Imagen */
+div.TareaFinAdulto section > :nth-child(2) img{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+
+div.TareaFinAdulto label{
+    font-size: 20px;
+}
+
+
+
+
+/*Estrellas*/
+
+div.TareaFinAdulto section > :nth-child(4) {
+    flex-direction: row;
+    /*transform: rotateY(180deg);*/
+}
+
+div.TareaFinAdulto section > :nth-child(4) span span {
+    color: #f1b74d;
+}
+div.TareaFinAdulto section > :nth-child(4) span span svg[data-testid=StarBorderIcon]{
+    color: rgba(41, 40, 40, 0.452);
+}
+div.TareaFinAdulto section > :nth-child(4) span span:hover{
+    color: #f1b74d;
+}
+
+div.TareaFinAdulto section > :nth-child(4) label{
+    font-size: 40px;
+    color:#444 ;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0 5px;
+    margin: 0 5px;
+}
+div.TareaFinAdulto section > :nth-child(4) input{
+    display: none;
+}
+div.TareaFinAdulto section > :nth-child(4) h1{
+    background: rgb(222, 222, 222);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+
+}
+
+
+
+div.TareaFinAdulto section > :nth-child(4) input:checked~ label,
+div.TareaFinAdulto input:hover~ label{
+    color: #f1b74d;
+}
+
+div.TareaFinAdulto section > :nth-child(4) input:hover~ label{
+    transform: scale(1.2)rotate(-10deg);
+}
+
+/*Parte de comentarios*/
+div.TareaFinAdulto section > :nth-child(6){
+    display: flex;
+    flex-direction: column ;
+    align-items: center; 
+    width: 150%;
+    height: 150px; 
+}
+
+
+div.TareaFinAdulto section > :nth-child(6) textarea {
+    text-decoration: none;
+  width: 55%;
+  max-width: 614px;
+  height: 60px;
+  background: #dedede;
+  border-radius: 20px;
+  resize: none;
+  font-size: 17px;
+  padding: 10px 10px 25px 10px;
+  }
+
+  /* Botones*/
+ 
+  div.TareaFinAdulto section > :nth-child(7){
+    flex-direction: row;
+  }
+  div.TareaFinAdulto section > :nth-child(7)  input {
+    margin: 20px;
+    width: fit-content;
+    height: fit-content;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background: #f1b74d;
+    border-radius: 20px;
+    cursor: pointer;
+    border:0;
+    padding: 8px 20px 8px 20px;
+  }
+  div.TareaFinAdulto section > :nth-child(7)  input:hover{
+    transform: scale(1.2)
+  }
+  

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar2 } from "../components/Navbar2";
 import "../css/TareasActivas.css";
-import mujerResenia from "../assets/img/resenia-ujer.png";
+import mujerResenia from "../assets/img/img12.png";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AddIcon from "@mui/icons-material/Add";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
@@ -157,7 +157,7 @@ function TareasActivas() {
         <div className={tareaContainer}>
           <div className="volunter--container">
             <div className="volunter--header">
-              <img src={mujerResenia} alt="foto-perfil-resenia" />
+              <img src={mujerResenia} alt="foto-perfil-resenia" style={{borderRadius:"100%"}} />
               <div className="info">
                 <h3>Carlos</h3>
                 <p>Adulto Mayor</p>
@@ -189,7 +189,7 @@ function TareasActivas() {
               <LocationOnIcon /> 123 Main Street, Anytown, CA 12345, USA
             </p>
           </div>
-          <button className="btn-finalizar">Finalizar</button>
+          <button className="btn-finalizar" style={{cursor:"pointer"}} onClick={()=>{navigate("/volunter/tareas/finalizar")}}>Finalizar</button>
         </div>
       </div>
       <p>Mateo Flores</p>

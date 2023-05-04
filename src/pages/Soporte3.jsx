@@ -2,8 +2,7 @@ import React from "react";
 import "../css/soporte2.css";
 import {MdMarkUnreadChatAlt, MdSend,MdLocalPhone,MdLiveHelp,MdHelp} from "react-icons/md"
 import {BsHeadset,BsFileEarmarkText} from "react-icons/bs"
-import { Navbar2 } from "../components/Navbar2";
-
+import { useNavigate } from "react-router-dom";
 function FAQQuest(props) {
   const [flag, setFlag] = React.useState(0);
   return (
@@ -22,6 +21,7 @@ function FAQQuest(props) {
 }
 
 function Soporte3() {
+  const navigate=useNavigate();
   const [flag,setFlag]=React.useState([0,1,0]);
   return (
     <div className="Soporte">
@@ -30,9 +30,9 @@ function Soporte3() {
 
         <div className="btns">
           {/*Bloque de botones*/}
-          <div class="Guia" onClick={()=>{if(flag[0]==0) setFlag([1-flag[0],0,0])}} >
+          <div class="Guia" onClick={()=>{navigate("/tyc")}} >
             <BsFileEarmarkText/>
-            <p>Guía</p>
+            <p>TyC</p>
           </div>
 
           <div class="FAQ" onClick={()=>{if(flag[1]==0) setFlag([0,1-flag[1],0])}} >

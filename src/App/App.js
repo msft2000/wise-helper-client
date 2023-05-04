@@ -14,6 +14,9 @@ import { PerfilAyudante } from "../pages/PerfilAyudante";
 import { Soporte } from "../pages/Soporte";
 import { Soporte2 } from "../pages/Soporte2";
 import { Soporte3 } from "../pages/Soporte3";
+import { TareaFinAdulto } from "../pages/TareaFinAdulto";
+import { TareaFinVoluntario} from "../pages/TareaFinVoluntario";
+import { TerminosCondiciones} from "../pages/TerminosCondiciones";
 function App() {
   return (
     <BrowserRouter>
@@ -24,14 +27,17 @@ function App() {
           <Route path="/register" element={<Signup />} />
           <Route path="/support" element={<Soporte3/>} />
           <Route path="/adult" element={<TareasAdulto />}/>
+          <Route path="/tyc" element={<TerminosCondiciones />}/>
           <Route path="/adult/agregar-tarea" element={<AgregarTarea/>}/>
+          <Route path="/adult/finalizar" element={<TareaFinVoluntario/>}/>
             <Route path="/adult/tareas"  />
 
             <Route path="/adult/perfil" element={<PerfilAdultoMayor/>}/>
             <Route path="/adult/support" element={<Soporte/>} />
           <Route path="/volunter" element={<TareasVoluntario/>}/>
             <Route path="/volunter/tareas" element={<TareasActivas />}/>
-              
+            <Route path="/volunter/tareas/finalizar" element={<TareaFinAdulto/>}/>
+             
             <Route path="/volunter/perfil" element={<PerfilAyudante />} />
             <Route path="/volunter/support" element={<Soporte2/>} />
             

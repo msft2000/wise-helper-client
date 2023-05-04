@@ -96,7 +96,7 @@ function PerfilAdultoMayor() {
                             <StarRateRoundedIcon />
                         </div>
                 </div>
-                <button>Agregar Reseña</button>
+                <button hidden>Agregar Reseña</button>
                 <p>Mateo Flores</p>
                 <hr/>
             </div>
