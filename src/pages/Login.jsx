@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { MdPerson, MdOutlineLock } from "react-icons/md";
 import styles from "../css/login2.css";
@@ -24,8 +26,8 @@ function Login() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            user == "" ? setFlag1(true) : setFlag1(false);
-            pass == "" ? setFlag2(true) : setFlag2(false);
+            user === "" ? setFlag1(true) : setFlag1(false);
+            pass === "" ? setFlag2(true) : setFlag2(false);
           }}
           validate
         >
