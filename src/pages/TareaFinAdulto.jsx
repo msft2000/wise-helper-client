@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import "../css/TareaFinAdulto.css";
 import { Navbar2 } from "../components/Navbar2";

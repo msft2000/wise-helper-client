@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { Navbar2 } from "../components/Navbar2";
 import "../css/tarea_v.css";
-import { AiOutlinePlus, AiFillFilter } from "react-icons/ai";
+import { AiFillFilter } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
 import { MdLocationOn } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
@@ -22,7 +23,7 @@ function Tabla({
       <tr
         className={index === filaSeleccionada ? "selected" : ""}
         onClick={() => {
-          if (filaSeleccionada == index) {
+          if (filaSeleccionada === index) {
             setFilaSeleccionada(null);
             set({ display: "none" });
           } else {

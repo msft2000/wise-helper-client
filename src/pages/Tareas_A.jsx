@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { Navbar } from "../components/Navbar";
 import "../css/tarea_a.css";
@@ -23,7 +24,7 @@ function Tabla({
       <tr
         className={index === filaSeleccionada ? "selected" : ""}
         onClick={() => {
-          if (filaSeleccionada == index) {
+          if (filaSeleccionada === index) {
             setFilaSeleccionada(null);
             set({ display: "none" });
           } else {
@@ -246,7 +247,7 @@ function TareasAdulto() {
               />
             </div>
           </section>
-          {detalle.nombre != "" ? (
+          {detalle.nombre !== "" ? (
             <DetalleTarea
               detalle={detalle}
               set={setDetalle}

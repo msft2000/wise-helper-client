@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/PerfilAdultoMayor.css";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
 import mujerResenia from "../assets/img/resenia-ujer.png";
@@ -7,7 +6,6 @@ import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import { Navbar } from "../components/Navbar";
 
 function PerfilAdultoMayor() {
-    const  navigate  = useNavigate();
     return (
         <div id="perfil-adulto-mayor--page-container">
             <Navbar flag={3}/>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import "../css/TerminosCondiciones.css";
 import { Navbar } from "../components/Navbar";
@@ -5,7 +6,6 @@ import imgTerm from "../assets/img/term.png";
 import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 function TerminosCondiciones() {
-  const navigate = useNavigate();
   return (
     <React.Fragment>
       <div className="TerminosCondiciones">
