@@ -1,12 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Navbar2 } from "../components/Navbar2";
 import "../css/SoporteMessage.scss";
 
 function SoporteMessage({ adultoMayor }) {
-  const navigate = useNavigate();
   const url = window.location.href;
   return (
     <div id="soporte-message">

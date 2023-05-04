@@ -12,11 +12,11 @@ function FAQQuest(props) {
     }}>
       <div>
         <p>{props.quest}</p>
-        <p style={flag == 1 ? {display:"flex"} : {display:"none"}}>
+        <p style={flag === 1 ? {display:"flex"} : {display:"none"}}>
           {props.answ}
         </p>
       </div>
-      <p>{flag==1 ? "-":"+"}</p>
+      <p>{flag===1 ? "-":"+"}</p>
     </div>
   );
 }
@@ -38,12 +38,12 @@ function Soporte() {
             <p>TyC</p>
           </div>
 
-          <div class="FAQ" onClick={()=>{if(flag[1]==0) setFlag([0,1-flag[1],0])}} >
+          <div class="FAQ" onClick={()=>{if(flag[1]===0) setFlag([0,1-flag[1],0])}} >
             <MdHelp/>
             <p>FAQ</p>
           </div>
 
-          <div class="Contacto" onClick={()=>{if(flag[2]==0) setFlag([0,0,1-flag[2]])}} >
+          <div class="Contacto" onClick={()=>{if(flag[2]===0) setFlag([0,0,1-flag[2]])}} >
             <BsHeadset/>
             <p>Contacto</p>
           </div>
@@ -53,11 +53,11 @@ function Soporte() {
         <div className="content">
           {/*Bloque de contenido de cada sección*/}
 
-          <div class="Guia" style={flag[0]==1 ? {display:"flex"}:{display:"none"}}>
+          <div class="Guia" style={flag[0]===1 ? {display:"flex"}:{display:"none"}}>
             {/*Todavía no está completa la aplicación*/}
           </div>
 
-          <div class="FAQ" style={flag[1]==1 ? {display:"flex"}:{display:"none"}}>
+          <div class="FAQ" style={flag[1]===1 ? {display:"flex"}:{display:"none"}}>
             {/*Bloque de Preguntas Frecuentes*/}
             <h1>Preguntas frecuentes</h1>
             <section>
@@ -139,7 +139,7 @@ function Soporte() {
             </section>
           </div>
 
-          <div class="Contacto" style={flag[2]==1 ? {display:"flex"}:{display:"none"}} >
+          <div class="Contacto" style={flag[2]===1 ? {display:"flex"}:{display:"none"}} >
             {/*Bloque de contacto*/}
             <h1>Contacto</h1>
             <section>
