@@ -163,7 +163,7 @@ function Soporte2() {
                     pronto posible.
                   </p>
                 </div>
-                <MdSend/>
+                <MdSend onClick={()=>navigate("send-message")}/>
               </div>
             </section>
           </div>

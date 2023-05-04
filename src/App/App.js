@@ -17,7 +17,10 @@ import { Soporte3 } from "../pages/Soporte3";
 import { TareaFinAdulto } from "../pages/TareaFinAdulto";
 import { TareaFinVoluntario} from "../pages/TareaFinVoluntario";
 import { TerminosCondiciones} from "../pages/TerminosCondiciones";
+import { SoporteMessage } from "../pages/SoporteMessage";
+
 function App() {
+
   return (
     <BrowserRouter>
       <GeneralProvider>
@@ -26,7 +29,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/support" element={<Soporte3/>} />
+          <Route path="/support/send-message" element={<SoporteMessage/>} />
           <Route path="/adult" element={<TareasAdulto />}/>
+          <Route path="/adult/support/send-message" element={<SoporteMessage/>} />
           <Route path="/tyc" element={<TerminosCondiciones />}/>
           <Route path="/adult/agregar-tarea" element={<AgregarTarea/>}/>
           <Route path="/adult/finalizar" element={<TareaFinVoluntario/>}/>
@@ -40,7 +45,7 @@ function App() {
              
             <Route path="/volunter/perfil" element={<PerfilAyudante />} />
             <Route path="/volunter/support" element={<Soporte2/>} />
-            
+            <Route path="/volunter/support/send-message" element={<SoporteMessage/>} />
             
             {/* <Route path="soporte" element={<SoporteAyudante />} /> */}
           <Route path="/adtarea" element={<AgregarTarea />} />
