@@ -1,11 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import { Navbar2 } from "../components/Navbar2";
-import "../sass/tarea_v.scss";
-import { AiFillFilter } from "react-icons/ai";
+import { Navbar } from "../components/Navbar";
+import "../sass/rb_tarea_a.scss";
+import { AiOutlinePlus, AiFillFilter } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
-import { MdLocationOn } from "react-icons/md";
+import { FaImage } from "react-icons/fa";
+import { GrLink } from "react-icons/gr";
 import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
+import Dialog from '@material-ui/core/Dialog';
+import data from "../assets/json/data_adulto.json"
 
 function Tabla({
   data,
@@ -33,10 +37,11 @@ function Tabla({
               img: perfil,
               display: "flex",
               score: fila.score,
-              nombre: fila.solicitante,
+              nombre: fila.voluntario,
+              tipo: fila.tipo,
               desc: fila.tarea_desc,
-              ubicacion: fila.ubicacion,
             });
+
             if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
               refTareasContent.current.style.display = "none";
             }
@@ -45,6 +50,11 @@ function Tabla({
       >
         <td>{fila.tarea_titulo}</td>
         <td>{fila.fecha}</td>
+        <td>
+          <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
+            {fila.estado}
+          </p>
+        </td>
         <td>{fila.tiempo}</td>
         <td>{fila.perfil === "" ? "" : <img src={img(fila.perfil)} />}</td>
       </tr>
@@ -69,10 +79,16 @@ function Tabla({
           <th>
             <div>
               <AiFillFilter />
+              Estado
+            </div>
+          </th>
+          <th>
+            <div>
+              <AiFillFilter />
               Tiempo Estimado
             </div>
           </th>
-          <th>Solicitante</th>
+          <th>Voluntario</th>
         </tr>
       </thead>
       <tbody>{filas}</tbody>
@@ -81,6 +97,7 @@ function Tabla({
 }
 
 function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
+  const navigate=useNavigate();
   return (
     <section className="tarea_desc" style={{ display: detalle.display }}>
       <section>
@@ -95,78 +112,78 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
       <div>
         <div>
           <img src={detalle.img} alt="" />
-          <p>{detalle.nombre}</p>
+          <div>
+            <p>{detalle.nombre}</p>
+            <p>{detalle.tipo}</p>
+          </div>
         </div>
         <div>
-          <Rating value={parseFloat(detalle.score)} readOnly precision={0.2} />
+          <Rating value={parseFloat(detalle.score)} readOnly precision={0.5} />
           <p>{detalle.score}</p>
         </div>
       </div>
       <div>
         <p>Descripción de la tarea</p>
         <p> {detalle.desc}</p>
+        <input type="button" value="Finalizar Tarea" onClick={()=>navigate("/adult/finalizar")}/>
       </div>
 
       <div>
-        <p>Ubicación</p>
+        <p>Mensajes</p>
 
-        <div>
-          <MdLocationOn />
-          <p>{detalle.ubicacion}</p>
+        <div className="msgs"></div>
+
+        <div className="txtfield">
+          <textarea placeholder="Escriba un mensaje aquí"></textarea>
+          <div>
+            <FaImage />
+            <GrLink />
+          </div>
         </div>
-
-        <input type="button" value="Aceptar" />
-
-        <p>Para obtener detalles de la tarea debes aceptarla</p>
+        <input type="button" value="Enviar" />
       </div>
     </section>
   );
 }
 
-function TareasVoluntario() {
-  const data = [
-    {
-      solicitante: "Javier Sánchez",
-      score: "5",
-      perfil: "./img12.png",
-      tarea_titulo: "Limpieza de hogar",
-      tarea_desc:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-      fecha: "12 Mar 2023",
-      tiempo: "00:45:10",
-      ubicacion: "123 Main Street, Anytown, CA 12345, USA",
-    },
-    {
-      solicitante: "Pedro Perez",
-      score: "2",
-      perfil: "./img12.png",
-      tarea_titulo: "Limpieza de hogar",
-      tarea_desc:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-      fecha: "12 Mar 2023",
-      tiempo: "00:45:10",
-      ubicacion: "123 Main Street, Anytown, CA 12345, USA",
-    },
-    {
-      solicitante: "Juan Galarza",
-      score: "3.5",
-      perfil: "./img12.png",
-      tarea_titulo: "Limpieza de hogar",
-      tarea_desc:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-      fecha: "12 Mar 2023",
-      tiempo: "00:45:10",
-      ubicacion: "123 Main Street, Anytown, CA 12345, USA",
-    },
-  ];
+function DetalleTarea2({
+  detalle,
+  set,
+  setFilaSeleccionada,
+  refTareasContent,
+}) {
+  return (
+    <section className="tarea_desc2" style={{ display: detalle.display }}>
+      <section>
+        <RxCross2
+          onClick={() => {
+            set({ display: "none" });
+            setFilaSeleccionada(null);
+            refTareasContent.current.style.display = "flex";
+          }}
+        />
+      </section>
+
+      <div>
+        <p>Descripción de la tarea</p>
+        <p>{detalle.desc}</p>
+      </div>
+      <input type="submit" value="Cancelar" />
+    </section>
+  );
+}
+
+function TareasAdulto() {
+  const navigate=useNavigate();
+  
 
   const [detalle, setDetalle] = React.useState({
     display: "none",
     score: "",
     nombre: "",
+    tipo: "",
     desc: "",
     img: "",
-    ubicacion: "",
   });
 
   const [filaSeleccionada, setFilaSeleccionada] = React.useState(null); //Variables de estado para saber que fila se seleccionó
@@ -175,15 +192,15 @@ function TareasVoluntario() {
   const refPanel = React.useRef(null);
 
   return (
-    <div className="TareasV">
+    <div className="TareasA">
       <div className="container">
-        <Navbar2 flag={1} />
+        <Navbar flag={1} />
         <div className="panel" ref={refPanel}>
           <section className="tareas_content" ref={refTareasContent}>
             <div className="btns">
-              <div class="filtro" style={{ display: "none" }}>
-                <AiFillFilter />
-                <p>Filtrar Contenido</p>
+              <div class="agregar" onClick={()=>navigate("/adult/agregar-tarea")}>
+                <AiOutlinePlus />
+                <p>Agregar Tarea</p>
               </div>
             </div>
             <div className="table">
@@ -198,16 +215,25 @@ function TareasVoluntario() {
               />
             </div>
           </section>
-          <DetalleTarea
-            detalle={detalle}
-            set={setDetalle}
-            setFilaSeleccionada={setFilaSeleccionada}
-            refTareasContent={refTareasContent}
-          />
+          {detalle.nombre !== "" ? (
+            <DetalleTarea
+              detalle={detalle}
+              set={setDetalle}
+              setFilaSeleccionada={setFilaSeleccionada}
+              refTareasContent={refTareasContent}
+            />
+          ) : (
+            <DetalleTarea2
+              detalle={detalle}
+              set={setDetalle}
+              setFilaSeleccionada={setFilaSeleccionada}
+              refTareasContent={refTareasContent}
+            />
+          )}
         </div>
       </div>
       <footer>Realizado por Renato Berrezueta</footer>
     </div>
   );
 }
-export { TareasVoluntario };
+export { TareasAdulto };

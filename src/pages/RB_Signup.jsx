@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import "../sass/signup2.scss";
+import "../sass/rb_signup.scss";
 import img3 from "../assets/img/img3.png";
 import img4 from "../assets/img/img4.png";
 import Alert from '@mui/material/Alert';

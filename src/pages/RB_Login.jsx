@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { MdPerson, MdOutlineLock } from "react-icons/md";
-import styles from "../sass/login2.scss";
+import styles from "../sass/rb_login.scss";
 import { useNavigate } from "react-router-dom";
 
 function ErrorMsg() {
@@ -14,6 +14,7 @@ function ErrorMsg() {
 }
 
 function Login() {
+  
   const navigate=useNavigate();
   const [user, setUser] = React.useState("");
   const [pass, setPass] = React.useState("");

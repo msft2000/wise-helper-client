@@ -22,7 +22,7 @@ function AgregarTarea(){
                     <input type="time" name="tiempo-estimado" id="tiempo-estimado" />
                     <label htmlFor="descripcion">Descripcion</label>
                     <textarea name="descripcion" id="descripcion" cols="30" rows="5"></textarea>
-                    <button onClick={()=>navigate("/volunter/tareas")}>Agregar Tarea</button>
+                    <button onClick={()=>navigate("/adult/tareas")}>Agregar Tarea</button>
                 </div>
             </div>
             <p>Mateo Flores</p>
