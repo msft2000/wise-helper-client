@@ -8,7 +8,6 @@ import { FaImage } from "react-icons/fa";
 import { GrLink } from "react-icons/gr";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
-import Dialog from '@material-ui/core/Dialog';
 import data from "../assets/json/data_adulto.json"
 
 function Tabla({
