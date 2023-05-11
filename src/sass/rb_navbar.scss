@@ -47,6 +47,8 @@ header.NavBar1 {
       font-size: 23px;
       color: black;
       text-align: center;
+      cursor: pointer;
+      user-select: none;
     }
   
     li {

@@ -17,7 +17,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
 
-function CuadroDialogo({ refTareasContent, open, setOpen, msg, title }) {
+function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }) {
+  const navigate = useNavigate();
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -28,6 +30,11 @@ function CuadroDialogo({ refTareasContent, open, setOpen, msg, title }) {
     ref.setAttribute("hidden", "");
     ref2.setAttribute("style", "display:none");
     refTareasContent.current.style.display = "flex";
+  };
+
+  const handleSubmmit2 = () => {
+    setOpen(false);
+    navigate("/adult/finalizar")
   };
 
   return (
@@ -47,7 +54,7 @@ function CuadroDialogo({ refTareasContent, open, setOpen, msg, title }) {
         <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
-        <Button onClick={handleSubmmit} color="primary" autoFocus>
+        <Button onClick={()=>{flag ? handleSubmmit(): handleSubmmit2()}} color="primary" autoFocus>
           Continuar
         </Button>
       </DialogActions>
@@ -140,8 +147,11 @@ function Tabla({
   );
 }
 
-function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
-  const navigate = useNavigate();
+function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent,open, setOpen }) {
+  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
   return (
     <section className="tarea_desc" style={{ display: detalle.display }}>
       <section>
@@ -172,8 +182,16 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
         <input
           type="button"
           value="Finalizar Tarea"
-          onClick={() => navigate("/adult/finalizar")}
+          onClick={handleClickOpen}
         />
+        <CuadroDialogo
+        open={open}
+        setOpen={setOpen}
+        refTareasContent={refTareasContent}
+        msg="Se finalizará la tarea seleccionada y no se podrán hacer cambios."
+        title="Está seguro en querer finalizar la tarea seleccionada?"
+        flag={false}
+      />
       </div>
 
       <div>
@@ -289,6 +307,8 @@ function TareasAdulto() {
               set={setDetalle}
               setFilaSeleccionada={setFilaSeleccionada}
               refTareasContent={refTareasContent}
+              open={open}
+              setOpen={setOpen}
             />
           ) : (
             <DetalleTarea2

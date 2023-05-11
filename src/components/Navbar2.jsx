@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import "../css/navbar2.css";
+import "../sass/rb_navbar.scss";
 import {FaBars} from "react-icons/fa"
 import logo from "../assets/img/logo.png"
 import { useNavigate } from "react-router-dom";
