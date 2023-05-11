@@ -8,7 +8,52 @@ import { FaImage } from "react-icons/fa";
 import { GrLink } from "react-icons/gr";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
-import data from "../assets/json/data_adulto.json"
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
+
+function CuadroDialogo({ refTareasContent, open, setOpen, msg, title }) {
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmmit = () => {
+    setOpen(false);
+    const ref = document.querySelector("div.TareasA tr.selected");
+    const ref2 = document.querySelector("div.TareasA section.tarea_desc2");
+    ref.setAttribute("hidden", "");
+    ref2.setAttribute("style", "display:none");
+    refTareasContent.current.style.display = "flex";
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {msg}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Cancelar
+        </Button>
+        <Button onClick={handleSubmmit} color="primary" autoFocus>
+          Continuar
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
 
 function Tabla({
   data,
@@ -96,7 +141,7 @@ function Tabla({
 }
 
 function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
     <section className="tarea_desc" style={{ display: detalle.display }}>
       <section>
@@ -124,7 +169,11 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
       <div>
         <p>Descripción de la tarea</p>
         <p> {detalle.desc}</p>
-        <input type="button" value="Finalizar Tarea" onClick={()=>navigate("/adult/finalizar")}/>
+        <input
+          type="button"
+          value="Finalizar Tarea"
+          onClick={() => navigate("/adult/finalizar")}
+        />
       </div>
 
       <div>
@@ -150,7 +199,14 @@ function DetalleTarea2({
   set,
   setFilaSeleccionada,
   refTareasContent,
+  open,
+  setOpen,
 }) {
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <section className="tarea_desc2" style={{ display: detalle.display }}>
       <section>
@@ -167,14 +223,24 @@ function DetalleTarea2({
         <p>Descripción de la tarea</p>
         <p>{detalle.desc}</p>
       </div>
-      <input type="submit" value="Cancelar" />
+      <input type="submit" value="Cancelar" onClick={handleClickOpen} />
+
+      {/* Cuadrado de dialogo para aceptar o rechazar la cancelación de una tarea */}
+      <CuadroDialogo
+        open={open}
+        setOpen={setOpen}
+        refTareasContent={refTareasContent}
+        msg="Se eliminará la tarea seleccionada y no podrá ser asignada ni
+            seleccionada por un voluntario."
+        title="Está seguro en querer cancelar la tarea seleccionada?"
+      />
     </section>
   );
 }
 
 function TareasAdulto() {
-  const navigate=useNavigate();
-  
+  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
 
   const [detalle, setDetalle] = React.useState({
     display: "none",
@@ -197,7 +263,10 @@ function TareasAdulto() {
         <div className="panel" ref={refPanel}>
           <section className="tareas_content" ref={refTareasContent}>
             <div className="btns">
-              <div class="agregar" onClick={()=>navigate("/adult/agregar-tarea")}>
+              <div
+                class="agregar"
+                onClick={() => navigate("/adult/agregar-tarea")}
+              >
                 <AiOutlinePlus />
                 <p>Agregar Tarea</p>
               </div>
@@ -227,6 +296,8 @@ function TareasAdulto() {
               set={setDetalle}
               setFilaSeleccionada={setFilaSeleccionada}
               refTareasContent={refTareasContent}
+              open={open}
+              setOpen={setOpen}
             />
           )}
         </div>
