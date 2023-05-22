@@ -1,62 +1,57 @@
 [
-    {
-      "voluntario": "Ana Garcia",
-      "tipo": "Voluntaria",
-      "score": "4",
-      "perfil": "./img7.png",
-      "tarea_titulo": "Tarea 1",
-      "tarea_desc":
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-      "fecha": "12 Mar 2023",
-      "estado": "En Proceso",
-      "tiempo": "00:45:10"
-    },
-    {
-        "voluntario": "Ana Garcia",
-        "tipo": "Voluntaria",
-        "score": "5",
-        "perfil": "./img7.png",
-        "tarea_titulo": "Tarea 2",
-        "tarea_desc":
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-        "fecha": "12 Mar 2023",
-        "estado": "En Proceso",
-        "tiempo": "00:45:10"
-    },
-    {
-        "voluntario": "Ana Garcia",
-        "tipo": "Voluntaria",
-        "score": "2",
-        "perfil": "./img7.png",
-        "tarea_titulo": "Tarea 3",
-        "tarea_desc":
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-        "fecha": "12 Mar 2023",
-        "estado": "En Proceso",
-        "tiempo": "00:45:10"
-    },
-    {
-        "voluntario": "Ana Garcia",
-        "tipo": "Voluntaria",
-        "score": "3.5",
-        "perfil": "./img7.png",
-        "tarea_titulo": "Tarea 4",
-        "tarea_desc":
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-        "fecha": "12 Mar 2023",
-        "estado": "En Proceso",
-        "tiempo": "00:45:10"
-    },
-    {
-        "voluntario": "",
-        "tipo": "",
-        "score": "",
-        "perfil": "",
-        "tarea_titulo": "Tarea 5",
-        "tarea_desc":
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-        "fecha": "12 Mar 2023",
-        "estado": "Activa",
-        "tiempo": "00:45:10"
-    }
-  ]
+  {
+    "voluntario": "Ana Garcia",
+    "tipo": "Voluntaria",
+    "score": "4",
+    "perfil": "./img7.png",
+    "tarea_titulo": "Tarea 1",
+    "tarea_desc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
+    "fecha": "12 Mar 2023",
+    "estado": "En Proceso",
+    "tiempo": "00:45:10"
+  },
+  {
+    "voluntario": "Ana Garcia",
+    "tipo": "Voluntaria",
+    "score": "5",
+    "perfil": "./img7.png",
+    "tarea_titulo": "Tarea 2",
+    "tarea_desc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
+    "fecha": "12 Mar 2023",
+    "estado": "En Proceso",
+    "tiempo": "00:45:10"
+  },
+  {
+    "voluntario": "Ana Garcia",
+    "tipo": "Voluntaria",
+    "score": "2",
+    "perfil": "./img7.png",
+    "tarea_titulo": "Tarea 3",
+    "tarea_desc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
+    "fecha": "12 Mar 2023",
+    "estado": "En Proceso",
+    "tiempo": "00:45:10"
+  },
+  {
+    "voluntario": "Ana Garcia",
+    "tipo": "Voluntaria",
+    "score": "3.5",
+    "perfil": "./img7.png",
+    "tarea_titulo": "Asistencia en compras en línea",
+    "tarea_desc": "Necesito ayuda para realizar compras en línea de manera segura. Como adulto mayor, a veces me resulta complicado navegar por los sitios web de compras. Busco a alguien que pueda brindarme asistencia personalizada, guiándome en cada paso del proceso de compra en línea. Aprecio tu apoyo para buscar productos, comparar precios y finalizar las transacciones. Tu ayuda será invaluable para que pueda aprovechar las ventajas de las compras en línea sin preocupaciones.",
+    "fecha": "12 Mar 2023",
+    "estado": "En Proceso",
+    "tiempo": "00:45:10"
+  },
+  {
+    "voluntario": "",
+    "tipo": "",
+    "score": "",
+    "perfil": "",
+    "tarea_titulo": "Tarea 5",
+    "tarea_desc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
+    "fecha": "12 Mar 2023",
+    "estado": "Activa",
+    "tiempo": "00:45:10"
+  }
+]

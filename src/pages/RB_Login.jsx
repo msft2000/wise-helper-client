@@ -2,70 +2,67 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { MdPerson, MdOutlineLock } from "react-icons/md";
-import styles from "../sass/rb_login.scss";
+import styles from "../sass/rb_login_adulto.scss";
 import { useNavigate } from "react-router-dom";
-
-function ErrorMsg() {
-  return (
-    <>
-      <p>*</p>
-    </>
-  );
-}
+import toast, { Toaster } from "react-hot-toast";
+import tabla from "../assets/img/tabla_adulto_login.png"
+import chat from "../assets/img/chat_adulto_login.png"
 
 function Login() {
   
   const navigate=useNavigate();
   const [user, setUser] = React.useState("");
   const [pass, setPass] = React.useState("");
-  let [flag1, setFlag1] = React.useState(false);
-  let [flag2, setFlag2] = React.useState(false);
+  const submitHandler=(e)=>{
+    e.preventDefault();//Evita el comportamiento por default al presionar ingresar
+    if(user==="" || pass===""){
+      toast.error("Error al iniciar sesión, por favor verifique sus credenciales.")
+    }
+  };
+
   return (
     <div className="Login">
+      <Toaster />
       <div className="content">
-        <h1>Login</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            user === "" ? setFlag1(true) : setFlag1(false);
-            pass === "" ? setFlag2(true) : setFlag2(false);
-          }}
-          validate
-        >
-          <h2>Correo Electrónico</h2>
-          <div>
-            <MdPerson />
-            <input
-              type="email"
-              placeholder="Ingrese su usuario"
-              onChange={(e) => {
-                setUser(e.target.value);
-              }}
-              required
-            />
-            {flag1 && <ErrorMsg />}
+        <section className="loginform">
+          <h1>Adulto Mayor</h1>
+          <form
+            onSubmit={(e) => {submitHandler(e)}}
+            verified
+          >
+            <h2>Correo Electrónico</h2>
+            <div>
+              <MdPerson />
+              <input
+                type="email"
+                placeholder="Ingrese su correo"
+                onChange={(e) => {setUser(e.target.value);}}
+              />
+            </div>
+            <h2>Contraseña</h2>
+            <div>
+              <MdOutlineLock/>
+              <input
+                type="password"
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => {setPass(e.target.value);}}
+              />
+            </div>
+            <p>¿Olvidaste tu contraseña?</p>
+            <button type="submit">INGRESAR</button>
+          </form>
+          <h3>O registrate</h3>
+          <a onClick={()=>navigate("/register")}>Registrarse</a>
+        </section>
+        <section className="information">
+          <h1>¡Bienvenido!</h1>
+          <h2>Nuestro sistema conecta adultos mayores con voluntarios comprometidos para ayudar en tareas y actividades cotidianas</h2>
+          <div className="imgs">
+            <img src={tabla} alt=""/>
+            <img src={chat} alt=""/>
           </div>
-          <h2>Contraseña</h2>
-          <div>
-            <MdOutlineLock />
-            <input
-              type="password"
-              placeholder="Ingrese su contraseña"
-              onChange={(e) => {
-                setPass(e.target.value);
-              }}
-              required
-            />
-            {flag2 && <ErrorMsg />}
-          </div>
-          <input type="submit" value="LOGIN" />
-        </form>
-        <h3>O registrate</h3>
-        <a onClick={()=>navigate("/register")}>Registrate</a>
-        <article style={{fontSize:"10px",marginTop:"20px"}}>
-          <p style={{marginBottom:"5px"}} onClick={()=>navigate("/volunter")}>Ingresar como voluntario</p>
-          <p onClick={()=>navigate("/adult")}>Ingresar como adulto mayor</p>
-        </article>
+          <h3>Gestiona tus tareas e interactua con tus voluntarios asignados.</h3>
+        </section>
       </div>
       <footer>Realizado por Renato Berrezueta</footer>
     </div>

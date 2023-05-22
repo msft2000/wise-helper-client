@@ -139,7 +139,7 @@ function Tabla({
               Tiempo Estimado
             </div>
           </th>
-          <th>Voluntario</th>
+          <th>Voluntario Asignado</th>
         </tr>
       </thead>
       <tbody>{filas}</tbody>
