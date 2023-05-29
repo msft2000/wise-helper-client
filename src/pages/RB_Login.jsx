@@ -11,13 +11,16 @@ import chat from "../assets/img/chat_adulto_login.png"
 function Login() {
   
   const navigate=useNavigate();
+  
   const [user, setUser] = React.useState("");
   const [pass, setPass] = React.useState("");
+
   const submitHandler=(e)=>{
     e.preventDefault();//Evita el comportamiento por default al presionar ingresar
     if(user==="" || pass===""){
       toast.error("Error al iniciar sesión, por favor verifique sus credenciales.")
     }
+    else{navigate("/adult");}
   };
 
   return (
