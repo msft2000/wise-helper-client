@@ -14,6 +14,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import {Footer} from '../components/Footer';
 
 import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
 
@@ -322,7 +323,7 @@ function TareasAdulto() {
           )}
         </div>
       </div>
-      <footer>Realizado por Renato Berrezueta</footer>
+      <Footer></Footer>
     </div>
   );
 }

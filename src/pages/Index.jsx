@@ -8,8 +8,8 @@ import p2PNG from "../assets/img/p2.png";
 import p3PNG from "../assets/img/p3.png";
 import p4PNG from "../assets/img/tuto.png";
 import { useNavigate } from "react-router-dom";
-import {Soporte3} from "../pages/Soporte3"
-
+import {Soporte3} from "../pages/Soporte3";
+import {Footer} from '../components/Footer';
 function Index() {
   const navigate = useNavigate();
   const contentList = [
@@ -44,16 +44,6 @@ function Index() {
     <React.Fragment>
       <div className="Index">
         <header>
-          <nav>
-            <ul>
-              <li>
-                <a href="#">Idioma</a>
-              </li>
-              <li>
-                <a href="#">Contacto</a>
-              </li>
-            </ul>
-          </nav>
 
           <div>
             <div className="logo">
@@ -125,13 +115,8 @@ function Index() {
           </div>
           
           <img src={p4PNG} alt="imgTuto" />
-          
-          <div>
-            <p>@2023 WiseHelpers Colaborative Website - All Right Reserved</p>
-          </div>
         </section>
-
-        <footer style={{ fontSize: "small" }}>Mateo Reinoso</footer>
+        <Footer></Footer>
       </div>
     </React.Fragment>
   );

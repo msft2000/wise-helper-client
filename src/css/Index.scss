@@ -95,7 +95,7 @@ div.Index .right {
   flex-direction: row;
 }
 
-div.Index section {
+div.Index > section {
   display: flex;
   flex-direction: column;
   align-items: center;
