@@ -5,6 +5,7 @@ import "../sass/rb_navbar.scss";
 import {FaBars} from "react-icons/fa"
 import logo from "../assets/img/logo.png"
 import { useNavigate } from "react-router-dom";
+
 function Navbar(props) {
   const navigate=useNavigate();
   const [flag,setFlag]=React.useState(false);
@@ -25,4 +26,5 @@ function Navbar(props) {
   </header>
   );
 }
+
 export{Navbar};

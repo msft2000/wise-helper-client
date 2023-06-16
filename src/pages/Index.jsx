@@ -9,6 +9,7 @@ import p3PNG from "../assets/img/p3.png";
 import p4PNG from "../assets/img/tuto.png";
 import { useNavigate } from "react-router-dom";
 import {Soporte3} from "../pages/Soporte3";
+import { Header } from "../components/Header_Index";
 import {Footer} from '../components/Footer';
 function Index() {
   const navigate = useNavigate();
@@ -43,33 +44,7 @@ function Index() {
   return (
     <React.Fragment>
       <div className="Index">
-        <header>
-
-          <div>
-            <div className="logo">
-              <img src={Logo} alt="Logo" />
-            </div>
-            <nav>
-              <ul>
-                <li className="selected">
-                  <a href="#">Inicio</a>
-                </li>
-                <li>
-                  <a onClick={() => navigate("/support")}>Soporte</a>
-                </li>
-                <div className="right">
-                  <li>
-                    <a onClick={() => navigate("/login")}>Iniciar sesión</a>
-                  </li>
-                  <li>
-                    <a onClick={() => navigate("/register")}>Registrarse</a>
-                  </li>
-                </div>
-              </ul>
-            </nav>
-          </div>
-        </header>
-
+        <Header></Header>
         <section>
           {/*--Div contenedor de la imagen --*/}
           <div id="img" style={{ backgroundImage: `url(${carrusel_img})` }}>

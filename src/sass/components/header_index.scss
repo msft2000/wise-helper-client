@@ -1,0 +1,123 @@
+@import "../variables";
+
+header.header_index {
+
+  @mixin btn_form($font_color, $border_color, $btn_color) {
+    /*Forma y color de los botones*/
+    height: 40px;
+    width: 100px;
+    color: $font_color;
+    font-weight: bold;
+    background-color: $btn_color;
+    border-radius: 50px;
+    border: 2px solid $border_color;
+  }
+
+  display: flex;
+  justify-content: space-between;
+  height: 125px;
+  background-color: $tertiary_color;
+  nav {
+    display: flex;
+    align-items: center;
+    img {
+      width: 100px;
+      height: 100px;
+      margin: 0 0 0 40px;
+      cursor: pointer;
+    }
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+      width: 400px;
+      padding: 0;
+      margin-left: 25px;
+      user-select: none;
+      list-style: none;
+      li {
+        transition: scale 0.2s;
+        a {
+          color: $font_primary_color;
+          font-size: 18px;
+          text-decoration: none;
+        }
+
+        &:hover {
+          scale: 1.1;
+          border-bottom: 2px solid $primary_color;
+        }
+        &.selected{
+            border-bottom: 2px solid $primary_color;
+        }
+      }
+    }
+  }
+
+  div.btns {
+    display: flex;
+    width: 225px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px 0 0;
+
+    button {
+      transition: scale 0.1s;
+      cursor: pointer;
+
+      &:first-child {
+        @include btn_form($tertiary_color, $primary_color, $primary_color);
+      }
+      &:last-child {
+        @include btn_form($primary_color, $primary_color, $tertiary_color);
+      }
+      &:hover {
+        scale: 1.1;
+      }
+    }
+  }
+
+  @media screen and (min-width: 651px) and (max-width: 900px) {
+    nav {
+      img {
+        margin-left: 0px;
+      }
+      ul {
+        width: 300px;
+        margin-left: 15px;
+      }
+    }
+    div.btns{
+        margin-left: 10px;
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    nav {
+      img {
+        display: none;
+        margin-left: 0px;
+      }
+      ul {
+        width: 250px;
+        margin-left: 5px;
+        li a{
+            font-size: 15px;
+        }
+      }
+    }
+    div.btns {
+      height: 125px;
+      width: fit-content;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 0 10px;
+      button {
+        &:first-child {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}

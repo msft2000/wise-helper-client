@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { MdPerson, MdOutlineLock } from "react-icons/md";
+import { Header } from "../components/Header_Index";
+import { Footer } from "../components/Footer";
 import styles from "../sass/rb_login_adulto.scss";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
@@ -24,7 +26,10 @@ function Login() {
   };
 
   return (
+
     <div className="Login">
+      <Header></Header>
+      
       <Toaster />
       <div className="content">
         <section className="loginform">
@@ -67,7 +72,7 @@ function Login() {
           <h3>Gestiona tus tareas e interactua con tus voluntarios asignados.</h3>
         </section>
       </div>
-      <footer>Realizado por Renato Berrezueta</footer>
+      <Footer></Footer>
     </div>
   );
 }

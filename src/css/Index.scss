@@ -1,46 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
 
 
-div.Index header {
-  user-select: none;
-  height: 12vh;
-  background-color: rgb(168, 169, 171);
-  background-color: #434343;
-  padding: 1vh 0 0 0;
-  display: flex;
-  flex-direction: column;
-
-  * {
-    font-family: "DM Sans";
-    font-style: normal;
-    font-weight: normal;
-  }
-
-  > nav {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    height: 2vh;
-    font-size: xx-small;
-
-    a {
-      text-decoration: none;
-      color: white;
-    }
-  }
-
-  nav li {
-    margin-right: 10px;
-  }
-
-  > div {
-    display: flex;
-    flex-direction: row;
-    height: 10vh;
-    background-color: white;
-  }
-}
-
 /*Barra navegacion contacto*/
 
 /*Div que contiene a logo y la barra de navegacion inicio*/

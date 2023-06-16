@@ -1,38 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap"); //DM Sans font
-
-$login_box_height: 525px;
-$login_box_width: 379px;
-
-@mixin centrar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-body {
-  margin: 0;
-  * {
-    font-family: "DM Sans";
-    font-weight: normal;
-    margin: 0;
-  }
-}
-
 div.Login {
+  $login_box_height: 525px;
+  $login_box_width: 379px;
+
+  @mixin centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   background-color: #eeac34;
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   div.content {
-    position: absolute;
     display: flex;
     flex-direction: row;
     align-items: center;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
+    justify-content: center;
+    margin: 40px 0 40px 0;
 
     section.loginform {
       width: $login_box_width;
@@ -82,6 +67,7 @@ div.Login {
           }
         }
       }
+
       input {
         &:active,
         &:focus {
@@ -110,6 +96,7 @@ div.Login {
         color: white;
         cursor: pointer;
       }
+
       p {
         margin: 0 0 20px 0;
         font-weight: bold;
@@ -119,6 +106,7 @@ div.Login {
         text-decoration: underline;
         cursor: pointer;
       }
+
       h3 {
         margin: 42px 0 0 0;
         font-weight: bold;
@@ -137,7 +125,9 @@ div.Login {
         text-decoration: underline;
         cursor: pointer;
       }
+      
     }
+
     section.information {
       display: flex;
       flex-direction: column;
@@ -167,99 +157,49 @@ div.Login {
           height: 250px;
           box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
             rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-          margin: 0 20px 0 40px; 
+          margin: 0 20px 0 40px;
         }
         :last-child {
           width: 200px;
           height: 300px;
           box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
             rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-            margin: 0 40px 0 20px;
+          margin: 0 40px 0 20px;
         }
       }
       h3 {
-        margin: 40px 0 0 0 ;
+        margin: 40px 0 0 0;
         font-size: 14px;
       }
     }
-  }
-}
 
-/* Estilos para dispositivos móviles */
-@media screen and (max-width: 480px) {
-  #root > div.Login {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    justify-content: center;
   }
 
-  div.Login {
-    h1 {
-      font-size: 50px;
-    }
+  /* Estilos para dispositivos móviles */
+  @media screen and (max-width: 480px) {
+    div.content {
+      section.loginform{
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        margin: 0;
+      }
 
-    h2 {
-      text-align: center;
-      margin-left: 0;
-      font-size: 18px;
-    }
-
-    form {
-      width: 100%;
-
-      div {
-        width: auto;
-        padding-right: 5px;
-        margin: 0 30px 30px 30px;
-
-        input {
-          width: 100%;
-          font-size: 18px;
-        }
+      section.information {
+        display: none !important;
       }
     }
-
-    button[type="submit"] {
-      scale: 1.3;
-    }
-
-    h3 {
-      font-size: 18px;
-    }
-
-    a {
-      margin-top: 50px;
-      font-size: 24px;
-    }
-
-    svg {
-      font-size: 30px;
-    }
-
-    section.information{
-      display: none !important;
-    }
-
   }
-}
 
-/* Estilos para tabletas */
-@media screen and (min-width: 481px) and (max-width: 1000px) {
-  div.Login{
-    section.loginform{
-      border-radius: 34px 34px 34px 34px !important;
+  /* Estilos para tabletas */
+  @media screen and (min-width: 481px) and (max-width: 1104px) {
+    div.content {
+      section.loginform {
+        border-radius: 34px 34px 34px 34px !important;
+      }
+      section.information {
+        display: none !important;
+      }
     }
-    section.information{
-      display: none !important;
-    }
-  }
-  
-}
-
-/* Estilos para escritorio */
-@media screen and (min-width: 1001px) {
-  div.Login > div.content {
-    transform: scale(1.1);
   }
 }

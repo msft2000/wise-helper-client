@@ -4,11 +4,11 @@ import imgLogo from '../assets/img/logo.png'
 import {GrMail} from 'react-icons/gr';
 import {ImLocation,ImPhone} from 'react-icons/im';
 import {MdWatchLater,MdKeyboardArrowRight} from 'react-icons/md';
-import '../sass/footer.scss';
+import '../sass/components/footer.scss';
 function Footer(){
     const navigate=useNavigate();//Para navegar entre paginas del sitio
     return(
-        <footer className="foo">
+        <footer className="footer">
             <section className="logo">
                 <img src={imgLogo} alt="" />
                 <h1>WiseHelpers</h1>

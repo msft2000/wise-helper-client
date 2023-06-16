@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { GeneralProvider } from "../context";
 import "../css/App.css";
 import { PerfilAdultoMayor } from "../pages/PerfilAdultoMayor";
+import { Prueba } from "../pages/Prueba";
 import { TareasActivas } from "../pages/TareasActivas";
 import { AgregarTarea } from "../pages/AgregarTarea";
 import { Index } from "../pages/Index";
@@ -25,6 +26,7 @@ function App() {
     <BrowserRouter>
       <GeneralProvider>
         <Routes>
+          <Route path="/prueba" element={<Prueba />} />
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
@@ -39,7 +41,6 @@ function App() {
           <Route path="/adult/agregar-tarea" element={<AgregarTarea />} />
           <Route path="/adult/finalizar" element={<TareaFinVoluntario />} />
           <Route path="/adult/tareas" element={<TareasHistorialAdulto />} />
-
           <Route path="/adult/perfil" element={<PerfilAdultoMayor />} />
           <Route path="/adult/support" element={<Soporte />} />
           <Route path="/volunter" element={<TareasVoluntario />} />
@@ -48,15 +49,13 @@ function App() {
             path="/volunter/tareas/finalizar"
             element={<TareaFinAdulto />}
           />
-
           <Route path="/volunter/perfil" element={<PerfilAyudante />} />
           <Route path="/volunter/support" element={<Soporte2 />} />
           <Route
             path="/volunter/support/send-message"
             element={<SoporteMessage />}
           />
-2
-          {/* <Route path="soporte" element={<SoporteAyudante />} /> */}
+          2{/* <Route path="soporte" element={<SoporteAyudante />} /> */}
           <Route path="/adtarea" element={<AgregarTarea />} />
           <Route path="/pam" element={<PerfilAdultoMayor />} />
           <Route path="/tareas" element={<TareasActivas />} />
