@@ -36,7 +36,6 @@ header.header_index {
       user-select: none;
       list-style: none;
       li {
-        transition: scale 0.2s;
         a {
           color: $font_primary_color;
           font-size: 18px;
@@ -44,7 +43,6 @@ header.header_index {
         }
 
         &:hover {
-          scale: 1.1;
           border-bottom: 2px solid $primary_color;
         }
         &.selected{

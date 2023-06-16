@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import { Navbar } from "../components/Navbar";
+import { Header } from "../components/Header_Adulto";
 import "../sass/rb_tarea_a.scss";
 import { AiOutlinePlus, AiFillFilter } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
@@ -278,7 +278,7 @@ function TareasAdulto() {
   return (
     <div className="TareasA">
       <div className="container">
-        <Navbar flag={1} />
+        <Header></Header>
         <div className="panel" ref={refPanel}>
           <section className="tareas_content" ref={refTareasContent}>
             <div className="btns">

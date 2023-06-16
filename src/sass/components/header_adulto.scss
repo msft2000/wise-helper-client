@@ -1,0 +1,209 @@
+@import "../variables";
+
+header.header_adulto {
+  display: flex;
+  justify-content: space-between;
+  height: 125px;
+  background-color: $tertiary_color;
+  nav {
+    display: flex;
+    align-items: center;
+    img {
+      width: 100px;
+      height: 100px;
+      margin: 0 0 0 40px;
+      cursor: pointer;
+    }
+
+    ul {
+      &:not(.mobile) {
+        display: flex;
+        justify-content: space-between;
+        width: 400px;
+        padding: 0;
+        margin-left: 25px;
+        user-select: none;
+        list-style: none;
+        li {
+          a {
+            color: $font_primary_color;
+            font-size: 18px;
+            text-decoration: none;
+          }
+
+          &:hover {
+            border-bottom: 2px solid $primary_color;
+          }
+          &.selected {
+            border-bottom: 2px solid $primary_color;
+          }
+        }
+      }
+      &.mobile {
+        display: none;
+      }
+    }
+    span.btn_menu {
+      display: none;
+      cursor: pointer;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
+
+  div.btn {
+    display: flex;
+    align-items: center;
+    margin: 0 20px 0 0;
+    div.dropdown {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-left: 15px;
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        margin-right: 5px;
+        -webkit-user-drag: none;
+      }
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+      &:hover .dropdown-content {
+        display: flex;
+      }
+      div.dropdown-content {
+        right: 5px;
+        top: 90px;
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        background-color: $secondary_color;
+        border-radius: 15px;
+        padding: 10px 0 10px 0;
+        z-index: 1;
+        span {
+          display: flex;
+          color: $tertiary_color;
+          text-align: right;
+          // margin: 0 15px 0 15px;
+          padding: 10px 15px 10px 15px;
+          &:hover {
+            background-color: rgb(106, 105, 105);
+          }
+          p {
+            font-size: 14px;
+            user-select: none;
+          }
+          svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 651px) and (max-width: 830px) {
+    nav {
+      img {
+        margin-left: 0px;
+      }
+      ul {
+        width: 400px;
+        margin-left: 15px;
+      }
+    }
+    div.btn {
+      & > p {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    nav {
+      height: 95px;
+      width: 100%;
+      justify-content: space-between;
+      img {
+        margin-left: 5px;
+      }
+      ul {
+        &:not(.mobile) {
+          display: none;
+        }
+        &.mobile {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          position: fixed;
+          width: 100vw;
+          height: calc(100% - 95px);
+          background-color: #414141;
+          top: -100vh;
+          text-align: center;
+          transition: all 0.4s;
+          flex-direction: column;
+          &.show {
+            top: 85px;
+          }
+          li {
+            margin: 20px 0 0 0;
+            &:first-child {
+              display: flex;
+              align-items: center;
+              img {
+                width: 70px;
+                height: 70px;
+                border-radius: 100%;
+                margin-right: 5px;
+                -webkit-user-drag: none;
+                margin-right: 20px;
+              }
+              p {
+                font-size: 18px;
+                user-select: none;
+                color: $tertiary_color;
+              }
+            }
+            &:hover {
+              border: 0;
+            }
+
+            a {
+              font-size: 25px;
+              color: white;
+              font-weight: bold;
+            }
+
+            &:hover {
+              color: #d38713;
+            }
+
+            &.selected {
+              background-color: rgba(0, 0, 0, 0.524);
+              border: 0;
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      span.btn_menu {
+        display: flex;
+      }
+    }
+    div.btn {
+      display: none;
+    }
+  }
+}
