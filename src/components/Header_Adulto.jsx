@@ -10,7 +10,7 @@ function Header() {
   const [flag, setFlag] = React.useState(false);
   const path = window.location.pathname;
   return (
-    <header className="header_adulto">
+    <header className={flag ? "header_adulto mobile" : "header_adulto"} >
       <nav>
         <img
           src={logo}
