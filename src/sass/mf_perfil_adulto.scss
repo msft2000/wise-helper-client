@@ -1,0 +1,163 @@
+div.perfil-adulto-mayor--page-container {
+  div.container {
+    /*Contenido de tu pagina aquí*/
+    display: flex;
+    flex-direction: column;
+    
+    .ratings {
+      width: fit-content;
+      margin: 3px auto;
+      color: yellow;
+    }
+
+    .perfil {
+      display: flex;
+    }
+
+    .perfil-datos--container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      padding: 10px 20px;
+      background-color: rgb(224, 224, 224);
+
+      .perfil-datos--container--titulo {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-weight: 600;
+
+        hr {
+          height: 2px;
+          width: 80%;
+          background-color: black;
+        }
+      }
+
+      .perfil-datos--container--datos {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 20px;
+
+        img {
+          width: 30%;
+          height: 100%;
+          max-width: 200px;
+        }
+
+        .perfil-datos--container--datos--detalle {
+          width: 60%;
+          border-radius: 10px;
+          padding: 10px;
+          color: white;
+          background-color: #eb9800;
+
+          input {
+            border: 1px solid gray;
+            border-radius: 5px;
+            width: fit-content;
+          }
+
+          span {
+            font-weight: 900;
+          }
+        }
+      }
+
+      .descripcion-ayudante--title {
+        margin-top: 50px;
+        font-weight: 900;
+      }
+
+      button {
+        width: 50%;
+        font-weight: 900;
+        border: none;
+        padding: 10px;
+        margin: 25px auto;
+        font-size: large;
+        color: white;
+        background-color: #eb9800;
+        border-radius: 15px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .perfil-resenias--container {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      padding: 10px 20px;
+      .resenias--container--titulo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        margin-bottom: 50px;
+        font-weight: 600;
+
+        hr {
+          height: 2px;
+          width: 75%;
+          background-color: black;
+        }
+      }
+
+      .resenias--inforesenia--container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(224, 224, 224);
+        border-radius: 10px;
+        max-width: 300px;
+        margin: 3px auto;
+        padding: 10px 50px;
+        margin-bottom: 50px;
+
+        img {
+          width: 30%;
+          height: 100% !important;
+          max-width: 200px;
+          margin-top: -50px;
+          margin-bottom: 50px;
+        }
+
+        p {
+          margin-top: -50px;
+        }
+      }
+
+      button {
+        width: 50%;
+        font-weight: 900;
+        border: none;
+        padding: 10px;
+        margin: 5px auto;
+        font-size: large;
+        color: white;
+        background-color: #eb9800;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .ratings {
+        width: fit-content;
+        margin: 3px auto;
+        color: yellow;
+        scale: 1.4;
+        z-index: 1;
+
+        svg:last-child {
+          color: white;
+          z-index: 2;
+        }
+      }
+    }
+  }
+}

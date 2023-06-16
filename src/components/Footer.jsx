@@ -7,6 +7,9 @@ import {MdWatchLater,MdKeyboardArrowRight} from 'react-icons/md';
 import '../sass/components/footer.scss';
 function Footer(){
     const navigate=useNavigate();//Para navegar entre paginas del sitio
+    const path = window.location.pathname;
+    const path2 = path.includes("/adult") ? "/adult/" : (path.includes("/volunter/") ? "/volunter" : "/");
+    console.log(path2);
     return(
         <footer className="footer">
             <section className="logo">
@@ -43,11 +46,11 @@ function Footer(){
             <section className="links">
                 <h1>Enlaces de utilidad</h1>
                 <ul>
-                    <li><MdKeyboardArrowRight/><a href="">Inicio</a></li>
-                    <li><MdKeyboardArrowRight/><a href="">Nuestros Voluntarios</a></li>
-                    <li><MdKeyboardArrowRight/><a href="">Soporte</a></li>
-                    <li><MdKeyboardArrowRight/><a href="">Términos y Condiciones</a></li>
-                    <li><MdKeyboardArrowRight/><a href="">FAQ</a></li>
+                    <li onClick={()=>navigate("/")}><MdKeyboardArrowRight/><a href="">Inicio</a></li>
+                    <li onClick={()=>navigate("/")}><MdKeyboardArrowRight/><a href="">Nuestros Voluntarios</a></li>
+                    <li onClick={()=>navigate(path2+"support")}><MdKeyboardArrowRight/><a href="">Soporte</a></li>
+                    <li onClick={()=>navigate(path2+"support/tyc")}><MdKeyboardArrowRight/><a href="">Términos y Condiciones</a></li>
+                    <li onClick={()=>navigate(path2+"support")}><MdKeyboardArrowRight/><a href="">FAQ</a></li>
                 </ul>
             </section>
 

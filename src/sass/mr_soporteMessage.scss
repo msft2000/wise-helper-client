@@ -1,0 +1,105 @@
+div.soporte-message {
+  section.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+    h2 {
+      font-size: 20px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    /*contenido*/
+
+    div input {
+      font-size: 18px;
+      border-radius: 10px;
+      border: 1px solid black;
+    }
+
+    div.Asunto {
+      display: flex;
+      flex-direction: column;
+
+      & > input:nth-of-type(1) {
+        /*txt asunto*/
+        width: 63vw;
+        padding: 7px 11px;
+        background: white;
+      }
+    }
+
+    div.Detalles {
+      display: flex;
+      flex-direction: column;
+      & > textarea {
+        /*txt detalle*/
+        font-size: 18px;
+        padding: 7px 11px;
+        box-sizing: border-box;
+        width: 65vw;
+        height: 22vh;
+        background: white;
+        border: 1px solid #000000;
+        border-radius: 10px;
+        resize: none;
+      }
+    }
+
+    div.Ayuda {
+      display: flex;
+      background: #ecebeb;
+      border-radius: 20px;
+      width: 70vw;
+      margin-top: 17px;
+
+      p {
+        /*Texto dentro del div ayuda*/
+        margin: 10px;
+      }
+    }
+
+    .btn {
+      width: fit-content;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      margin-top: 1vh;
+      cursor: pointer;
+    }
+
+    .btn-orange {
+      /*Boton agregar captura*/
+      background-color: #f1b74d;
+      color: white;
+    }
+
+    .btn-grey {
+      /*Boton agregar captura*/
+      background-color: #ecebeb;
+      color: black;
+      margin-right: 4px;
+      border: white;
+    }
+
+    .ocultar {
+      color: white;
+      display: flex;
+      margin-left: 5px;
+      margin-top: 0px;
+      margin-bottom: 2px;
+      font-size: small;
+    }
+
+    .error {
+      color: red;
+    }
+  }
+}

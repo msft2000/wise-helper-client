@@ -4,7 +4,7 @@ import img from "../assets/img/img12.png";
 import { useNavigate } from "react-router-dom";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { FaSignOutAlt, FaRegUserCircle, FaBars } from "react-icons/fa";
-import "../sass/components/header_adulto.scss";
+import "../sass/components/header_voluntario.scss";
 function Header() {
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState(false);
@@ -12,7 +12,7 @@ function Header() {
   var nombre="Marta";
   var msg=`¡Bienvenida ${nombre}!`;
   return (
-    <header className={flag ? "header_adulto mobile" : "header_adulto"} >
+    <header className={flag ? "header_voluntario mobile" : "header_voluntario"} >
       <nav>
         <img
           src={logo}
@@ -22,31 +22,31 @@ function Header() {
           }}
         />
         <ul>
-          <li className={path.includes("/adult") && (!path.includes("/adult/tareas") && !path.includes("/adult/support") && !path.includes("/adult/perfil") ) ? "selected" : ""}>
+          <li className={path === "/volunter" ? "selected" : ""}>
             <a
               href=""
               onClick={() => {
-                navigate("/adult");
+                navigate("/volunter");
               }}
             >
-              Mis Tareas
+              Tareas Disponibles
             </a>
           </li>
-          <li className={path.includes("/adult/tareas") ? "selected" : ""}>
+          <li className={path.includes("/volunter/tareas") ? "selected" : ""}>
             <a
               href=""
               onClick={() => {
-                navigate("/adult/tareas");
+                navigate("/volunter/tareas");
               }}
             >
-              Historial de Tareas
+              Tareas Activas
             </a>
           </li>
-          <li className={path.includes("/adult/support") ? "selected" : ""}>
+          <li className={path.includes("/volunter/support") ? "selected" : ""}>
             <a
               href=""
               onClick={() => {
-                navigate("/adult/support");
+                navigate("/volunter/support");
               }}
             >
               Soporte
@@ -58,17 +58,17 @@ function Header() {
                 <img src={img} alt="" />
                 <p>{msg}</p>
             </li>
-          <li className={path.includes("/adult") && (!path.includes("/adult/tareas") && !path.includes("/adult/support") && !path.includes("/adult/perfil") ) ? "selected" : ""}>
-            <a onClick={() => navigate("/adult")}>Mis Tareas</a>
+          <li className={path === "/volunter" ? "selected" : ""}>
+            <a onClick={() => navigate("/volunter")}>Tareas Disponibles</a>
           </li>
-          <li className={path.includes("/adult/tareas") ? "selected" : ""}>
-            <a onClick={() => navigate("/adult/tareas")}>Historial de Tareas</a>
+          <li className={path.includes("/volunter/tareas")? "selected" : ""}>
+            <a onClick={() => navigate("/volunter/tareas")}>Tareas Activas</a>
           </li>
-          <li className={path.includes("/adult/support") ? "selected" : ""}>
-            <a onClick={() => navigate("/adult/support")}>Soporte</a>
+          <li className={path.includes("/volunter/support") ? "selected" : ""}>
+            <a onClick={() => navigate("/volunter/support")}>Soporte</a>
           </li>
-          <li className={path === "/adult/perfil" ? "selected" : ""}>
-            <a onClick={() => navigate("/adult/perfil")}>Mi Perfil</a>
+          <li className={path === "/volunter/perfil" ? "selected" : ""}>
+            <a onClick={() => navigate("/volunter/perfil")}>Mi Perfil</a>
           </li>
           <li>
             <a onClick={() => navigate("/")}>Cerrar Sesión</a>
@@ -91,7 +91,7 @@ function Header() {
           <div className="dropdown-content">
             <span
               className="dropdown-item1"
-              onClick={() => navigate("/adult/perfil")}
+              onClick={() => navigate("/volunter/perfil")}
             >
               <FaRegUserCircle></FaRegUserCircle>
               <p>Mi perfil</p>

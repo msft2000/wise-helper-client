@@ -1,0 +1,23 @@
+div.TerminosCondiciones {
+  div.container {
+    display: grid;
+    grid-template-areas: "sec1 sec2";
+    grid-template-columns: 60% 40%;
+    grid-template-rows: auto;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      text-align: justify;
+    }
+
+    .div1 h1 {
+      align-self: center;
+    }
+
+    .div2 {
+      grid-area: sec2;
+      margin-top: 20%;
+    }
+  }
+}
