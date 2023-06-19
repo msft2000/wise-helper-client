@@ -7,8 +7,7 @@ import { Footer } from "../components/Footer";
 import styles from "../sass/rb_login_adulto.scss";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import tabla from "../assets/img/tabla_adulto_login.png";
-import chat from "../assets/img/chat_adulto_login.png";
+import tabla from "../assets/img/tabla_voluntario_login.png";
 
 function Login() {
   const navigate = useNavigate();
@@ -34,7 +33,7 @@ function Login() {
       <Toaster />
       <div className="content">
         <section className="loginform">
-          <h1>Adulto Mayor</h1>
+          <h1>Voluntario</h1>
           <form
             onSubmit={(e) => {
               submitHandler(e);
@@ -76,11 +75,10 @@ function Login() {
             comprometidos para ayudar en tareas y actividades cotidianas
           </h2>
           <div className="imgs">
-            <img src={tabla} alt="" />
-            <img src={chat} alt="" />
+            <img className="voluntario" src={tabla} alt="" />
           </div>
           <h3>
-            Gestiona tus tareas e interactua con tus voluntarios asignados.
+          Gestiona tus tareas e interactua con los adultos mayores a los que quieres ayudar.
           </h3>
         </section>
       </div>

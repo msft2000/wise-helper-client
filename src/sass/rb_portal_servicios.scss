@@ -1,0 +1,103 @@
+@import "./variables";
+
+div.PortalServicios {
+  div.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $primary_color;
+    font-size: 20px;
+    user-select: none;
+    height: 70vh;
+    .content_h1 {
+      text-align: center;
+      color: $tertiary_color;
+    }
+    .content_h2 {
+      text-align: center;
+      color: $tertiary_color;
+    }
+    .content_h3 {
+      text-align: center;
+      color: $tertiary_color;
+    }
+    section.cards {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 80px;
+
+      article.card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 20vw;
+        background-color: $tertiary_color;
+        border-radius: 20px;
+        height: 200px;
+
+        .card_h1 {
+          text-align: center;
+          font-weight: bolder;
+          font-size: 1em;
+          height: fit-content;
+          margin: 10px 0 0 0;
+        }
+
+        .card_h2 {
+          text-align: center;
+          font-weight: normal;
+          font-size: 0.7em;
+          text-align: center;
+          width: 80%;
+          margin: 0;
+        }
+
+        .card_btn {
+          font-weight: bold;
+          font-size: 0.7em;
+          color: $tertiary_color;
+          background-color: $primary_color;
+          border: 0;
+          border-radius: 15px;
+          padding: 5px 15% 5px 15%;
+          margin: 0 0 20px 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) and (min-width: 476px) {
+    .cards {
+      .card {
+        width: 150px !important;
+        height: auto !important;
+        margin-bottom: 20px;
+        .card_h2 {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 475px) {
+    .cards {
+        .card {
+          width: 150px !important;
+          height: auto !important;
+          margin-bottom: 20px;
+          .card_h2 {
+            display: none;
+          }
+        }
+    }
+    .content_h1,
+    .content_h2 {
+      display: none;
+    }
+  }
+}

@@ -16,7 +16,7 @@ function Header(){
                 </ul>
             </nav>
             <div className="btns">
-                <button onClick={()=>{navigate("/login")}}>
+                <button onClick={()=>{navigate("/portal")}}>
                     Iniciar Sesión
                 </button>
                 <button onClick={()=>{navigate("/register")}}>

@@ -7,7 +7,8 @@ import { Prueba } from "../pages/Prueba";
 import { TareasActivas } from "../pages/MF_Tareas_Voluntario_Activas";
 import { AgregarTarea } from "../pages/MF_Agregar_Tarea";
 import { Index } from "../pages/MR_Index";
-import { Login } from "../pages/RB_Login";
+import { Login as LoginAdulto} from "../pages/RB_Login_Adulto";
+import { Login as LoginVoluntario} from "../pages/RB_Login_Voluntario";
 import { Signup } from "../pages/RB_Signup";
 import { TareasVoluntario } from "../pages/RB_Tareas_Voluntario";
 import { TareasAdulto } from "../pages/RB_Tareas_Adulto";
@@ -18,6 +19,7 @@ import { TareaFinVoluntario } from "../pages/CHL_TareaFin_Voluntario";
 import { TerminosCondiciones } from "../pages/CHL_Terminos_Condiciones";
 import { SoporteMessage } from "../pages/MR_SoporteMessage";
 import { TareasHistorialAdulto } from "../pages/RB_Tareas_Historial_Adulto";
+import {PortalServicios} from "../pages/RB_Portal_Servicios"; 
 
 function App() {
   return (
@@ -27,7 +29,9 @@ function App() {
           <Route path="/prueba" element={<Prueba />} />
           {/* Paginas del index */}
           <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/portal" element={<PortalServicios />} />
+          <Route path="/login-adulto" element={<LoginAdulto />} />
+          <Route path="/login-voluntario" element={<LoginVoluntario />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/support" element={<Soporte/>} />
           <Route path="/support/send-message" element={<SoporteMessage />} />
