@@ -22,7 +22,7 @@ function Login() {
         "Error al iniciar sesión, por favor verifique sus credenciales."
       );
     } else {
-      navigate("/adult");
+      navigate("/volunter");
     }
   };
 
