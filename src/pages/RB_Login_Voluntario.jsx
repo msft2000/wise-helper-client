@@ -4,11 +4,10 @@ import React from "react";
 import { MdPerson, MdOutlineLock } from "react-icons/md";
 import { Header } from "../components/Header_Index";
 import { Footer } from "../components/Footer";
-import styles from "../sass/rb_login_adulto.scss";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import tabla from "../assets/img/tabla_voluntario_login.png";
-
+import "../sass/rb_login.scss";
 function Login() {
   const navigate = useNavigate();
 

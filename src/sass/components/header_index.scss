@@ -16,7 +16,7 @@ header.header_index {
   display: flex;
   justify-content: space-between;
   height: 125px;
-  background-color: $tertiary_color;
+  background-color: $bg_light_color;
   nav {
     display: flex;
     align-items: center;
@@ -37,7 +37,7 @@ header.header_index {
       list-style: none;
       li {
         a {
-          color: $font_primary_color;
+          color: $font_dark_color;
           font-size: 18px;
           text-decoration: none;
         }
@@ -64,10 +64,10 @@ header.header_index {
       cursor: pointer;
 
       &:first-child {
-        @include btn_form($tertiary_color, $primary_color, $primary_color);
+        @include btn_form($color_light, $btn_primary_color, $btn_primary_color);
       }
       &:last-child {
-        @include btn_form($primary_color, $primary_color, $tertiary_color);
+        @include btn_form($btn_primary_color, $btn_primary_color, $color_light);
       }
       &:hover {
         scale: 1.1;

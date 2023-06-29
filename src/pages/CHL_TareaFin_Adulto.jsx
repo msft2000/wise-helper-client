@@ -1,6 +1,6 @@
 /*Calificar a un adulto mayor de parte de un voluntario*/
 import React from "react";
-import "../sass/chl_tareaFin_adulto.scss";
+import "../sass/chl_tareaFin.scss";
 import img12 from "../assets/img/img12.png";
 import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ function TareaFinAdulto() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
   return (
-    <div className="TareaFinAdulto">
+    <div className="TareaFin">
       <Header/>
       <div className="container">
         <section className="content">

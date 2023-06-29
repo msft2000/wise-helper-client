@@ -1,3 +1,5 @@
+@import "./variables";
+
 div.soporte-message {
   section.container {
     display: flex;
@@ -22,7 +24,7 @@ div.soporte-message {
     div input {
       font-size: 18px;
       border-radius: 10px;
-      border: 1px solid black;
+      border: 1px solid $dark_color;
     }
 
     div.Asunto {
@@ -33,7 +35,7 @@ div.soporte-message {
         /*txt asunto*/
         width: 63vw;
         padding: 7px 11px;
-        background: white;
+        background: $bg_light_color;
       }
     }
 
@@ -47,8 +49,8 @@ div.soporte-message {
         box-sizing: border-box;
         width: 65vw;
         height: 22vh;
-        background: white;
-        border: 1px solid #000000;
+        background: $bg_light_color;
+        border: 1px solid $dark_color;
         border-radius: 10px;
         resize: none;
       }
@@ -56,7 +58,7 @@ div.soporte-message {
 
     div.Ayuda {
       display: flex;
-      background: #ecebeb;
+      background: $bg_quaternary_color;
       border-radius: 20px;
       width: 70vw;
       margin-top: 17px;
@@ -77,20 +79,20 @@ div.soporte-message {
 
     .btn-orange {
       /*Boton agregar captura*/
-      background-color: #f1b74d;
-      color: white;
+      background-color: $btn_primary_color;
+      color: $font_light_color;
     }
 
     .btn-grey {
       /*Boton agregar captura*/
-      background-color: #ecebeb;
-      color: black;
+      background-color: $bg_quaternary_color;
+      color: $font_dark_color;
       margin-right: 4px;
-      border: white;
+      border: $btn_primary_color;
     }
 
     .ocultar {
-      color: white;
+      color: $font_light_color;
       display: flex;
       margin-left: 5px;
       margin-top: 0px;

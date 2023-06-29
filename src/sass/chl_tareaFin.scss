@@ -1,25 +1,25 @@
-div.TareaFinAdulto {
+@import "./variables";
+
+div.TareaFin {
   div.container {
     /*Toda la parte de tu pagina aqui*/
     display: grid;
     place-items: center;
     text-align: center;
-    background: rgba(235, 152, 0, 0.79);
+    background: $bg_primary_color;
     width: 100%;
     height: 100vh;
     label {
       font-size: 20px;
     }
 
-    input:hover ~ label {
-      color: #f1b74d;
-    }
+  
 
     section.content {
       display: flex;
       flex-direction: column;
       place-items: center;
-      background: white;
+      background: $bg_light_color;
       border-radius: 34px;
       top: 50%;
       left: 50%;
@@ -35,7 +35,7 @@ div.TareaFinAdulto {
       }
 
       & > :nth-child(2) {
-        background: #f1b74d;
+        background: $bg_primary_color;
         border-radius: 34px;
         width: 250px;
         height: 120px;
@@ -52,20 +52,18 @@ div.TareaFinAdulto {
         /*transform: rotateY(180deg);*/
 
         span span {
-          color: #f1b74d;
+          color: $stars_color;
 
           svg[data-testid="StarBorderIcon"] {
-            color: rgba(41, 40, 40, 0.452);
+            color: $tertiary_color;
           }
 
-          &:hover {
-            color: #f1b74d;
-          }
+          
         }
 
         label {
           font-size: 40px;
-          color: #444;
+          color: $font_secondary_color;
           margin: 0 10px;
           cursor: pointer;
           transition: all 0.3s;
@@ -73,18 +71,10 @@ div.TareaFinAdulto {
           margin: 0 5px;
         }
 
-        input {
-          display: none;
-          &:checked ~ label {
-            color: #f1b74d;
-          }
-          &:hover ~ label {
-            transform: scale(1.2) rotate(-10deg);
-          }
-        }
+        
 
         h1 {
-          background: rgb(222, 222, 222);
+          background: $bg_quaternary_color;
           margin: 5px;
           padding: 5px;
           border-radius: 10px;
@@ -103,7 +93,7 @@ div.TareaFinAdulto {
           width: 55%;
           max-width: 614px;
           height: 60px;
-          background: #dedede;
+          background: $bg_quaternary_color;
           border-radius: 20px;
           resize: none;
           font-size: 17px;
@@ -119,10 +109,10 @@ div.TareaFinAdulto {
           margin: 20px;
           width: fit-content;
           height: fit-content;
-          color: white;
+          color: $font_light_color;
           font-weight: bold;
           font-size: 18px;
-          background: #f1b74d;
+          background: $btn_primary_color;
           border-radius: 20px;
           cursor: pointer;
           border: 0;

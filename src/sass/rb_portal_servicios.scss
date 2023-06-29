@@ -5,21 +5,21 @@ div.PortalServicios {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: $primary_color;
+    background-color: $bg_primary_color;
     font-size: 20px;
     user-select: none;
     height: 70vh;
     .content_h1 {
       text-align: center;
-      color: $tertiary_color;
+      color: $font_light_color;
     }
     .content_h2 {
       text-align: center;
-      color: $tertiary_color;
+      color: $font_light_color;
     }
     .content_h3 {
       text-align: center;
-      color: $tertiary_color;
+      color: $font_light_color;
     }
     section.cards {
       display: flex;
@@ -35,7 +35,7 @@ div.PortalServicios {
         align-items: center;
         justify-content: space-between;
         width: 20vw;
-        background-color: $tertiary_color;
+        background-color: $bg_light_color;
         border-radius: 20px;
         height: 200px;
 
@@ -59,8 +59,8 @@ div.PortalServicios {
         .card_btn {
           font-weight: bold;
           font-size: 0.7em;
-          color: $tertiary_color;
-          background-color: $primary_color;
+          color: $font_light_color;
+          background-color: $btn_primary_color;
           border: 0;
           border-radius: 15px;
           padding: 5px 15% 5px 15%;

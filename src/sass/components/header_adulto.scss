@@ -4,7 +4,7 @@ header.header_adulto {
   display: flex;
   justify-content: space-between;
   height: 125px;
-  background-color: $tertiary_color;
+  background-color: $bg_light_color;
 
   &.mobile {
     /*La barra de navegación se mantiene fija cuando se despliega el menu deslizable de movil*/
@@ -39,7 +39,7 @@ header.header_adulto {
         list-style: none;
         li {
           a {
-            color: $font_primary_color;
+            color: $font_dark_color;
             font-size: 18px;
             text-decoration: none;
           }
@@ -106,18 +106,18 @@ header.header_adulto {
         display: none;
         position: absolute;
         flex-direction: column;
-        background-color: $secondary_color;
+        background-color: $bg_secondary_color;
         border-radius: 15px;
         padding: 10px 0 10px 0;
         z-index: 2;
         span {
           /*Elementos del dropdown menu*/
           display: flex;
-          color: $tertiary_color;
+          color: $font_light_color;
           text-align: right;
           padding: 10px 15px 10px 15px;
           &:hover {
-            background-color: rgb(106, 105, 105);
+            background-color: $bg_tertiary_color;
           }
           p {
             /*Texto del dropdown menu*/
@@ -179,7 +179,7 @@ header.header_adulto {
           position: fixed;
           width: 100vw;
           height: calc(100% - 95px);
-          background-color: #414141;
+          background-color: $bg_secondary_color;
           top: -100vh;
           text-align: center;
           transition: all 0.4s;
@@ -210,7 +210,7 @@ header.header_adulto {
                 /*Mensaje de bienvenida*/
                 font-size: 18px;
                 user-select: none;
-                color: $tertiary_color;
+                color: $font_light_color;
               }
             }
             &:hover {
@@ -219,17 +219,17 @@ header.header_adulto {
             a {
               /*Estilo para cada enlace del menu*/
               font-size: 25px;
-              color: white;
+              color: $font_light_color;
               font-weight: bold;
             }
 
             &:hover {
-              color: #d38713;
+              background-color: $bg_tertiary_color;
             }
 
             &.selected {
               /*Estilo para el item seleccionado*/
-              background-color: rgba(0, 0, 0, 0.524);
+              background-color: $bg_dark_color;
               border: 0;
               width: 100%;
             }

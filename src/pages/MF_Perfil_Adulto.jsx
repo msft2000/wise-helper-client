@@ -1,5 +1,5 @@
 import React from "react";
-import "../sass/mf_perfil_adulto.scss";
+import "../sass/mf_perfil.scss";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
 import mujerResenia from "../assets/img/resenia-ujer.png";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";

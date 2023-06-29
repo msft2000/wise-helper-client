@@ -1,14 +1,13 @@
+@import "../variables";
+
 footer.footer {
-  $backgroundColor: #434343;
-  $font_color: white;
-  $border_color: white;
 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  background-color: $backgroundColor;
-  color: $font_color;
+  background-color: $bg_secondary_color;
+  color: $font_light_color;
   padding: 10px 0 10px 0;
 
   * {
@@ -44,7 +43,7 @@ footer.footer {
         font-size: 15px;
         font-weight: bold;
         text-align: center;
-        border-bottom: 2px solid $border_color;
+        border-bottom: 2px solid $light_color;
         margin-bottom: 20px;
       }
     }
@@ -109,7 +108,7 @@ footer.footer {
         padding: 0;
         li {
           a {
-            color: $font_color;
+            color: $font_light_color;
             font-size: 12px;
             text-decoration: none;
           }

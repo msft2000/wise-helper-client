@@ -1,3 +1,4 @@
+@import "./variables";
 
 div.TareasA div.container {
 
@@ -12,7 +13,7 @@ div.TareasA div.container {
       flex-direction: column;
       width: 100%;
       height: 150vh;
-      background: rgb(222, 222, 222);
+      background: $bg_quaternary_color;
       border-radius: 0 15px 15px 0;
 
       div.btns {
@@ -29,9 +30,9 @@ div.TareasA div.container {
           align-items: center;
           width: 170px;
           height: 30px;
-          background: #f1b74d;
+          background: $btn_primary_color;
           border-radius: 20px;
-          color: white;
+          color: $font_light_color;
           font-size: 15px;
           vertical-align: middle;
           cursor: pointer;
@@ -41,7 +42,7 @@ div.TareasA div.container {
             width: 20px;
             height: 20px;
             margin: 0px 5px 0px 0px;
-            color: white;
+            color: $light_color;
           }
         }
       }
@@ -61,7 +62,7 @@ div.TareasA div.container {
         thead {
           position: sticky;
           top: 0;
-          background: rgb(222, 222, 222);
+          background: $bg_quaternary_color;
           z-index: 1;
 
           th {
@@ -97,7 +98,7 @@ div.TareasA div.container {
           }
 
           tr.selected {
-            background-color: white;
+            background-color: $bg_light_color;
           }
 
           img {
@@ -117,7 +118,7 @@ div.TareasA div.container {
           p.enproceso,
           p.finalizada {
             display: inline;
-            color: white;
+            color: $font_light_color;
             border-radius: 20px;
             width: fit-content;
             height: auto;
@@ -125,7 +126,7 @@ div.TareasA div.container {
           }
 
           p.activa {
-            background: #16652c;
+            background: green;
           }
 
           p.enproceso {
@@ -151,7 +152,7 @@ div.TareasA div.container {
         margin-bottom: 20px;
         align-self: flex-end;
         svg {
-          color: black;
+          color: $font_dark_color;
           font-size: 20px;
           cursor: pointer;
         }
@@ -161,10 +162,10 @@ div.TareasA div.container {
         /*Diseño Botones de Finalizar y Enviar*/
         width: fit-content;
         height: fit-content;
-        color: white;
+        color: $font_light_color;
         font-weight: bold;
         font-size: 18px;
-        background: #f1b74d;
+        background: $bg_primary_color;
         border-radius: 20px;
         cursor: pointer;
         border: 0;
@@ -179,7 +180,7 @@ div.TareasA div.container {
         width: 100%;
         max-width: 498px;
         height: fit-content;
-        background: #f1b74d;
+        background: $bg_primary_color;
         padding: 15px 0 15px 0;
         border-radius: 42px;
         margin-bottom: 30px;
@@ -194,7 +195,7 @@ div.TareasA div.container {
 
           p {
             /*Puntuación*/
-            color: white;
+            color: $font_light_color;
             font-size: 20px;
             font-weight: 600;
             margin-left: 10px;
@@ -202,14 +203,14 @@ div.TareasA div.container {
           span {
             /*Grupo de estrellas*/
             font-size: 30px;
-            color: yellow;
+            color: $stars_color;
             svg {
               /*Cada estrella*/
               margin: 0 8px;
             }
             svg[data-testid="StarBorderIcon"] {
               /*Borde de estrella incompleta*/
-              color: rgba(41, 40, 40, 0.452);
+              color: $tertiary_color;
             }
           }
         }
@@ -223,7 +224,7 @@ div.TareasA div.container {
           p {
             /*Texto: Nombre y Voluntario*/
             text-align: center;
-            color: #ffffff;
+            color: $font_light_color;
           }
 
           p:first-child {
@@ -260,7 +261,7 @@ div.TareasA div.container {
         display: flex;
         flex-direction: column;
         padding-bottom: 30px;
-        border-bottom: 1.5px solid rgba(128, 128, 128, 0.192);
+        border-bottom: 1.5px solid $tertiary_color;
 
         p:nth-child(1) {
           /*Cabecera: Descripción de tarea*/
@@ -314,7 +315,7 @@ div.TareasA div.container {
             width: 100%;
             max-width: 614px;
             height: 60px;
-            background: #dedede;
+            background: $bg_quaternary_color;
             border-radius: 20px 20px 0px 0px;
             border-bottom: 0;
             resize: none;
@@ -327,9 +328,9 @@ div.TareasA div.container {
             /*Bloque: div con imgs de documento y foto*/
             display: flex;
             flex-direction: row;
-            background: #dedede;
+            background: $bg_quaternary_color;
             padding: 0px 10px 15px 10px;
-            border: 1px solid grey;
+            border: 1px solid $tertiary_color;
             border-top: 0;
             width: 100%;
             max-width: 614px;
@@ -341,9 +342,9 @@ div.TareasA div.container {
               height: 23px;
               margin-right: 10px;
               cursor: pointer;
-              color: grey;
+              color: $tertiary_color;
               path {
-                stroke: grey;
+                stroke: $tertiary_color;
               }
             }
           }
@@ -372,7 +373,7 @@ div.TareasA div.container {
         margin-bottom: 20px;
         align-self: flex-end;
         svg {
-          color: black;
+          color: $font_dark_color;
           font-size: 20px;
           cursor: pointer;
         }
@@ -383,7 +384,7 @@ div.TareasA div.container {
         display: flex;
         flex-direction: column;
         padding-bottom: 30px;
-        border-bottom: 1.5px solid rgba(128, 128, 128, 0.192);
+        border-bottom: 1.5px solid $tertiary_color;
 
         p:nth-child(1) {
           /*Cabecera: Descripción de tarea*/
@@ -408,10 +409,10 @@ div.TareasA div.container {
         /*Diseño Botones de Finalizar y Enviar*/
         width: fit-content;
         height: fit-content;
-        color: white;
+        color: $font_light_color;
         font-weight: bold;
         font-size: 18px;
-        background: #f1b74d;
+        background: $btn_primary_color;
         border-radius: 20px;
         cursor: pointer;
         border: 0;
@@ -429,7 +430,7 @@ div.TareasA div.container {
       margin-bottom: 20px;
       align-self: flex-end;
       svg {
-        color: black;
+        color: $font_dark_color;
         font-size: 20px;
         cursor: pointer;
       }
@@ -442,7 +443,7 @@ div.TareasA div.container {
       margin-bottom: 20px;
       align-self: flex-end;
       svg {
-        color: black;
+        color: $font_dark_color;
         font-size: 20px;
         cursor: pointer;
       }

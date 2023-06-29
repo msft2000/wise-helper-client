@@ -1,3 +1,4 @@
+@import "./variables"; 
 div.perfil-adulto-mayor--page-container {
   div.container {
     /*Contenido de tu pagina aquí*/
@@ -7,7 +8,7 @@ div.perfil-adulto-mayor--page-container {
     .ratings {
       width: fit-content;
       margin: 3px auto;
-      color: yellow;
+      color: $stars_color;
     }
 
     .perfil {
@@ -20,7 +21,7 @@ div.perfil-adulto-mayor--page-container {
       flex-direction: column;
       width: 50%;
       padding: 10px 20px;
-      background-color: rgb(224, 224, 224);
+      background-color: $bg_quaternary_color;
 
       .perfil-datos--container--titulo {
         display: flex;
@@ -32,7 +33,7 @@ div.perfil-adulto-mayor--page-container {
         hr {
           height: 2px;
           width: 80%;
-          background-color: black;
+          background-color: $bg_dark_color;
         }
       }
 
@@ -52,8 +53,8 @@ div.perfil-adulto-mayor--page-container {
           width: 60%;
           border-radius: 10px;
           padding: 10px;
-          color: white;
-          background-color: #eb9800;
+          color: $font_light_color;
+          background-color: $bg_primary_color;
 
           input {
             border: 1px solid gray;
@@ -79,8 +80,8 @@ div.perfil-adulto-mayor--page-container {
         padding: 10px;
         margin: 25px auto;
         font-size: large;
-        color: white;
-        background-color: #eb9800;
+        color: $font_light_color;
+        background-color: $btn_primary_color;
         border-radius: 15px;
 
         &:hover {
@@ -105,7 +106,7 @@ div.perfil-adulto-mayor--page-container {
         hr {
           height: 2px;
           width: 75%;
-          background-color: black;
+          background-color: $bg_dark_color;
         }
       }
 
@@ -113,7 +114,7 @@ div.perfil-adulto-mayor--page-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: rgb(224, 224, 224);
+        background-color: $bg_quaternary_color;
         border-radius: 10px;
         max-width: 300px;
         margin: 3px auto;
@@ -140,8 +141,8 @@ div.perfil-adulto-mayor--page-container {
         padding: 10px;
         margin: 5px auto;
         font-size: large;
-        color: white;
-        background-color: #eb9800;
+        color: $font_light_color;
+        background-color: $btn_primary_color;
         border-radius: 10px;
         margin-bottom: 20px;
       }
@@ -149,12 +150,12 @@ div.perfil-adulto-mayor--page-container {
       .ratings {
         width: fit-content;
         margin: 3px auto;
-        color: yellow;
+        color: $stars_color;
         scale: 1.4;
         z-index: 1;
 
         svg:last-child {
-          color: white;
+          color: $light_color;
           z-index: 2;
         }
       }

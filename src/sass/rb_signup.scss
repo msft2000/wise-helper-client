@@ -1,6 +1,7 @@
+@import "./variables";
 div.Signup {
   div.container {
-    background-color: #eeac34;
+    background-color: $bg_primary_color;
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -36,11 +37,11 @@ div.Signup {
         z-index: 2;
         width: 379px;
         height: 525px;
-        background: white;
+        background: $bg_light_color;
         border-radius: 34px;
         font-size: 13px;
         text-align: center;
-        color: rgba(0, 0, 0, 0.65);
+        color: $font_dark_color;
       }
     }
 
@@ -48,7 +49,7 @@ div.Signup {
       /*H1: SignUp*/
       font-weight: bold;
       font-size: 40px;
-      color: black;
+      color: $font_dark_color;
       text-align: center;
       margin-bottom: 27px;
     }
@@ -67,7 +68,7 @@ div.Signup {
           /*Inputs text: Nombres Apellidos*/
           width: 140px;
           height: 36px;
-          border: 1px solid rgba(0, 0, 0, 0.6);
+          border: 1px solid $dark_color;
           border-radius: 5px;
           text-align: center;
         }
@@ -77,8 +78,8 @@ div.Signup {
         /*Inputs text: Email, Cédula, Contraseña*/
         width: 292px;
         height: 36px;
-        background: white;
-        border: 1px solid rgba(0, 0, 0, 0.6);
+        background: $bg_light_color;
+        border: 1px solid $dark_color;
         border-radius: 5px;
         margin-top: 16px;
         text-align: center;
@@ -89,9 +90,9 @@ div.Signup {
       /*Boton de Sign UP*/
       width: 159px;
       height: 40px;
-      background: #eeac34;
+      background: $btn_primary_color;
       border-radius: 50px;
-      color: white;
+      color: $font_light_color;
       border: 0;
       font-weight: bold;
       font-size: 15px;
@@ -104,7 +105,7 @@ div.Signup {
         margin-top: 13px;
         font-weight: bold;
         font-size: 12px;
-        color: black;
+        color: $font_dark_color;
         opacity: 0.6;
       }
 
@@ -125,9 +126,9 @@ div.Signup {
           align-items: center;
           width: 95px;
           height: 26px;
-          background: #ffffff;
-          color: black;
-          border: 1px solid rgba(0, 0, 0, 0.45);
+          background: $bg_light_color;
+          color: $font_dark_color;
+          border: 1px solid $dark_color;
           border-radius: 5px;
           z-index: 1;
           user-select: none;
@@ -136,7 +137,7 @@ div.Signup {
             /*Boton de tipo de usuario: O*/
             width: 28px;
             height: 28px;
-            background: #d9d9d9;
+            background: $bg_aux_color;
             border: 0;
             border-radius: 100%;
             z-index: 2;
@@ -155,8 +156,8 @@ div.Signup {
           }
 
           &.selected {
-            background: #eeac34;
-            color: white;
+            background: $bg_primary_color;
+            color: $font_light_color;
           }
         }
       }
@@ -167,7 +168,7 @@ div.Signup {
         z-index: 1;
         width: 450px;
         height: 525px;
-        background: rgba(255, 255, 255, 0.9);
+        background: $bg_aux_color;
         border-radius: 0 34px 34px 0;
         transform: translateX(-43px);
       }
@@ -178,7 +179,7 @@ div.Signup {
         height: 203px;
         left: 70px;
         top: 45px;
-        background: #eeac34;
+        background: $bg_primary_color;
         border-radius: 100%;
       }
 
@@ -188,7 +189,7 @@ div.Signup {
         height: 203px;
         left: 200px;
         top: 65px;
-        background: #eeac34;
+        background: $bg_primary_color;
         border-radius: 100%;
       }
 
@@ -222,13 +223,13 @@ div.Signup {
 
     /* Estilos para dispositivos móviles */
     @media screen and (max-width: 480px) {
-      background-color: white;
+      background-color: $bg_light_color;
       div {
         &.content {
           height: 100%;
           width: 100%;
           margin-left: 0;
-          background-color: white;
+          background-color: $bg_light_color;
         }
 
         &.form form > div:first-child {
@@ -237,8 +238,8 @@ div.Signup {
           input {
             width: 292px;
             height: 36px;
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.6);
+            background: $bg_light_color;
+            border: 1px solid $dark_color;
             border-radius: 5px;
             margin-top: 16px;
             text-align: center;

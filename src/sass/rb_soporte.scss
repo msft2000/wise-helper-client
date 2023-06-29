@@ -1,12 +1,12 @@
 /*****************Botones ************************/
-
+@import "./variables";
 div.Soporte div.container div {
     &.btns {
       svg {
         /*Img Guia*/
         width: 40px;
         height: 40px;
-        color: #456CD9;
+        color: $icons_color;
       }
   
       /*Bloque: Botones*/
@@ -24,9 +24,9 @@ div.Soporte div.container div {
         width: 100px;
         height: 100px;
         margin-top: 25px;
-        background-color: #F3BF61;
+        background-color: $bg_primary_color;
         border-radius: 30px;
-        color: white;
+        color: $font_light_color;
         cursor: pointer;
         user-select: none;
       }
@@ -63,7 +63,7 @@ div.Soporte div.container div {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            border-top: 1px solid #858585;
+            border-top: 1px solid $tertiary_color;
             width: 70%;
             padding: 15px 0 15px 0;
             font-size: 14px;
@@ -117,7 +117,7 @@ div.Soporte div.container div {
             /*Bloques de opción*/
             display: flex;
             flex-direction: row;
-            border: 1px solid #333333;
+            border: 1px solid $tertiary_color;
             border-radius: 40px;
             padding: 20px;
             margin-bottom: 40px;
@@ -148,7 +148,7 @@ div.Soporte div.container div {
                 height: 45px;
                 margin-right: 40px;
                 -webkit-user-drag: none;
-                color: black;
+                color: $dark_color;
               }
   
               &:last-child {
@@ -156,12 +156,12 @@ div.Soporte div.container div {
                 width: 30px;
                 height: 30px;
                 margin-left: 20px;
-                background-color: #456CD9;
+                background-color: $icons_color;
                 border-radius: 30px;
                 padding: 10px 40px 10px 40px;
                 cursor: pointer;
                 -webkit-user-drag: none;
-                color: white;
+                color: $light_color;
               }
             }
           }

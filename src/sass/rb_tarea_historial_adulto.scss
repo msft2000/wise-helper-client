@@ -1,3 +1,5 @@
+@import "./variables";
+
 div.TareasHistorialA div.container {
   div.panel {
     height: 100%;
@@ -10,7 +12,7 @@ div.TareasHistorialA div.container {
       flex-direction: column;
       width: 100%;
       height: 150vh;
-      background: rgb(222, 222, 222);
+      background: $bg_quaternary_color;
       border-radius: 0 15px 15px 0;
 
       div.table {
@@ -28,7 +30,7 @@ div.TareasHistorialA div.container {
         thead {
           position: sticky;
           top: 0;
-          background: rgb(222, 222, 222);
+          background: $bg_quaternary_color;
           z-index: 1;
 
           th {
@@ -64,7 +66,7 @@ div.TareasHistorialA div.container {
           }
 
           tr.selected {
-            background-color: white;
+            background-color: $bg_light_color;
           }
 
           img {
@@ -84,7 +86,7 @@ div.TareasHistorialA div.container {
           p.enproceso,
           p.finalizada {
             display: inline;
-            color: white;
+            color: $font_light_color;
             border-radius: 20px;
             width: fit-content;
             height: auto;
@@ -118,7 +120,7 @@ div.TareasHistorialA div.container {
         margin-bottom: 20px;
         align-self: flex-end;
         svg {
-          color: black;
+          color: $font_dark_color;
           font-size: 20px;
           cursor: pointer;
         }
@@ -133,7 +135,7 @@ div.TareasHistorialA div.container {
         width: 100%;
         max-width: 498px;
         height: fit-content;
-        background: #f1b74d;
+        background: $bg_primary_color;
         padding: 15px 0 15px 0;
         border-radius: 42px;
         margin-bottom: 30px;
@@ -148,7 +150,7 @@ div.TareasHistorialA div.container {
 
           p {
             /*Puntuación*/
-            color: white;
+            color: $font_light_color;
             font-size: 20px;
             font-weight: 600;
             margin-left: 10px;
@@ -156,14 +158,14 @@ div.TareasHistorialA div.container {
           span {
             /*Grupo de estrellas*/
             font-size: 30px;
-            color: yellow;
+            color: $stars_color;
             svg {
               /*Cada estrella*/
               margin: 0 8px;
             }
             svg[data-testid="StarBorderIcon"] {
               /*Borde de estrella incompleta*/
-              color: rgba(41, 40, 40, 0.452);
+              color: $tertiary_color;
             }
           }
         }
@@ -177,7 +179,7 @@ div.TareasHistorialA div.container {
           p {
             /*Texto: Nombre y Voluntario*/
             text-align: center;
-            color: #ffffff;
+            color: $font_light_color;
           }
 
           p:first-child {
@@ -214,7 +216,7 @@ div.TareasHistorialA div.container {
         display: flex;
         flex-direction: column;
         padding-bottom: 30px;
-        border-bottom: 1.5px solid rgba(128, 128, 128, 0.192);
+        border-bottom: 1.5px solid $tertiary_color;
 
         p:nth-child(1) {
           /*Cabecera: Descripción de tarea*/
@@ -241,7 +243,7 @@ div.TareasHistorialA div.container {
       margin-bottom: 20px;
       align-self: flex-end;
       svg {
-        color: black;
+        color: $font_dark_color;
         font-size: 20px;
         cursor: pointer;
       }

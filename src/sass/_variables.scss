@@ -1,8 +1,41 @@
-$primary_color: #eeac34;
-$secondary_color: #383535;
-$tertiary_color: white;
-$font_primary_color: black;
-$font_secondary_color: #232323;
-$font_tertiary_color: #666666;
-$labels_color: #d38713;
-$icons_color: #456cd9;
+// Colores empleados en el sitio web
+$color_1: #eeac34;
+$color_2: green;//#d38713;
+$color_3: #383535;
+$color_4: #232323;
+$color_5: #666666;
+$color_6: #456cd9;
+$color_7: rgb(222, 222, 222);
+$color_8: #fdf7eb;
+$color_light: white;
+$color_dark: black;
+
+// Colores Generales
+$primary_color: $color_1;
+$secondary_color: $color_3;
+$tertiary_color: $color_5; 
+$light_color: $color_light;
+$dark_color: $color_dark;
+// Colores Background
+$bg_primary_color: $color_1;
+$bg_secondary_color: $color_3;
+$bg_tertiary_color: $color_5;
+$bg_quaternary_color: $color_7;
+$bg_aux_color: $color_8;
+$bg_light_color: $color_light;
+$bg_dark_color: $color_dark;
+
+// Colores Botones
+$btn_primary_color: $color_2;
+
+// Colores fuente
+$font_dark_color: $color_dark;
+$font_secondary_color: $color_4;
+$font_tertiary_color: $color_5;
+$font_light_color: $color_light;
+// Colores  Labels
+$labels_color: $color_2;
+
+$icons_color: $color_6;
+
+$stars_color: yellow;
