@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@headlessui/react": "^1.7.15",
     "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.0",
@@ -13,6 +14,8 @@
     "@testing-library/user-event": "^13.5.0",
     "ec-dni-validator": "^1.5.0",
     "popper.js": "^1.16.1",
+    "primeicons": "^6.0.1",
+    "primereact": "^9.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",

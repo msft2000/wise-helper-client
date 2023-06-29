@@ -44,7 +44,7 @@ div.Soporte div.container div {
         /*Bloque: FAQ*/
         display: flex;
         flex-direction: column;
-  
+        margin-bottom: 20px;
         h1 {
           /*Bloque - FAQ: h1 Preguntas Frecuentes*/
           font-weight: bolder;
@@ -176,7 +176,7 @@ div.Soporte div.container div {
   
   /* Estilos para dispositivos móviles */
   @media screen and (max-width: 480px) {
-    div.Soporte div.container {
+    div.Soporte div.container div{
       &.btns {
         p {
           /*Texto: debajo de cada icono*/
