@@ -8,7 +8,8 @@ div.PortalServicios {
     background-color: $bg_primary_color;
     font-size: 20px;
     user-select: none;
-    height: 70vh;
+    height: auto;
+    padding: 15px;
     .content_h1 {
       text-align: center;
       color: $font_light_color;
@@ -66,7 +67,11 @@ div.PortalServicios {
           padding: 5px 15% 5px 15%;
           margin: 0 0 20px 0;
           cursor: pointer;
+          &:hover {
+            scale: 1.1;
+          }
         }
+        
       }
     }
   }

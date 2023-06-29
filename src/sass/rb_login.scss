@@ -19,8 +19,8 @@ div.Login {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 40px 0 40px 0;
-    height: 70vh;
+    margin: 40px 0;
+    height: auto;
 
     section.loginform {
       width: $login_box_width;
@@ -98,6 +98,9 @@ div.Login {
         font-size: 15px;
         color: $font_light_color;
         cursor: pointer;
+        &:hover {
+          scale: 1.1;
+        }
       }
 
       p {

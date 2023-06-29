@@ -1,3 +1,5 @@
+@import "./variables";
+
 div.TareasV div.container {
   div.panel {
     /*Panel de contenido*/
@@ -11,9 +13,9 @@ div.TareasV div.container {
       flex-direction: column;
       width: 100%;
       height: 150vh;
-      background: rgb(222, 222, 222);
+      background: $bg_quaternary_color;
       border-radius: 0 15px 15px 0;
-
+      padding: 10px;
       div.btns {
         display: flex;
         justify-content: space-around;
@@ -28,19 +30,22 @@ div.TareasV div.container {
           align-items: center;
           width: 170px;
           height: 30px;
-          background: #f1b74d;
+          background: $btn_primary_color;
           border-radius: 20px;
-          color: white;
+          color: $font_light_color;
           font-size: 15px;
           vertical-align: middle;
           cursor: pointer;
           user-select: none;
+          &:hover {
+            scale: 1.1;
+          }
 
           svg {
             width: 20px;
             height: 20px;
             margin: 0px 5px 0px 0px;
-            color: white;
+            color: $font_light_color;
           }
         }
       }
@@ -59,7 +64,7 @@ div.TareasV div.container {
         thead {
           position: sticky;
           top: 0;
-          background: rgb(222, 222, 222);
+          background: $bg_quaternary_color;
           z-index: 1;
 
           th {
@@ -95,7 +100,7 @@ div.TareasV div.container {
           }
 
           tr.selected {
-            background-color: white;
+            background-color: $bg_light_color;
           }
 
           img {
@@ -126,7 +131,7 @@ div.TareasV div.container {
         margin-bottom: 20px;
         align-self: flex-end;
         svg {
-          color: black;
+          color: red;//black;
           font-size: 20px;
           cursor: pointer;
         }
@@ -136,10 +141,10 @@ div.TareasV div.container {
         /*Diseño Botones de Finalizar y Enviar*/
         width: fit-content;
         height: fit-content;
-        color: white;
+        color: $font_light_color;
         font-weight: bold;
         font-size: 18px;
-        background: #f1b74d;
+        background: $btn_primary_color;
         border-radius: 20px;
         cursor: pointer;
         border: 0;
@@ -154,7 +159,7 @@ div.TareasV div.container {
         width: 100%;
         max-width: 498px;
         height: fit-content;
-        background: #f1b74d;
+        background: $bg_primary_color;
         padding: 15px 0 15px 0;
         border-radius: 42px;
         margin-bottom: 30px;
@@ -169,7 +174,7 @@ div.TareasV div.container {
 
           p {
             /*Puntuación*/
-            color: white;
+            color: $font_light_color;
             font-size: 20px;
             font-weight: 600;
             margin-left: 10px;
@@ -177,14 +182,14 @@ div.TareasV div.container {
           span {
             /*Grupo de estrellas*/
             font-size: 30px;
-            color: yellow;
+            color: $stars_color;
             svg {
               /*Cada estrella*/
               margin: 0 8px;
             }
             svg[data-testid="StarBorderIcon"] {
               /*Borde de estrella incompleta*/
-              color: rgba(41, 40, 40, 0.452);
+              color: $tertiary_color;
             }
           }
         }
@@ -198,7 +203,7 @@ div.TareasV div.container {
           p {
             /*Texto: Nombre*/
             text-align: center;
-            color: #ffffff;
+            color: $font_light_color;
             font-size: 23px;
             display: flex;
             align-items: center;
@@ -227,7 +232,7 @@ div.TareasV div.container {
         display: flex;
         flex-direction: column;
         padding-bottom: 30px;
-        border-bottom: 1.5px solid rgba(128, 128, 128, 0.192);
+        border-bottom: 1.5px solid $tertiary_color;
 
         p:nth-child(1) {
           /*Cabecera: Descripción de tarea*/
@@ -247,6 +252,9 @@ div.TareasV div.container {
           display: flex;
           align-self: flex-end;
           margin-top: 30px;
+          &:hover {
+            scale: 1.1;
+          }
         }
       }
 
@@ -287,10 +295,10 @@ div.TareasV div.container {
           /*Boton: Aceptar*/
           width: fit-content;
           height: fit-content;
-          color: white;
+          color: $font_light_color;
           font-weight: bold;
           font-size: 18px;
-          background: #f1b74d;
+          background: $btn_primary_color;
           border-radius: 15px;
           cursor: pointer;
           border: 0;
@@ -299,11 +307,14 @@ div.TareasV div.container {
           align-self: center;
           border: 0;
           margin: 120px 0 0 0;
+          &:hover {
+            scale: 1.1;
+          }
         }
         > p:last-child {
           margin-top: 29px;
           font-weight: bold;
-          color: #999999;
+          color: $tertiary_color;
           text-align: center;
         }
       }
@@ -318,7 +329,7 @@ div.TareasV div.container {
       margin-bottom: 20px;
       align-self: flex-end;
       svg {
-        color: black;
+        color: $dark_color;
         font-size: 20px;
         cursor: pointer;
       }
@@ -331,7 +342,7 @@ div.TareasV div.container {
       margin-bottom: 20px;
       align-self: flex-end;
       svg {
-        color: black;
+        color: $font_dark_color;
         font-size: 20px;
         cursor: pointer;
       }

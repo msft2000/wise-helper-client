@@ -1,3 +1,5 @@
+@import "./variables";
+
 div.agregar-tareas {  
   .agregar-tarea-general--container {
     width: 100%;
@@ -12,13 +14,13 @@ div.agregar-tareas {
   
       h1 {
         font-weight: 400;
-        color: #f1b74d;
+        color: $font_dark_color;
       }
   
       hr {
         width: 90%;
         color: transparent;
-        border-top: 2px dashed lightgray;
+        border-top: 2px dashed $tertiary_color;
       }
     }
   
@@ -28,12 +30,15 @@ div.agregar-tareas {
       max-width: 400px;
       margin: 30px auto;
       padding: 50px 70px 20px 70px;
-      color: white;
-      background-color: #f1b74d;
+      color: $font_light_color;
+      background-color: $bg_primary_color;
       border-radius: 20px;
-      box-shadow: 0px 0px 5px 20px rgba(229, 183, 98, 29%);
+      box-shadow: 0px 0px 5px 20px $bg_aux_color;
       button{
         cursor:pointer;
+        &:hover {
+          scale: 1.1;
+        }
       }
       label {
         font-weight: 600;
@@ -45,7 +50,7 @@ div.agregar-tareas {
         margin-bottom: 20px;
         border: none;
         border-radius: 5px;
-        background-color: #d9d9d9;
+        background-color: $font_light_color;
       }
   
       button {
@@ -53,8 +58,8 @@ div.agregar-tareas {
         margin: 0 auto;
         padding: 10px 20px;
         font-size: large;
-        color: #f1b74d;
-        background-color: white;
+        color: $font_light_color;
+        background-color: $btn_primary_color;
         border: none;
         border-radius: 15px;
       }

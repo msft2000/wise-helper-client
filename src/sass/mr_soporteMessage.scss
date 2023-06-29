@@ -71,24 +71,31 @@ div.soporte-message {
 
     .btn {
       width: fit-content;
-      padding-top: 3px;
-      padding-bottom: 3px;
+      padding: 10px 15px;
+      font-size: 15px;
+      border-radius: 15px;
       margin-top: 1vh;
       cursor: pointer;
+      border: none;
+      font-weight: bold;      
+      border: 2px solid $btn_primary_color;
+      &:hover {
+        scale: 1.1;
+      }
     }
 
     .btn-orange {
       /*Boton agregar captura*/
       background-color: $btn_primary_color;
       color: $font_light_color;
+      margin-left: 6px;
     }
 
     .btn-grey {
       /*Boton agregar captura*/
-      background-color: $bg_quaternary_color;
+      background-color: $bg_light_color;
       color: $font_dark_color;
-      margin-right: 4px;
-      border: $btn_primary_color;
+      margin-right: 6px;
     }
 
     .ocultar {

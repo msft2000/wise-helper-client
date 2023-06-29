@@ -1,3 +1,5 @@
+@import "./variables";
+
 div.tareas-activas--page {
   div.tareas-activas--container {
     display: flex;
@@ -8,7 +10,7 @@ div.tareas-activas--page {
       min-height: 100vh;
       border-top-right-radius: 30px;
       border-bottom-right-radius: 30px;
-      background-color: #dedede;
+      background-color: $bg_quaternary_color;
       background-repeat: no-repeat;
       background-size: 50px;
       transition: width 0.5s;
@@ -27,10 +29,13 @@ div.tareas-activas--page {
         button {
           display: flex;
           align-items: center;
-          color: white;
-          background-color: #f1b74d;
+          color: $font_light_color;
+          background-color: $btn_primary_color;
           border: none;
           border-radius: 10px;
+          &:hover {
+            scale: 1.1;
+          }
         }
       }
 
@@ -52,15 +57,15 @@ div.tareas-activas--page {
             }
 
             .en-proceso {
-              color: white;
-              background-color: #f1b74d;
+              color: $font_light_color;
+              background-color: $bg_primary_color;
               padding: auto;
               border-radius: 10px;
             }
 
             .tarea-activa {
               height: 40px;
-              background-color: white;
+              background-color: $bg_light_color;
               transition: background-color 0.5s;
 
               .en-proceso {
@@ -85,17 +90,19 @@ div.tareas-activas--page {
           width: 100%;
           margin-top: 20px;
           margin-bottom: 20px;
-          border-top: 1px solid lightgray;
+          border-top: 1px solid $tertiary_color;
         }
 
         button{
-            font-size: larger;
-            padding: 5px 20px;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            background-color: #F1B74D;
-        
+          font-size: larger;
+          padding: 5px 20px;
+          border: none;
+          border-radius: 10px;
+          color: $font_light_color;
+          background-color: $bg_primary_color;
+          &:hover {
+            scale: 1.1;
+          }
         }
 
         .volunter--container {
@@ -104,7 +111,7 @@ div.tareas-activas--page {
           flex-direction: column;
           align-items: center;
           border-radius: 20px;
-          background-color: #f1b74d;
+          background-color: $bg_primary_color;
 
           .volunter--header {
             width: 100%;
@@ -112,7 +119,7 @@ div.tareas-activas--page {
             justify-content: space-evenly;
             align-items: center;
             padding: 10px 20px;
-            color: white;
+            color: $font_light_color;
 
             img {
               width: 20%;
@@ -120,14 +127,14 @@ div.tareas-activas--page {
           }
 
           .ratings {
-            color: white;
+            color: $stars_color;
             display: flex;
             justify-content: space-evenly;
             align-items: center;
             margin-bottom: 10px;
 
             svg:last-child {
-              color: black;
+              color: $dark_color;
             }
           }
         }
