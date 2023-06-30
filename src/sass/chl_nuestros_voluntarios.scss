@@ -1,0 +1,94 @@
+@import "./variables";
+
+div.nuestrosVoluntarios{   
+  .container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    
+    .general{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 60%;
+    }
+
+    .voluntarios{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 60%;
+        .inicio{
+            background-color: $bg_primary_color;
+            padding: 5px 0px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            color: $light_color;
+        }
+        .voluntario{
+            display: flex;
+            div{
+                padding: 10px;
+            }
+            .informacion{
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+            .imagen{
+                width: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                    border-radius: 50%;
+                    max-height: 200px;
+                    display: block;
+                }
+            }
+        }
+        .v1{
+            background-color: $bg_aux_color;
+            color: $font_secondary_color;
+        }
+        .v2{
+            background-color: $bg_primary_color;
+            color: $font_light_color;
+        }
+    }
+  }  
+}
+
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 480px) {
+    .general{
+        width: 98% !important;
+    }
+
+    .voluntarios{
+        width: 98% !important;
+        .voluntario{
+            flex-direction: column;
+            div{
+                width: 100% !important;
+            }
+        }
+    }
+  }
+
+  /* Estilos para tabletas */
+  @media screen and (min-width: 481px) and (max-width: 1104px) {
+    .general{
+        width: 80% !important;
+    }
+
+    .voluntarios{
+        width: 80% !important;
+        
+    }
+  }
+

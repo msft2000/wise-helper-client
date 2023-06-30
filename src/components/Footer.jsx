@@ -47,7 +47,7 @@ function Footer(){
                 <h1>Enlaces de utilidad</h1>
                 <ul>
                     <li onClick={()=>navigate("/")}><MdKeyboardArrowRight/><a href="">Inicio</a></li>
-                    <li onClick={()=>navigate("/")}><MdKeyboardArrowRight/><a href="">Nuestros Voluntarios</a></li>
+                    <li onClick={()=>navigate(path2+"our_volunters")}><MdKeyboardArrowRight/><a href="">Nuestros Voluntarios</a></li>
                     <li onClick={()=>navigate(path2+"support")}><MdKeyboardArrowRight/><a href="">Soporte</a></li>
                     <li onClick={()=>navigate(path2+"support/tyc")}><MdKeyboardArrowRight/><a href="">Términos y Condiciones</a></li>
                     <li onClick={()=>navigate(path2+"support")}><MdKeyboardArrowRight/><a href="">FAQ</a></li>

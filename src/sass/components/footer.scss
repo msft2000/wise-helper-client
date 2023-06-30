@@ -113,7 +113,9 @@ footer.footer {
             text-decoration: none;
           }
           &:hover {
-
+            border-top: 1px solid $light_color;
+            border-bottom: 1px solid $light_color;
+            background-color: $bg_tertiary_color;
           }
         }
       }

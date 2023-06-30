@@ -20,6 +20,7 @@ import { TerminosCondiciones } from "../pages/CHL_Terminos_Condiciones";
 import { SoporteMessage } from "../pages/MR_SoporteMessage";
 import { TareasHistorialAdulto } from "../pages/RB_Tareas_Historial_Adulto";
 import {PortalServicios} from "../pages/RB_Portal_Servicios"; 
+import {NuestrosVoluntarios} from "../pages/CHL_Nuestros_Voluntarios";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/support" element={<Soporte/>} />
           <Route path="/support/send-message" element={<SoporteMessage />} />
           <Route path="/support/tyc" element={<TerminosCondiciones />} />
+          <Route path="/our_volunters" element={<NuestrosVoluntarios />} />
           {/* Paginas del adulto mayor */}
           <Route path="/adult" element={<TareasAdulto />} />
           <Route path="/adult/agregar-tarea" element={<AgregarTarea />} />
@@ -45,6 +47,7 @@ function App() {
           <Route path="/adult/support" element={<Soporte/>} />
           <Route path="/adult/support/send-message" element={<SoporteMessage />}/>
           <Route path="/adult/support/tyc" element={<TerminosCondiciones />} />
+          <Route path="/adult/our_volunters" element={<NuestrosVoluntarios />} />
           {/* Paginas del voluntario */}
           <Route path="/volunter" element={<TareasVoluntario />} />
           <Route path="/volunter/tareas" element={<TareasActivas />} />
@@ -53,6 +56,7 @@ function App() {
           <Route path="/volunter/support" element={<Soporte/>} />
           <Route path="/volunter/support/send-message" element={<SoporteMessage />}/>
           <Route path="/volunter/support/tyc" element={<TerminosCondiciones />} />
+          <Route path="/volunter/our_volunters" element={<NuestrosVoluntarios />} />
         </Routes>
       </GeneralProvider>
     </BrowserRouter>

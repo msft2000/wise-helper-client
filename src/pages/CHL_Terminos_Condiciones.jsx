@@ -6,7 +6,7 @@ import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
 import { Header as HeaderAdulto } from "../components/Header_Adulto";
 import { Header as HeaderIndex } from "../components/Header_Index";
 import { Footer } from "../components/Footer";
-import { useNavigate } from "react-router-dom";
+
 function TerminosCondiciones() {
   const url = window.location.href;
   return (
@@ -17,11 +17,11 @@ function TerminosCondiciones() {
       ) : url.includes("volunter") ? (
         <HeaderVoluntario />
       ) : (
-        <HeaderIndex></HeaderIndex>
+        <HeaderIndex />
       )}
 
       <div className="container">
-        <div class="div1">
+        <div className="div1">
           <h1> Terminos y Condiciones</h1>
           Bienvenido a nuestra aplicación de atención a adultos mayores. Antes
           de utilizar nuestra aplicación, te pedimos que leas detenidamente los
@@ -87,7 +87,7 @@ function TerminosCondiciones() {
           y nosotros con respecto a la aplicación de atención a adultos mayores.
           Si tienes alguna duda, Contactanos
         </div>
-        <div class="div2">
+        <div className="div2">
           <img src={imgTerm} alt="" style={{ width: "100%" }} />
         </div>
       </div>

@@ -15,17 +15,17 @@ function Content(){
                 <article className="card">
                     <h1 className="card_h1">Adulto Mayor</h1>
                     <h2 className="card_h2"> Ingresa en tu cuenta para solicitar ayuda en tus tareas diarias.</h2>
-                    <button className="card_btn" onClick={()=>{navigate("/login-adulto")}}>INGRESAR</button>
+                    <button className="card_btn" onClick={()=>{navigate("/login-adulto")}}>Ingresar</button>
                 </article>
                 <article className="card">
                     <h1 className="card_h1">Voluntario</h1>
                     <h2 className="card_h2">Ingresa en tu cuenta para ayudar a adultos mayores con sus tareas diarias.</h2>
-                    <button className="card_btn" onClick={()=>{navigate("/login-voluntario")}}>INGRESAR</button>
+                    <button className="card_btn" onClick={()=>{navigate("/login-voluntario")}}>Ingresar</button>
                 </article>
                 <article className="card">
                     <h1 className="card_h1">Administrador</h1>
                     <h2 className="card_h2">Ingresa en tu cuenta de administrador</h2>
-                    <button className="card_btn" onClick={()=>{}}>INGRESAR</button>
+                    <button className="card_btn" onClick={()=>{}}>Ingresar</button>
                 </article>
             </section>
         </div>
