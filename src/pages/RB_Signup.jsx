@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../sass/rb_signup.scss";
 import img3 from "../assets/img/img3.png";
 import img4 from "../assets/img/img4.png";
@@ -15,9 +16,11 @@ function Signup() {
   const [id, setID] = React.useState("");
   const [flag3, setFlag3] = React.useState(false);
   const refForm = React.useRef(0);
+  const navigate=useNavigate();
   return (
     <div className="Signup">
       <Header></Header>
+
       <div className="container">
         <div className="content">
           {flag3 && pass.length < 8 ? (
@@ -87,7 +90,9 @@ function Signup() {
               </div>
               <input type="submit" value="Sign Up" />
             </form>
+            <a href="" onClick={()=>{navigate("/portal")}}>o Inicia Sesión</a>
           </div>
+
           <div className="photos">
             <div class="elipse1">
               <img src={img4} alt="" />
@@ -96,6 +101,7 @@ function Signup() {
               <img src={img3} alt="" />
             </div>
           </div>
+          
         </div>
       </div>
 
