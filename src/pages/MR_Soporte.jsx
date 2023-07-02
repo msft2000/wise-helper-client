@@ -120,11 +120,10 @@ function SoporteAdmin() {
               type="button"
               value="Responder"
               class="btn btn-orange"
-              onClick={() => navigate("/respuesta")}
+              onClick={() => navigate("/admin/respuesta/123")}
             ></input>
           </div>
 
-          <footer style={{ fontSize: "small" }}>Mateo Reinoso</footer>
         </section>
       </div>
       <Footer />

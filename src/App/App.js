@@ -24,6 +24,7 @@ import { NuestrosVoluntarios } from "../pages/CHL_Nuestros_Voluntarios";
 import { AdminLogin } from "../pages/MF_AdminLogin";
 import { SoporteAdmin } from "../pages/MR_Soporte";
 import { AdministrarUsuarios } from "../pages/MF_Administrar_Usuarios";
+import { Respuesta } from "../pages/MR_Respuesta";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
           <Route path="/admin">
             <Route path="" element={<SoporteAdmin />} />
             <Route path="usuarios" element={<AdministrarUsuarios />} />
+            <Route path="respuesta/:id" element={<Respuesta/>} />
           </Route>
         </Routes>
       </GeneralProvider>
