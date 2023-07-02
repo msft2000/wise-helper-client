@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+
+#soporte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  * {
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 7px;
+  }
+
+  h2 {
+    margin-bottom: 7px;
+    font-weight: bold;
+  }
+
+  /*Barra inferior seleccion*/
+
+  li.selected {
+    border-bottom: 3px solid #d38713;
+  }
+
+  /*Contenedor de la tabla y los botones*/
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    > div:nth-child(2) {
+      /*Bloque: Tabla de tareas*/
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      text-align: center;
+      font-size: 15px;
+      width: 90vw;
+      max-width: 90vw;
+      height: 60vh;
+      max-height: 60vh;
+      background-color: rgb(222, 222, 222);
+      border-radius: 5px;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+
+    thead {
+      /*Cabecera de la tabla*/
+      position: sticky;
+      top: 0;
+      background: rgb(222, 222, 222);
+
+      th {
+        /*Nombres de la columnas de la tabla*/
+        font-weight: bold;
+        height: 30px;
+        padding: 30px;
+        border-bottom: 1px solid black;
+      }
+    }
+
+    tbody tr {
+      /*Filas de la tabla*/
+      height: 50px;
+    }
+
+    tr.selected {
+      /*Estilo de fila seleccionada*/
+      background-color: white;
+    }
+
+    tbody img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+  }
+
+  /*Botones*/
+
+  section .btns {
+    margin-top: 10px;
+  }
+
+  .btn {
+    width: fit-content;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 1vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+
+  .btn-orange {
+    /*Boton agregar captura*/
+    background-color: #f1b74d;
+    color: white;
+    margin-left: 7px;
+  }
+
+  .btn-grey {
+    /*Boton agregar captura*/
+    background-color: #ecebeb;
+    color: black;
+    margin-left: 7px;
+  }
+}

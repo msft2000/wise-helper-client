@@ -25,7 +25,7 @@ function Content(){
                 <article className="card">
                     <h1 className="card_h1">Administrador</h1>
                     <h2 className="card_h2">Ingresa en tu cuenta de administrador</h2>
-                    <button className="card_btn" onClick={()=>{}}>Ingresar</button>
+                    <button className="card_btn" onClick={()=>{navigate("/login-admin")}}>Ingresar</button>
                 </article>
             </section>
         </div>

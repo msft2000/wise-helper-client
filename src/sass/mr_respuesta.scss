@@ -1,0 +1,180 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+
+#respuesta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  * {
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 7px;
+  }
+
+  h2 {
+    margin-bottom: 7px;
+    font-weight: bold;
+  }
+
+  /*Navbar*/
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+    padding: 15px 0px 20px 0px;
+    background-color: #ecebeb8e;
+    z-index: 2;
+
+    a {
+      /*Enlace*/
+      text-decoration: none;
+      color: black;
+      font-size: 20px;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+  }
+
+  /*Barra inferior seleccion*/
+
+  li.selected {
+    border-bottom: 3px solid #d38713;
+  }
+
+  /*contenido*/
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    z-index: 2;
+
+    div input {
+      border-radius: 10px;
+      border: 1px solid black;
+    }
+  }
+
+  .Asunto {
+    display: flex;
+    flex-direction: row;
+  }
+
+  section .Asunto > p {
+    /*txt asunto*/
+    width: 56vw;
+    margin-left: 10px;
+    padding: 7px 11px;
+    background: #ecebeb;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+
+  .Detalles {
+    display: flex;
+    flex-direction: row;
+  }
+
+  section {
+    .Detalles div {
+      display: flex;
+      flex-direction: column;
+      margin-left: 7px;
+
+      > p {
+        /*txt detalle*/
+        padding: 7px 11px;
+        box-sizing: border-box;
+        width: 58vw;
+        height: 15vh;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        background: #ecebeb;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+    }
+
+    .Respuesta > textarea {
+      padding: 7px 11px;
+      box-sizing: border-box;
+      width: 66vw;
+      height: 18vh;
+      background: white;
+      border: 1px solid #000000;
+      border-radius: 10px;
+      resize: none;
+    }
+
+    > div:nth-child(5) {
+      /*div botones*/
+      width: 100%;
+      margin-top: 2vh;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  }
+
+  /*Botones*/
+
+  .btn {
+    width: fit-content;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 1vh;
+    cursor: pointer;
+  }
+
+  .btn-orange {
+    /*Boton naranja*/
+    background-color: #f1b74d;
+    color: white;
+  }
+
+  .btn-grey {
+    /*Boton gris*/
+    background-color: #ecebeb;
+    color: black;
+    margin-right: 10px;
+    border: white;
+  }
+
+  .btn-white {
+    /*Boton gris*/
+    color: black;
+    margin-right: 10px;
+    border: #ecebeb;
+    background-color: white;
+  }
+
+  .ocultar {
+    color: white;
+    display: flex;
+    margin-left: 5px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+    font-size: small;
+  }
+
+  .error {
+    color: red;
+  }
+}

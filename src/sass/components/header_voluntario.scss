@@ -115,6 +115,7 @@ header.header_voluntario {
           display: flex;
           color: $font_light_color;
           text-align: right;
+          align-items: center;
           padding: 10px 15px 10px 15px;
           &:hover {
             background-color: $bg_tertiary_color;
