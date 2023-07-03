@@ -90,7 +90,7 @@ function Signup() {
               </div>
               <input type="submit" value="Sign Up" />
             </form>
-            <a href="" onClick={()=>{navigate("/portal")}}>o Inicia Sesión</a>
+            <a href="#" onClick={()=>{navigate("/portal")}}>o Inicia Sesión</a>
           </div>
 
           <div className="photos">

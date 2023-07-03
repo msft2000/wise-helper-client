@@ -13,40 +13,41 @@ import { Header as HeaderAdulto } from "../components/Header_Adulto";
 import { Header as HeaderIndex } from "../components/Header_Index";
 import { Footer } from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import { useState, Fragment } from "react";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-function CuadroDialogo({open,setOpen}){
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import questions from "../assets/json/faq_questions.json";
+function CuadroDialogo({ open, setOpen }) {
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    borderRadius:'20px',
-    boxShadow: 24,
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 300,
+    bgcolor: "background.paper",
+    border: "1px solid #000",
+    borderRadius: "20px",
+    boxShadow: 20,
     p: 4,
   };
-  return(
+  return (
     <Modal
-        open={open}
-        onClose={()=>{setOpen(false)}}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            ¡Contactate con nosotros!
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
+      open={open}
+      onClose={() => {
+        setOpen(false);
+      }}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          ¡Contactate con nosotros!
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+          <a href="tel:+593-987654321">+593-987654321</a>
+        </Typography>
+      </Box>
+    </Modal>
   );
 }
 
@@ -70,12 +71,18 @@ function FAQQuest(props) {
   );
 }
 
+function getQuestions() {
+  return questions.map((quest, index) => {
+    return <FAQQuest quest={quest.quest} answ={quest.answ} />;
+  });
+}
+
 function Soporte() {
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState([0, 1, 0]);
   const url = window.location.href;
   const [open, setOpen] = React.useState(false);
-  
+
   return (
     <div className="Soporte">
       {url.includes("adult") ? (
@@ -136,81 +143,7 @@ function Soporte() {
             {/*Bloque de Preguntas Frecuentes*/}
             <h1>Preguntas frecuentes</h1>
             <section>
-              <FAQQuest
-                quest="¿Qué es el sitio web y para qué sirve?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-              />
-              <FAQQuest
-                quest="¿Es gratis registrarse en el sitio web como voluntario o
-                  adulto mayor?"
-                answ="Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Obcaecati sunt amet hic voluptatibus facilis, placeat vero
-                  excepturi neque. Iusto nam possimus dolores repellat fuga,
-                  temporibus dicta at labore in molestias."
-              />
-              <FAQQuest
-                quest="¿Cómo funciona el proceso de selección de tareas para los
-                  voluntarios?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore iure, odit animi tenetur sed quibusdam optio sequi
-                  architecto dolor. Officia accusamus veniam architecto
-                  perspiciatis voluptates error nisi tenetur impedit fuga."
-              />
-              <FAQQuest
-                quest="¿Cómo se realiza la comunicación entre los voluntarios y los
-                  adultos mayores?"
-                answ="Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Mollitia cupiditate ipsam sint rerum. Molestiae, expedita
-                  omnis quibusdam alias deleniti sequi nesciunt quae ea nemo
-                  optio recusandae exercitationem, asperiores nihil eligendi."
-              />
-              <FAQQuest
-                quest="¿Qué tipo de tareas pueden publicar los adultos mayores?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore iure, odit animi tenetur sed quibusdam optio sequi
-                  architecto dolor. Officia accusamus veniam architecto
-                  perspiciatis voluptates error nisi tenetur impedit fuga."
-              />
-              <FAQQuest
-                quest="¿Qué información debo proporcionar cuando publico una tarea
-                  como adulto mayor?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore iure, odit animi tenetur sed quibusdam optio sequi
-                  architecto dolor. Officia accusamus veniam architecto
-                  perspiciatis voluptates error nisi tenetur impedit fuga."
-              />
-              <FAQQuest
-                quest="¿Cómo se garantiza la seguridad y privacidad de los datos de
-                  los voluntarios y adultos mayores?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore iure, odit animi tenetur sed quibusdam optio sequi
-                  architecto dolor. Officia accusamus veniam architecto
-                  perspiciatis voluptates error nisi tenetur impedit fuga."
-              />
-              <FAQQuest
-                quest="¿Qué medidas de seguridad se aplican en el sitio web para
-                  evitar fraudes o estafas?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore iure, odit animi tenetur sed quibusdam optio sequi
-                  architecto dolor. Officia accusamus veniam architecto
-                  perspiciatis voluptates error nisi tenetur impedit fuga."
-              />
-              <FAQQuest
-                quest="¿Qué pasa si un voluntario acepta una tarea y después no
-                  puede cumplir con ella?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore iure, odit animi tenetur sed quibusdam optio sequi
-                  architecto dolor. Officia accusamus veniam architecto
-                  perspiciatis voluptates error nisi tenetur impedit fuga."
-              />
-              <FAQQuest
-                quest="¿Cómo funciona el sistema de calificación y cómo puede
-                  ayudar a elegir al mejor voluntario para realizar una tarea?"
-                answ="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore iure, odit animi tenetur sed quibusdam optio sequi
-                  architecto dolor. Officia accusamus veniam architecto
-                  perspiciatis voluptates error nisi tenetur impedit fuga."
-              />
+              {getQuestions()}
             </section>
           </div>
 
@@ -230,7 +163,11 @@ function Soporte() {
                     llamanos.
                   </p>
                 </div>
-                <MdLocalPhone onClick={()=>{setOpen(true)}}/>
+                <MdLocalPhone
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                />
               </div>
               <div>
                 <MdMarkUnreadChatAlt />
@@ -248,7 +185,7 @@ function Soporte() {
         </div>
       </div>
       <Footer></Footer>
-      <CuadroDialogo open={open} setOpen={setOpen}/>
+      <CuadroDialogo open={open} setOpen={setOpen} />
     </div>
   );
 }

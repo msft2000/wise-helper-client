@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
 import { Header as HeaderAdulto } from "../components/Header_Adulto";
 import { Header as HeaderIndex } from "../components/Header_Index";
@@ -7,6 +8,7 @@ import "../sass/mr_soporteMessage.scss";
 
 function SoporteMessage({ adultoMayor }) {
   const url = window.location.href;
+  const navigate=useNavigate();
   return (
     <div className="soporte-message">
       {url.includes("adult") ? (
@@ -56,7 +58,7 @@ function SoporteMessage({ adultoMayor }) {
             type="button"
             value="Cancelar"
             class="btn btn-grey"
-            onClick={() => console.log(!url.includes("volunter"))}
+            onClick={() =>{url.includes("adult") ? navigate("/adult/support") : url.includes("volunter") ? navigate("/volunter/support") : navigate("/support") }}
           />
           <input type="button" value="Enviar" class="btn btn-orange" />
         </div>

@@ -7,6 +7,59 @@ import { AiFillFilter } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
 import { MdLocationOn } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }) {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmmit = () => {
+    setOpen(false);
+    const ref = document.querySelector("div.TareasA tr.selected");
+    const ref2 = document.querySelector("div.TareasA section.tarea_desc2");
+    ref.setAttribute("hidden", "");
+    ref2.setAttribute("style", "display:none");
+    refTareasContent.current.style.display = "flex";
+  };
+
+  const handleSubmmit2 = () => {
+    setOpen(false);
+    navigate("/volunter/tareas")
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {msg}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Cancelar
+        </Button>
+        <Button onClick={()=>{flag ? handleSubmmit(): handleSubmmit2()}} color="primary" autoFocus>
+          Continuar
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
 
 function Tabla({
   data,
@@ -81,7 +134,10 @@ function Tabla({
   );
 }
 
-function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
+function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent, open, setOpen}) {
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
   return (
     <section className="tarea_desc" style={{ display: detalle.display }}>
       <section>
@@ -116,7 +172,15 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent }) {
           <p>{detalle.ubicacion}</p>
         </div>
 
-        <input type="button" value="Aceptar" />
+        <input type="button" value="Aceptar" onClick={handleClickOpen}/>
+        <CuadroDialogo
+        open={open}
+        setOpen={setOpen}
+        refTareasContent={refTareasContent}
+        msg="Se aceptará la tarea seleccionada y no se podrán hacer cambios."
+        title="Está seguro en querer aceptar la tarea seleccionada?"
+        flag={false}
+      />
 
         <p>Para obtener detalles de la tarea debes aceptarla</p>
       </div>
@@ -174,7 +238,7 @@ function TareasVoluntario() {
 
   const refTareasContent = React.useRef(null);
   const refPanel = React.useRef(null);
-
+  const [open, setOpen] = React.useState(false);
   return (
     <div className="TareasV">
       <Header/>
@@ -205,6 +269,8 @@ function TareasVoluntario() {
             set={setDetalle}
             setFilaSeleccionada={setFilaSeleccionada}
             refTareasContent={refTareasContent}
+            open={open}
+            setOpen={setOpen}
           />
         </div>
       </div>

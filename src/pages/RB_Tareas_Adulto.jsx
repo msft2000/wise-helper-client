@@ -15,33 +15,44 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import {Footer} from '../components/Footer';
+import { WeavyClient, WeavyProvider, Chat } from '@weavy/uikit-react';
+import "@weavy/uikit-react/dist/css/weavy.css";
 
 import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
 
+const weavyClient = new WeavyClient({ 
+  url: "https://2b698b0cffe64254b969b44b21c37d48.weavy.io", 
+  tokenFactory: async () => "wyu_J5Ria4Cixt9fyH4iy5qMYgG1pBPNqz0MLJU0"
+});
+
 function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }) {
+
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCancelarAccion = () => {
+    setOpen(false);//cerrar el cuadro de dialogo
   };
-  const handleSubmmit = () => {
-    setOpen(false);
-    const ref = document.querySelector("div.TareasA tr.selected");
+
+  const handleCancelarTarea = () => {
+    setOpen(false);//cerrar el cuadro de dialogo
+    /*Eliminar de la base de datos*/
+    const ref = document.querySelector("div.TareasA tr.selected");//fila seleccionada
     const ref2 = document.querySelector("div.TareasA section.tarea_desc2");
     ref.setAttribute("hidden", "");
     ref2.setAttribute("style", "display:none");
     refTareasContent.current.style.display = "flex";
   };
 
-  const handleSubmmit2 = () => {
-    setOpen(false);
+  const handleFinalizarTarea = () => {
+    setOpen(false);//cerrar el cuadro de dialogo
+    /*Actualizar el estado en la base de datos*/
     navigate("/adult/finalizar")
   };
 
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={handleCancelarAccion}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -51,11 +62,12 @@ function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }
           {msg}
         </DialogContentText>
       </DialogContent>
+
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleCancelarAccion} color="primary">
           Cancelar
         </Button>
-        <Button onClick={()=>{flag ? handleSubmmit(): handleSubmmit2()}} color="primary" autoFocus>
+        <Button onClick={()=>{flag ? handleCancelarTarea(): handleFinalizarTarea()}} color="primary" autoFocus>
           Continuar
         </Button>
       </DialogActions>
@@ -153,6 +165,7 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent,open
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   return (
     <section className="tarea_desc" style={{ display: detalle.display }}>
       <section>
@@ -198,16 +211,20 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent,open
       <div>
         <p>Mensajes</p>
 
-        <div className="msgs"></div>
+        <div className="msgs">
+        <WeavyProvider client={weavyClient}>
+            <Chat uid="demochat" />
+          </WeavyProvider>
+        </div>
 
-        <div className="txtfield">
+        {/* <div className="txtfield">
           <textarea placeholder="Escriba un mensaje aquí"></textarea>
           <div>
             <FaImage />
             <GrLink />
           </div>
         </div>
-        <input type="button" value="Enviar" />
+        <input type="button" value="Enviar" /> */}
       </div>
     </section>
   );
@@ -258,7 +275,9 @@ function DetalleTarea2({
 }
 
 function TareasAdulto() {
+
   const navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
 
   const [detalle, setDetalle] = React.useState({
@@ -273,24 +292,28 @@ function TareasAdulto() {
   const [filaSeleccionada, setFilaSeleccionada] = React.useState(null); //Variables de estado para saber que fila se seleccionó
 
   const refTareasContent = React.useRef(null);
+
   const refPanel = React.useRef(null);
 
   return (
     <div className="TareasA">
-      <div className="container">
-        <Header></Header>
-        <div className="panel" ref={refPanel}>
+      <Header></Header>
+
+      <div className="container" ref={refPanel}>
+
           <section className="tareas_content" ref={refTareasContent}>
+
             <div className="btns">
-              <div
-                class="agregar"
-                onClick={() => navigate("/adult/agregar-tarea")}
-              >
+
+              <div class="agregar" onClick={() => navigate("/adult/agregar-tarea")}>
                 <AiOutlinePlus />
                 <p>Agregar Tarea</p>
               </div>
+
             </div>
+
             <div className="table">
+
               <Tabla
                 data={data}
                 set={setDetalle}
@@ -300,8 +323,11 @@ function TareasAdulto() {
                 refTareasContent={refTareasContent}
                 refPanel={refPanel}
               />
+
             </div>
+
           </section>
+
           {detalle.nombre !== "" ? (
             <DetalleTarea
               detalle={detalle}
@@ -321,8 +347,9 @@ function TareasAdulto() {
               setOpen={setOpen}
             />
           )}
-        </div>
+
       </div>
+
       <Footer></Footer>
     </div>
   );
