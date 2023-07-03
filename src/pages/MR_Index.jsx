@@ -6,7 +6,11 @@ import "../sass/mr_index.scss";
 import p1PNG from "../assets/img/p1.png";
 import p2PNG from "../assets/img/p2.png";
 import p3PNG from "../assets/img/p3.png";
-import p4PNG from "../assets/img/tuto.png";
+
+import p4PNG from "../assets/img/p4.png";
+import p5PNG from "../assets/img/p5.png";
+import p6PNG from "../assets/img/p6.png";
+
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header_Index";
 import {Footer} from '../components/Footer';
@@ -88,11 +92,63 @@ function Index() {
             <p>{carrusel_p}</p>
           </div>
           
-          <img src={p4PNG} alt="imgTuto" />
+          <Paso 
+            rowT={true}
+            h2="Elige el papel que quieres desempeñar"
+            h3="La página te brinda la oportunidad de ser un adulto
+            mayor que busca recibir ayuda o un voluntario dispuesto
+            a brindar su apoyo."
+            png={p4PNG}
+          />
+
+          <h1>Como Adulto Mayor </h1>
+
+          <Paso
+            rowT={false}
+            h2="Crea tareas en las que 
+            requieras asistencia."
+            h3="Genera y publica diferentes tareas o actividades en 
+            las cuales necesitas ayuda. Puedes detallar las tareas
+            específicas, como hacer compras, realizar tareas 
+            domésticas o cualquier otra actividad en la que requieras
+            apoyo."
+            png={p5PNG}
+          />
+
+          <h1>Como Voluntario</h1>
+
+          <Paso 
+            rowT={true}
+            h2="Elige la tarea en la que 
+            deseas asistir"
+            h3="Nuestra plataforma que te permite seleccionar y 
+            comprometerte con una tarea específica para brindar
+            tu ayuda como voluntario. Puedes explorar las diferentes 
+            tareas publicadas por adultos mayores y elegir aquellas 
+            en las que te sientas capaz y dispuesto a brindar asistencia"
+            png={p6PNG}
+          />
+
         </section>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
       </div>
     </React.Fragment>
+  );
+}
+
+function Paso(props) {
+  return (
+    <div className="paso" style={props.rowT ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}}>
+      <div className="txt">
+        <h2>
+          <bold>{props.h2}</bold>
+        </h2>
+        <h3>{props.h3}</h3>
+      </div>
+      
+      <img src={props.png} alt="Roles" />
+    </div>
+
   );
 }
 

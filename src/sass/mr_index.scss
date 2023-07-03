@@ -138,4 +138,19 @@ div.Index > section {
 
    
   }
+
+  .paso {
+    display: flex;
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-bottom: 0px;
+
+    .txt {
+      display: flex;
+      flex-direction: column;
+      margin-right: 20px;
+      margin-bottom: 0px;
+    }
+  }
+
 }
