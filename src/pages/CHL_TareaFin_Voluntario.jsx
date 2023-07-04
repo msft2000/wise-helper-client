@@ -23,8 +23,8 @@ function TareaFinVoluntario() {
         <section className="content">
           <h1> Tarea Realizada</h1>
           <div>
-            <img id="foto" src={img7} />
-            <label id="nombre" for="nombre">
+            <img id="foto" src={img7} alt=""/>
+            <label id="nombre" >
               {name}
             </label>
           </div>

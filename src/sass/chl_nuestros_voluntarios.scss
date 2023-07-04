@@ -54,10 +54,12 @@ div.nuestrosVoluntarios{
         .v1{
             background-color: $bg_aux_color;
             color: $font_secondary_color;
+            flex-direction: row-reverse;
         }
         .v2{
             background-color: $bg_primary_color;
             color: $font_light_color;
+            flex-direction: row;
         }
     }
   }  
@@ -72,10 +74,16 @@ div.nuestrosVoluntarios{
     .voluntarios{
         width: 98% !important;
         .voluntario{
-            flex-direction: column;
+            
             div{
                 width: 100% !important;
             }
+        }
+        .v1{
+            flex-direction: column-reverse !important;
+        }
+        .v2{
+            flex-direction: column !important;
         }
     }
   }

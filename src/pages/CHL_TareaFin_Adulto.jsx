@@ -24,7 +24,7 @@ function TareaFinAdulto() {
         <section className="content">
           <h1>Tarea Finalizada</h1>
           <div>
-            <img id="foto" src={img12} />
+            <img id="foto" src={img12} alt=""/>
             <label id="nombre" for="nombre">
               {name}
             </label>

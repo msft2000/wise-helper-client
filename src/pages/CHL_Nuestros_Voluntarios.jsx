@@ -10,16 +10,30 @@ import adultoMayor from "../assets/img/adultoMayor-hombre.png";
 function NuestrosVoluntarios() {
   const url = window.location.href;
   console.log(url)
-  const [flag, setFlag] = React.useState(false);
-  function voluntario(props){
+  
+  const [volunters, setVolunters]=React.useState(
+    [
+      {
+        name: "Luis Chusino",
+        descrition: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque labore rem veritatis sequi! Sequi commodi odio numquam alias ipsa voluptate fuga cupiditate et. Non animi dolores pariatur reprehenderit. Ullam, magnam.",
+        rating: 4
+      },
+      {
+        name: "Juan",
+        descrition: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque labore rem veritatis sequi! Sequi commodi odio numquam alias ipsa voluptate fuga cupiditate et. Non animi dolores pariatur reprehenderit. Ullam, magnam.",
+        rating: 3
+      }
+    ]
+  );
+  function ShowVoluntario({v, flag}){
+
     return(
       <div className={flag ? "voluntario v1" : "voluntario v2"}>
-        {flag ? setFlag(false) : setFlag(true)}
         <div className="informacion">
-        <h2>{props.name}</h2>
-            <span>{props.descrition}</span>
+        <h2>{v.name}</h2>
+            <span>{v.descrition}</span>
             <div>
-                <Rating value={parseFloat(props.rating)} readOnly precision={0.5} />
+                <Rating value={parseFloat(v.rating)} readOnly precision={0.5} />
             </div>
         </div>
         <div className="imagen">
@@ -50,21 +64,18 @@ function NuestrosVoluntarios() {
             <div className="inicio">
                 <h3> Nuestros Voluntarios</h3>
             </div>
+            {
+              volunters ? (
+                volunters.map((volunter, index)=>
+                  (
+                    <ShowVoluntario v={volunter} flag={index % 2 === 0}/>  
+                  )
 
-            
-
-            <div className="voluntario v2">
-                <div className="imagen">
-                    <img src={adultoMayor} alt="" />
-                </div>
-                <div className="informacion">
-                    <h2>José Francisco Ordóñez Urgilés</h2>
-                    <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem nam facilis aut, sapiente totam maxime corporis magni tempore iste unde ipsum libero numquam sunt consectetur nihil, consequuntur delectus dolorum? Commodi!</span>
-                    <div>
-                        <Rating value={parseFloat(4)} readOnly precision={0.5} />
-                    </div>
-                </div>     
-            </div>   
+                )
+              ) : (
+                <div></div>
+              )
+            }  
         </div>
         <div className="general">
           <p>
