@@ -13,7 +13,8 @@ function NuestrosVoluntarios() {
   const [flag, setFlag] = React.useState(false);
   function voluntario(props){
     return(
-      <div className='voluntario ${flag ? "v1" :"v2"}'>
+      <div className={flag ? "voluntario v1" : "voluntario v2"}>
+        {flag ? setFlag(false) : setFlag(true)}
         <div className="informacion">
         <h2>{props.name}</h2>
             <span>{props.descrition}</span>
