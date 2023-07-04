@@ -1,6 +1,6 @@
 // Colores empleados en el sitio web
-$color_1: #eeac34;
-$color_2: #d38713;
+$color_1: #d38713;
+$color_2: #eeac34;
 $color_3: #383535;
 $color_4: #232323;
 $color_5: #666666;
@@ -27,7 +27,8 @@ $bg_light_color: $color_light;
 $bg_dark_color: $color_dark;
 
 // Colores Botones
-$btn_primary_color: $color_2;
+$btn_primary_color: $color_1;
+$btn_secondary_color: $color_2;
 
 // Colores fuente
 $font_dark_color: $color_dark;

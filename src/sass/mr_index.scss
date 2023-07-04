@@ -1,66 +1,12 @@
 @import "./variables";
 
-/*Barra navegacion contacto*/
-
-/*Div que contiene a logo y la barra de navegacion inicio*/
-
-/*Logo*/
-
-div.Index .logo img {
-  height: 100%;
-  margin-left: 7px;
-}
-
-/*Barra navegacion*/
-
-div.Index header {
-  > {
-    div {
-      > nav {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-      }
-
-      a {
-        cursor: pointer;
-        text-decoration: none;
-        color: $font_dark_color;
-      }
-    }
-
-    nav ul {
-      display: flex;
-      flex-direction: row;
-      list-style: none;
-    }
-  }
-
-  div nav ul {
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-  }
-}
-
-div.Index li.selected {
-  border-bottom: 3px solid $primary_color;
-}
-
-div.Index .right {
-  position: absolute;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-}
-
 div.Index > section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 87vh;
-  max-height: 87vh;
+  height: auto;
+  margin-bottom: 20px;
 
   > img{
     height: 60%;

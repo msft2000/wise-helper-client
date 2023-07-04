@@ -130,7 +130,7 @@ function Index() {
           />
 
         </section>
-        {/* <Footer></Footer> */}
+        <Footer></Footer>
       </div>
     </React.Fragment>
   );

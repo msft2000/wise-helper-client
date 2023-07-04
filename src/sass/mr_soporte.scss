@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+@import "./variables";
 
 #soporte {
   display: flex;
@@ -7,7 +7,6 @@
   justify-content: center;
 
   * {
-    font-family: "DM Sans";
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
@@ -51,7 +50,7 @@
       max-width: 90vw;
       height: 60vh;
       max-height: 60vh;
-      background-color: rgb(222, 222, 222);
+      background-color: $bg_quaternary_color;
       border-radius: 5px;
     }
   }
@@ -63,14 +62,14 @@
       /*Cabecera de la tabla*/
       position: sticky;
       top: 0;
-      background: rgb(222, 222, 222);
+      background: $bg_quaternary_color;
 
       th {
         /*Nombres de la columnas de la tabla*/
         font-weight: bold;
         height: 30px;
         padding: 30px;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $dark_color;
       }
     }
 
@@ -81,7 +80,7 @@
 
     tr.selected {
       /*Estilo de fila seleccionada*/
-      background-color: white;
+      background-color: $bg_light_color;
     }
 
     tbody img {
@@ -99,25 +98,30 @@
 
   .btn {
     width: fit-content;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 15px;
     margin-top: 1vh;
-    border-radius: 10px;
-    border: 1px solid black;
     cursor: pointer;
+    border: none;
+    font-weight: bold;      
+    border: 2px solid $btn_primary_color;
+    &:hover {
+      scale: 1.1;
+    }
   }
 
   .btn-orange {
     /*Boton agregar captura*/
-    background-color: #f1b74d;
-    color: white;
-    margin-left: 7px;
+    background-color: $btn_primary_color;
+    color: $font_light_color;
+    margin-left: 6px;
   }
 
   .btn-grey {
     /*Boton agregar captura*/
-    background-color: #ecebeb;
-    color: black;
-    margin-left: 7px;
+    background-color: $bg_light_color;
+    color: $btn_primary_color;
+    margin-right: 6px;
   }
 }
