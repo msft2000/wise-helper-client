@@ -14,40 +14,40 @@ function Respuesta() {
         <section>
           <h1> Escribe tu respuesta al comentario </h1>
 
-          <div class="Asunto">
+          <div className="Asunto">
             <h2>Asunto:</h2>
             <p>Lorem Ipsum</p>
           </div>
 
-          <div class="Detalles">
+          <div className="Detalles">
             <h2>Detalles:</h2>
             <div>
               <p></p>
               <input
                 type="button"
                 value="+  Descargar contenido adjunto"
-                class="btn btn-orange"
+                className="btn btn-orange"
               ></input>
             </div>
           </div>
 
-          <div class="Respuesta">
+          <div className="Respuesta">
             <h2>Respuesta:</h2>
             <textarea></textarea>
-            <p class="ocultar">* Este campo es requerido</p>
+            <p className="ocultar">* Este campo es requerido</p>
           </div>
 
           <div>
             <input
               type="button"
               value="Enviar"
-              class="btn btn-orange"
+              className="btn btn-orange"
               onClick={() => navigate("/admin")}
             />
             <input
               type="button"
               value="Cancelar"
-              class="btn btn-grey"
+              className="btn btn-grey"
               onClick={() => navigate("/admin")}
             />
           </div>

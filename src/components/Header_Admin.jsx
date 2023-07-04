@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import logo from "../assets/img/logo.png";
@@ -5,11 +6,24 @@ import img from "../assets/img/img12.png";
 import { useNavigate } from "react-router-dom";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { FaSignOutAlt, FaBars } from "react-icons/fa";
+import { GeneralContext } from "../context";
 import "../sass/components/header_voluntario.scss";
+
 function Header() {
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState(false);
   const path = window.location.pathname;
+  const { validarLogeado, setUsuarioLogeado } =
+    React.useContext(GeneralContext);
+  const cerrarSesion = () => {
+    localStorage.removeItem("usuario");
+    setUsuarioLogeado(false);
+    navigate("/");
+  };
+
+  React.useEffect(() => {
+    validarLogeado();
+  }, []);
   return (
     <header className={flag ? "header_voluntario mobile" : "header_voluntario"}>
       <nav>
@@ -84,7 +98,7 @@ function Header() {
           <img src={img} alt="" />
           <RiArrowDownSFill></RiArrowDownSFill>
           <div className="dropdown-content">
-            <span className="dropdown-item2" onClick={() => navigate("/")}>
+            <span className="dropdown-item2" onClick={() => cerrarSesion()}>
               <FaSignOutAlt></FaSignOutAlt>
               <p>Cerrar Sesión</p>
             </span>

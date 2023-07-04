@@ -114,12 +114,12 @@ function SoporteAdmin() {
             </table>
           </div>
 
-          <div class="btns">
-            <input type="button" value="Eliminar" class="btn btn-grey"></input>
+          <div className="btns">
+            <input type="button" value="Eliminar" className="btn btn-grey"></input>
             <input
               type="button"
               value="Responder"
-              class="btn btn-orange"
+              className="btn btn-orange"
               onClick={() => navigate("/admin/respuesta/123")}
             ></input>
           </div>
