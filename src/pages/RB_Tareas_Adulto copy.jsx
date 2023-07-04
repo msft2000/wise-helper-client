@@ -15,8 +15,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Footer } from "../components/Footer";
 import { WeavyClient, WeavyProvider, Chat as WeavyChat } from "@weavy/uikit-react";
 import "@weavy/uikit-react/dist/css/weavy.css";
-
 import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
+import { GeneralContext } from "../context";
 
 const cargar_img = require.context("../assets/img", true);
 
@@ -46,15 +46,8 @@ function Chat() {//Componente de chat entre el voluntario y el adulto mayor
   );
 }
 
-function Detalle({
-  setSelectedIdx,
-  setTareasDisplay,
-  detalleDisplay,
-  setDetalleDisplay,
-  tarea,
-  setOpen,
-  open,
-}) {
+function Detalle() {
+  const {setSelectedIdx,setTareasDisplay,detalleDisplay,setDetalleDisplay,tarea,setOpen,open} = React.useContext(GeneralContext);
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
     setDetalleDisplay("none"); //Se cierra el detalle de la tarea
@@ -100,11 +93,6 @@ function Detalle({
           }}
         />
         <CuadroDialogo
-          open={open}
-          setOpen={setOpen}
-          setDetalleDisplay={setDetalleDisplay}
-          setSelectedIdx={setSelectedIdx}
-          setTareasDisplay={setTareasDisplay}
           msg={
             tarea.voluntario == "" ? msg_cancelar_tarea : msg_finalizar_tarea
           }
@@ -130,15 +118,11 @@ function Detalle({
 }
 
 function CuadroDialogo({
-  setTareasDisplay,
-  setDetalleDisplay,
-  setSelectedIdx,
-  open,
-  setOpen,
   msg,
   title,
   flag,
 }) {
+  const {setTareasDisplay,setDetalleDisplay,setSelectedIdx,open,setOpen} = React.useContext(GeneralContext);
   const navigate = useNavigate();
 
   const handleCancelarTarea = () => {
@@ -200,15 +184,9 @@ function CuadroDialogo({
 }
 
 
-function Tabla({
-  setDetalleDisplay,
-  setSelectedIdx,
-  selectedIdx,
-  setTareasDisplay,
-  setTarea,
-  refPanel
-}) {
-   const tareas = data.map((tarea, index) => {
+function Tabla() {
+  const {selectedIdx,refPanel,setDetalleDisplay,setTarea,setSelectedIdx,setTareasDisplay} = React.useContext(GeneralContext);
+  const tareas = data.map((tarea, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     return (
       <tr
@@ -282,13 +260,7 @@ function Tabla({
 
 function TareasAdulto() {
   const navigate = useNavigate();
-  const [tarea,setTarea]=React.useState(null);
-  const [selectedIdx,setSelectedIdx]=React.useState(null);
-  const [tareasDisplay,setTareasDisplay]=React.useState("flex");
-  const [detalleDisplay,setDetalleDisplay]=React.useState("none");
-  const [open, setOpen] = React.useState(false);
-
-  const refPanel = React.useRef(null);
+  const {refPanel,tareasDisplay,tarea} = React.useContext(GeneralContext);
   return (
     <div className="TareasA">
       <Header></Header>
@@ -304,28 +276,13 @@ function TareasAdulto() {
           </div>
 
           <div className="table">
-            <Tabla
-              setDetalleDisplay={setDetalleDisplay}
-              setSelectedIdx={setSelectedIdx}
-              selectedIdx={selectedIdx}
-              setTareasDisplay={setTareasDisplay}
-              setTarea={setTarea}
-              refPanel={refPanel}
-            />
+            <Tabla/>
           </div>
 
         </section>
         {
           tarea!==null ? 
-          <Detalle
-          setSelectedIdx={setSelectedIdx}
-          setTareasDisplay={setTareasDisplay}
-          detalleDisplay={detalleDisplay}
-          setDetalleDisplay={setDetalleDisplay}
-          tarea={tarea}
-          setOpen={setOpen}
-          open={open}
-          /> : 
+          <Detalle/> : 
           <></>
         }
       </div>
