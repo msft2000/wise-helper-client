@@ -7,10 +7,26 @@ import { Header as HeaderIndex } from "../components/Header_Index";
 import { Footer } from "../components/Footer";
 import Rating from "@mui/material/Rating";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
-import { useNavigate } from "react-router-dom";
 function NuestrosVoluntarios() {
   const url = window.location.href;
   console.log(url)
+  const [flag, setFlag] = React.useState(false);
+  function voluntario(props){
+    return(
+      <div className='voluntario ${flag ? "v1" :"v2"}'>
+        <div className="informacion">
+        <h2>{props.name}</h2>
+            <span>{props.descrition}</span>
+            <div>
+                <Rating value={parseFloat(props.rating)} readOnly precision={0.5} />
+            </div>
+        </div>
+        <div className="imagen">
+            <img src={adultoMayor} alt="" />
+        </div>       
+      </div> 
+    );
+  }
   return (
     <div className="nuestrosVoluntarios">
 
@@ -34,18 +50,7 @@ function NuestrosVoluntarios() {
                 <h3> Nuestros Voluntarios</h3>
             </div>
 
-            <div className="voluntario v1">
-                <div className="informacion">
-                <h2>José Francisco Ordóñez Urgilés</h2>
-                    <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem nam facilis aut, sapiente totam maxime corporis magni tempore iste unde ipsum libero numquam sunt consectetur nihil, consequuntur delectus dolorum? Commodi!</span>
-                    <div>
-                        <Rating value={parseFloat(4)} readOnly precision={0.5} />
-                    </div>
-                </div>
-                <div className="imagen">
-                    <img src={adultoMayor} alt="" />
-                </div>       
-            </div> 
+            
 
             <div className="voluntario v2">
                 <div className="imagen">

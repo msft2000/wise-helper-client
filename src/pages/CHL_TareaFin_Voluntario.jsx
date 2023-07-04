@@ -8,7 +8,14 @@ import { Header } from "../components/Header_Adulto";
 import { Footer } from "../components/Footer";
 function TareaFinVoluntario() {
   const navigate = useNavigate();
-  const [value, setValue] = React.useState(0);
+  const [rating, setRating] = React.useState(0);
+  const [coment, setComent] = React.useState("");
+  const [name, setName] =React.useState("Nombre adulto");
+  const sendComent= (event) =>{
+    console.log("Etra");
+    setComent("");
+    navigate("/volunter/tareas");
+  }
   return (
     <div className="TareaFin">
       <Header />
@@ -18,8 +25,7 @@ function TareaFinVoluntario() {
           <div>
             <img id="foto" src={img7} />
             <label id="nombre" for="nombre">
-              {" "}
-              Ana Garcia{" "}
+              {name}
             </label>
           </div>
           <p> Califica a la persona por el trabajo realizado</p>
@@ -29,23 +35,25 @@ function TareaFinVoluntario() {
               defaultValue={0}
               precision={1}
               onChange={(event, newValue) => {
-                setValue(newValue);
+                setRating(newValue);
               }}
             />
-            <h1 id="puntaje">{value}</h1>
+            <h1 id="puntaje">{rating}</h1>
           </div>
           <br />
           <div>
-            <textarea placeholder="Escriba un mensaje Comentario aqui (opcional)"></textarea>
+            <textarea 
+              placeholder="Escriba un mensaje Comentario aqui (opcional)"
+              value={coment}
+              onChange={(e) => setComent(e.target.value)}
+            ></textarea>
           </div>
           <div>
             <input
               type="button"
               id="btnEnviar"
               value="Enviar"
-              onClick={() => {
-                navigate("/adult");
-              }}
+              onClick={sendComent}
             />
             <input
               type="button"

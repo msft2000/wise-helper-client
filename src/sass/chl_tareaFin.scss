@@ -8,7 +8,8 @@ div.TareaFin {
     text-align: center;
     background: $bg_primary_color;
     width: 100%;
-    height: 100vh;
+    height: auto;
+    padding: 10px;
     label {
       font-size: 20px;
     }

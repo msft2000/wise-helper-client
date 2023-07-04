@@ -9,6 +9,14 @@ import { Footer } from "../components/Footer";
 function TareaFinAdulto() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
+  const [text, setText] = React.useState("");
+  const [name, setName] =React.useState("Nombre Voluntario");
+  const sendComent= (event) =>{
+    console.log(value + text)
+    setText("");
+    navigate("/volunter/tareas");
+  }
+  
   return (
     <div className="TareaFin">
       <Header/>
@@ -18,7 +26,7 @@ function TareaFinAdulto() {
           <div>
             <img id="foto" src={img12} />
             <label id="nombre" for="nombre">
-              Juan Perez{" "}
+              {name}
             </label>
           </div>
           <p> Califica a la persona por el trabajo recibido</p>
@@ -32,35 +40,27 @@ function TareaFinAdulto() {
               }}
             />
             <h1 id="puntaje">{value}</h1>
-            {/*<input type="radio" name="rate" id="rate-5" />
-            <label for="rate-5" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-4" />
-            <label for="rate-4" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-3" />
-            <label for="rate-3" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-2" />
-            <label for="rate-2" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-1" />
-  <label for="rate-1" class="fas fa-star"></label>*/}
           </div>
           <br />
           <div>
-            <textarea placeholder="Escriba un mensaje Comentario aqui (opcional)"></textarea>
+            <textarea 
+                placeholder="Escriba un mensaje Comentario aqui (opcional)"
+                value={text}
+                onChange={(e) => setText(e.target.value)}>
+            </textarea>
           </div>
           <div>
             <input
               type="button"
               id="btnEnviar"
               value="Enviar"
-              onClick={() => {
-                navigate("/volunter/tareas");
-              }}
+              onClick={sendComent}
             />
             <input
               type="button"
               id="btnOmitir"
               value="Omitir"
-              onClick={() => {
+              onClick={() =>{
                 navigate("/volunter/tareas");
               }}
             />
