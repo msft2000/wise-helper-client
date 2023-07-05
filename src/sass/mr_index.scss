@@ -8,6 +8,10 @@ div.Index > section {
   height: auto;
   margin-bottom: 20px;
 
+  >h2 {
+    font-weight: bold;
+  }
+
   > img{
     height: 60%;
     width: 80%;

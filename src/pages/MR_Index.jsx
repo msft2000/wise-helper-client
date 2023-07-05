@@ -141,7 +141,7 @@ function Paso(props) {
     <div className="paso" style={props.rowT ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}}>
       <div className="txt">
         <h2>
-          <bold>{props.h2}</bold>
+          {props.h2}
         </h2>
         <h3>{props.h3}</h3>
       </div>
