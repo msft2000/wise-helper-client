@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React from "react";
 import { Header } from "../components/Header_Adulto";
 import "../sass/rb_tarea_adulto.scss";
 import { AiOutlinePlus, AiFillFilter } from "react-icons/ai";
@@ -13,7 +13,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Footer } from "../components/Footer";
-import { WeavyClient, WeavyProvider, Chat as WeavyChat } from "@weavy/uikit-react";
+import {
+  WeavyClient,
+  WeavyProvider,
+  Chat as WeavyChat,
+} from "@weavy/uikit-react";
 import "@weavy/uikit-react/dist/css/weavy.css";
 import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
 import { GeneralContext } from "../context";
@@ -29,25 +33,34 @@ const msg_cancelar_tarea =
 const title_cancelar_tarea =
   "Está seguro en querer cancelar la tarea seleccionada?";
 
-const weavyClient = new WeavyClient({
-  url: "https://2b698b0cffe64254b969b44b21c37d48.weavy.io",
-  tokenFactory: async () => "wyu_J5Ria4Cixt9fyH4iy5qMYgG1pBPNqz0MLJU0",
-});
-
 /*Detalle de la tarea: Seccion que aparece cuando se da click sobre una tarea*/
 
-function Chat() {//Componente de chat entre el voluntario y el adulto mayor
+function Chat() {
+  const {usuario, tarea}=React.useContext(GeneralContext)
+  //Componente de chat entre el voluntario y el adulto mayor
+  const weavyClient = new WeavyClient({
+    url: process.env.REACT_APP_WEAVY_URL,
+    tokenFactory: async () => usuario.token_chat,
+  });
+  console.log(process.env.REACT_APP_WEAVY_URL)
   return (
     <div className="msgs">
       <WeavyProvider client={weavyClient}>
-        <WeavyChat uid="demochat" />
+        <WeavyChat uid={tarea._id} />
       </WeavyProvider>
     </div>
   );
 }
 
 function Detalle() {
-  const {setSelectedIdx,setTareasDisplay,detalleDisplay,setDetalleDisplay,tarea,setOpen,open} = React.useContext(GeneralContext);
+  const {
+    setSelectedIdx,
+    setTareasDisplay,
+    detalleDisplay,
+    setDetalleDisplay,
+    tarea,
+    setOpen,
+  } = React.useContext(GeneralContext);
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
     setDetalleDisplay("none"); //Se cierra el detalle de la tarea
@@ -87,28 +100,28 @@ function Detalle() {
         <p> {tarea.tarea_desc}</p>
         <input
           type="button"
-          value={tarea.voluntario == "" ? "Cancelar" : "Finalizar Tarea"}
+          value={tarea.voluntario === "" ? "Cancelar" : "Finalizar Tarea"}
           onClick={() => {
             setOpen(true);
           }}
         />
         <CuadroDialogo
           msg={
-            tarea.voluntario == "" ? msg_cancelar_tarea : msg_finalizar_tarea
+            tarea.voluntario === "" ? msg_cancelar_tarea : msg_finalizar_tarea
           }
           title={
-            tarea.voluntario == ""
+            tarea.voluntario === ""
               ? title_cancelar_tarea
               : title_finalizar_tarea
           }
-          flag={tarea.voluntario == "" ? true : false}
+          flag={tarea.voluntario === "" ? true : false}
         />
       </div>
 
       {tarea.voluntario !== "" ? (
         <div className="chat_tarea">
           <p>Mensajes</p>
-          <Chat/>
+          <Chat />
         </div>
       ) : (
         <></>
@@ -117,19 +130,15 @@ function Detalle() {
   );
 }
 
-function CuadroDialogo({
-  msg,
-  title,
-  flag,
-}) {
-  const {setTareasDisplay,setDetalleDisplay,setSelectedIdx,open,setOpen} = React.useContext(GeneralContext);
+function CuadroDialogo({ msg, title, flag }) {
+  const { setTareasDisplay, setDetalleDisplay, setSelectedIdx, open, setOpen } =
+    React.useContext(GeneralContext);
   const navigate = useNavigate();
 
   const handleCancelarTarea = () => {
     setOpen(false); //cerrar el cuadro de dialogo
     /*Eliminar de la base de datos*/
     const ref = document.querySelector("div.TareasA tr.selected"); //fila seleccionada
-    const ref2 = document.querySelector("div.TareasA section.tarea_desc2");
     ref.setAttribute("class", " ");
     ref.setAttribute("hidden", "");
     ref.setAttribute("class", " ");
@@ -183,33 +192,37 @@ function CuadroDialogo({
   );
 }
 
-
 function Tabla() {
-  const {selectedIdx,refPanel,setDetalleDisplay,setTarea,setSelectedIdx,setTareasDisplay} = React.useContext(GeneralContext);
+  const {
+    selectedIdx,
+    refPanel,
+    setDetalleDisplay,
+    setTarea,
+    setSelectedIdx,
+    setTareasDisplay,
+  } = React.useContext(GeneralContext);
+  const handleOnClickFila = (tarea, index) => {
+    if (selectedIdx === index) {
+      //Deseleccionar un elemento ya seleccionado
+      setSelectedIdx(null);
+      setDetalleDisplay("none");
+      setTarea(null);
+    } else {
+      //Seleccionar un elemento
+      setSelectedIdx(index);
+      setTarea(tarea);
+      setDetalleDisplay("flex");
+
+      if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
+        //Ocultar las tareas cuando se usa la versión movil
+        setTareasDisplay("none");
+      }
+    }
+  };
   const tareas = data.map((tarea, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     return (
-      <tr
-        className={index === selectedIdx ? "selected" : ""}
-        onClick={() => {
-          if (selectedIdx === index) {
-            //Deseleccionar un elemento ya seleccionado
-            setSelectedIdx(null);
-            setDetalleDisplay("none");
-            setTarea(null);
-          } else {
-            //Seleccionar un elemento
-            setSelectedIdx(index);
-            setTarea(tarea);
-            setDetalleDisplay("flex");
-
-            if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
-              //Ocultar las tareas cuando se usa la versión movil
-              setTareasDisplay("none");
-            }
-          }
-        }}
-      >
+      <tr className={index === selectedIdx ? "selected" : ""} onClick={() => {handleOnClickFila(tarea, index);}}>
         <td>{tarea.tarea_titulo}</td>
         <td>{tarea.fecha}</td>
         <td>
@@ -218,7 +231,9 @@ function Tabla() {
           </p>
         </td>
         <td>{tarea.tiempo}</td>
-        <td>{tarea.perfil === "" ? "" : <img src={cargar_img(tarea.perfil)} />}</td>
+        <td>
+          {tarea.perfil === "" ? "" : <img src={cargar_img(tarea.perfil)} />}
+        </td>
       </tr>
     );
   });
@@ -260,31 +275,28 @@ function Tabla() {
 
 function TareasAdulto() {
   const navigate = useNavigate();
-  const {refPanel,tareasDisplay,tarea} = React.useContext(GeneralContext);
+  const { refPanel, tareasDisplay, tarea } = React.useContext(GeneralContext);
   return (
     <div className="TareasA">
       <Header></Header>
 
       <div className="container" ref={refPanel}>
-        <section className="tareas_content" style={{display:tareasDisplay}}>
-
+        <section className="tareas_content" style={{ display: tareasDisplay }}>
           <div className="btns">
-            <div class="agregar" onClick={() => navigate("/adult/agregar-tarea")}>
+            <div
+              class="agregar"
+              onClick={() => navigate("/adult/agregar-tarea")}
+            >
               <AiOutlinePlus />
               <p>Agregar Tarea</p>
             </div>
           </div>
 
           <div className="table">
-            <Tabla/>
+            <Tabla />
           </div>
-
         </section>
-        {
-          tarea!==null ? 
-          <Detalle/> : 
-          <></>
-        }
+        {tarea !== null ? <Detalle /> : <></>}
       </div>
 
       <Footer></Footer>

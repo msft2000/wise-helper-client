@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@weavy/uikit-react": "^17.1.0",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "ec-dni-validator": "^1.5.0",
     "popper.js": "^1.16.1",
     "primeicons": "^6.0.1",
