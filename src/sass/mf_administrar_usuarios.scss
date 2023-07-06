@@ -1,13 +1,82 @@
 @import "./variables.scss";
-#administrar-usuarios{
+#administrar-usuarios {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 100px 100px 100px;
+  & > h1 {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 50px;
-    &>h1{
-        margin-top: 0;
+    margin-top: 0;
+    & > button {
+      display: flex;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+      svg {
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 2.5rem;
+        color: $btn_secondary_color;
+        &:hover {
+          color: $btn_primary_color;
+        }
+      }
     }
-    .users--container{
-        background-color: $bg_tertiary_color;
+  }
+  .users--container {
+    width: 90%;
+    padding: 20px 5%;
+    color: $color_dark;
+    background-color: $bg_quaternary_color;
+    border-radius: 10px;
+    .user--card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      width: 100%;
+      .btn {
+        background-color: $btn_secondary_color;
+        color: $font_light_color;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        &:hover {
+          background-color: darken($btn_secondary_color, 10%);
+        }
+      }
     }
+    hr {
+      &:last-of-type {
+        display: none;
+      }
+    }
+  }
+  .btn-primary {
+    color: $font_light_color;
+    background-color: $btn_secondary_color;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: darken($btn_secondary_color, 10%);
+    }
+  }
+  .btn-secondary {
+    background-color: $bg_light_color;
+    color: $font_dark_color;
+    border: 1px solid $btn_secondary_color;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    &:hover {
+      border: none;
+      color: $font_light_color;
+      background-color: $bg_primary_color;
+    }
+  }
 }
