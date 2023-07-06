@@ -88,6 +88,7 @@ function AdministrarUsuarios() {
                     <label htmlFor="apellidos">Apellidos</label>
                     <input type="text" name="apellidos" id="apellidos" />
                   </div>
+                  
                 </div>
               </div>
               <div className="modal-footer">
