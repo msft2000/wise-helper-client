@@ -8,22 +8,51 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import tabla from "../assets/img/tabla_adulto_login.png";
 import chat from "../assets/img/chat_adulto_login.png";
+import { GeneralContext } from "../context";
+import ax from "axios";
 import "../sass/rb_login.scss";
 function Login() {
   const navigate = useNavigate();
-
+  const { setUsuario, setUsuarioLogeado } = React.useContext(GeneralContext);
   const [user, setUser] = React.useState("");
   const [pass, setPass] = React.useState("");
 
-  const submitHandler = (e) => {
-    e.preventDefault(); //Evita el comportamiento por default al presionar ingresar
-    if (user === "" || pass === "") {
-      toast.error(
-        "Error al iniciar sesión, por favor verifique sus credenciales."
-      );
-    } else {
-      navigate("/adult");
-    }
+  const loginHandler = (e) => {
+    e.preventDefault();
+    const toastID = toast.loading("Iniciando sesión");
+    const config = {
+      method: "post",
+      url: "https://wise-helper-backend.onrender.com/api/v1/auth/login",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify({
+        email: user,
+        contrasenia: pass,
+      }),
+    };
+    ax(config)
+      .then(function (response) {
+        if(response.data.user.tipo !== "adulto_mayor"){
+          toast.dismiss(toastID);
+          toast.error("Debes ser un adulto mayor para ingresar a esta sección.");
+          return;
+        }
+        localStorage.setItem("usuario", JSON.stringify(response.data));
+        setUsuario(response.data);
+        setUsuarioLogeado(true);
+        setUser("");
+        setPass("");
+        toast.dismiss(toastID);
+        navigate("/adult");
+      })
+      .catch(function (error) {
+        console.log(error);
+        toast.dismiss(toastID);
+        if (error.response.status === 401) {
+          toast.error("Error al iniciar sesión, por favor verifique sus credenciales.");
+        }
+      });
   };
 
   return (
@@ -34,12 +63,7 @@ function Login() {
       <div className="content">
         <section className="loginform">
           <h1>Adulto Mayor</h1>
-          <form
-            onSubmit={(e) => {
-              submitHandler(e);
-            }}
-            verified
-          >
+          <form onSubmit={loginHandler} verified >
             <h2>Correo Electrónico</h2>
             <div>
               <MdPerson />

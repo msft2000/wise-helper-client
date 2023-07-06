@@ -88,9 +88,7 @@ function Signup() {
       toast.dismiss(toastID);
       return;
     } else if (pass.length < 8) {
-      toast.error(
-        "La contraseña ingresada debe tener como mínimo 8 caracteres."
-      );
+      toast.error("La contraseña ingresada debe tener como mínimo 8 caracteres.");
       toast.dismiss(toastID);
       return;
     }
@@ -136,6 +134,7 @@ function Signup() {
       })
       .catch(function (error) {
         console.log(error);
+        toast.error("Error en el servidor, intentelo de nuevo en otra ocasión.");
         toast.dismiss(toastID);
       });
   };

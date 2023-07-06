@@ -1,16 +1,18 @@
 import React from "react";
 import logo from "../assets/img/logo.png";
-import img from "../assets/img/img12.png";
 import { useNavigate } from "react-router-dom";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { FaSignOutAlt, FaRegUserCircle, FaBars } from "react-icons/fa";
 import "../sass/components/header_adulto.scss";
+import { GeneralContext } from "../context";
+
 function Header() {
+  const { usuario} = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState(false);
   const path = window.location.pathname;
-  var nombre="Marta";
-  var msg=`¡Bienvenida ${nombre}!`;
+  var nombre=`${usuario.user.nombre}`;
+  var msg=`¡Hola de nuevo, ${nombre}!`;
   return (
     <header className={flag ? "header_adulto mobile" : "header_adulto"} >
       <nav>
@@ -55,7 +57,7 @@ function Header() {
         </ul>
         <ul className={flag ? "mobile show":"mobile"}>
             <li>
-                <img src={img} alt="" />
+                <img src={usuario.user.img} alt="" />
                 <p>{msg}</p>
             </li>
           <li className={path.includes("/adult") && (!path.includes("/adult/tareas") && !path.includes("/adult/support") && !path.includes("/adult/perfil") ) ? "selected" : ""}>
@@ -86,7 +88,7 @@ function Header() {
       <div className="btn">
         <p>{msg}</p>
         <div className="dropdown">
-          <img src={img} alt="" />
+          <img src={usuario.user.img} alt="" />
           <RiArrowDownSFill></RiArrowDownSFill>
           <div className="dropdown-content">
             <span
