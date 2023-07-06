@@ -15,12 +15,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Footer } from "../components/Footer";
 import { WeavyClient, WeavyProvider, Chat as WeavyChat } from "@weavy/uikit-react";
 import "@weavy/uikit-react/dist/css/weavy.css";
-import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
 import { GeneralContext } from "../context";
 import ax from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-const cargar_img = require.context("../assets/img", true);
 
 const msg_finalizar_tarea = "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
 const title_finalizar_tarea = "Está seguro en querer finalizar la tarea seleccionada?";
@@ -36,7 +34,6 @@ function Chat() {
     url: process.env.REACT_APP_WEAVY_URL,
     tokenFactory: async () => usuario.token_chat,
   });
-  console.log(process.env.REACT_APP_WEAVY_URL);
   return (
     <div className="msgs">
       <WeavyProvider client={weavyClient}>
@@ -62,14 +59,13 @@ function Detalle() {
     setSelectedIdx(null); //Se deselecciona la tarea
     setTareasDisplay("flex"); //Se muestra la lista de tareas
   };
-
   return (
-    <section className={tarea.id_voluntario ? "tarea_desc2" : "tarea_desc"} style={{ display: detalleDisplay }}>
+    <section className={Object.keys(tarea.voluntario).length === 0 ? "tarea_desc2" : "tarea_desc"} style={{ display: detalleDisplay }}>
       <section>
         <RxCross2 onClick={cerrar_detalle} />
       </section>
 
-      {tarea.id_voluntario ? (
+      { Object.keys(tarea.voluntario).length !== 0 ? (
         <div className="detalles_voluntario">
           <div className="detalles_voluntario__informacion">
             <img src={tarea.voluntario.img} alt={tarea.voluntario.nombre} />
@@ -89,28 +85,28 @@ function Detalle() {
 
       <div className="descripcion_tarea">
         <p>Descripción de la tarea</p>
-        <p> {tarea.tarea_desc}</p>
+        <p> {tarea.descripcion}</p>
         <input
           type="button"
-          value={tarea.voluntario === "" ? "Cancelar" : "Finalizar Tarea"}
+          value={Object.keys(tarea.voluntario).length === 0 ? "Cancelar" : "Finalizar Tarea"}
           onClick={() => {
             setOpen(true);
           }}
         />
         <CuadroDialogo
           msg={
-            tarea.voluntario === "" ? msg_cancelar_tarea : msg_finalizar_tarea
+            Object.keys(tarea.voluntario).length === 0 ? msg_cancelar_tarea : msg_finalizar_tarea
           }
           title={
-            tarea.voluntario === ""
+            Object.keys(tarea.voluntario).length === 0
               ? title_cancelar_tarea
               : title_finalizar_tarea
           }
-          flag={tarea.voluntario === "" ? true : false}
+          flag={Object.keys(tarea.voluntario).length === 0 ? true : false}
         />
       </div>
 
-      {tarea.voluntario !== "" ? (
+      {Object.keys(tarea.voluntario).length !== 0 ? (
         <div className="chat_tarea">
           <p>Mensajes</p>
           <Chat />
@@ -205,7 +201,6 @@ function Tabla() {
       }
     }
   };
-
   const tareas_e = tareas.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     return (
@@ -219,7 +214,7 @@ function Tabla() {
         </td>
         <td>{fila.duracion}</td>
         <td>
-          {fila.id_voluntario ? "" : <img src={fila.voluntario.img} />}
+          {Object.keys(fila.voluntario).length===0  ? "" : <img src={fila.voluntario.img} />}
         </td>
       </tr>
     );
@@ -302,7 +297,7 @@ function getTareas(user_id,user_token) {
           tarea.voluntario={};
         }
       });
-      localStorage.setItem("tarea", JSON.stringify(data));
+      localStorage.setItem("tarea",JSON.stringify(data));
       toast.dismiss(toastID);
       toast.success("Tareas Cargadas con éxito");
     })
@@ -315,16 +310,14 @@ function getTareas(user_id,user_token) {
 
 function TareasAdulto() {
   const navigate = useNavigate();
-  const { refPanel, tareasDisplay, tarea, tareas, setTareas, usuario} =
+  const { refPanel, tareasDisplay, tarea, setTareas, usuario} =
     React.useContext(GeneralContext);
   
-  // React.useEffect(() => {
-  //   getTareas(usuario.user._id,usuario.token);
-  //   setTareas(localStorage.getItem("tarea"));
-  // }, []);
+  React.useEffect(() => {
+    getTareas(usuario.user._id,usuario.token);
+    setTareas(JSON.parse(localStorage.getItem("tarea")));
+  }, []);
 
-  getTareas(usuario.user._id,usuario.token);
-  setTareas(JSON.parse(localStorage.getItem("tarea")));
 
   return (
     <div className="TareasA">
@@ -343,7 +336,7 @@ function TareasAdulto() {
           </div>
 
           <div className="table">
-            {/* <Tabla /> */}
+            <Tabla />
           </div>
         </section>
         {tarea !== null ? <Detalle /> : <></>}

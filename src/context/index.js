@@ -16,7 +16,7 @@ function GeneralProvider(props) {
       setUsuario({});
     }
   };
-  const [tareas, setTareas] = React.useState();
+  const [tareas, setTareas] = React.useState([]);
   const [tarea, setTarea] = React.useState(null);
   const [selectedIdx, setSelectedIdx] = React.useState(null);
   const [tareasDisplay, setTareasDisplay] = React.useState("flex");
