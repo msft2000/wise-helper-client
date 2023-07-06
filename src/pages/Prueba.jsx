@@ -4,8 +4,7 @@ import {Header} from "../components/Header_Adulto"
 function Prueba(){
     return(
         <>
-            <Header></Header>
-            {/* <Navbar></Navbar> */}
+           
         </>
     );
 }
