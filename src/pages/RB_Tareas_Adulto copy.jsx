@@ -13,36 +13,30 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Footer } from "../components/Footer";
-import {
-  WeavyClient,
-  WeavyProvider,
-  Chat as WeavyChat,
-} from "@weavy/uikit-react";
+import { WeavyClient, WeavyProvider, Chat as WeavyChat } from "@weavy/uikit-react";
 import "@weavy/uikit-react/dist/css/weavy.css";
 import data from "../assets/json/data_adulto.json"; //Archivo con los datos de tareas
 import { GeneralContext } from "../context";
+import ax from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const cargar_img = require.context("../assets/img", true);
 
-const msg_finalizar_tarea =
-  "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
-const title_finalizar_tarea =
-  "Está seguro en querer finalizar la tarea seleccionada?";
-const msg_cancelar_tarea =
-  "Se eliminará la tarea seleccionada y no podrá ser asignada ni seleccionada por un voluntario.";
-const title_cancelar_tarea =
-  "Está seguro en querer cancelar la tarea seleccionada?";
+const msg_finalizar_tarea = "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
+const title_finalizar_tarea = "Está seguro en querer finalizar la tarea seleccionada?";
+const msg_cancelar_tarea = "Se eliminará la tarea seleccionada y no podrá ser asignada ni seleccionada por un voluntario.";
+const title_cancelar_tarea = "Está seguro en querer cancelar la tarea seleccionada?";
 
 /*Detalle de la tarea: Seccion que aparece cuando se da click sobre una tarea*/
 
 function Chat() {
-  const {usuario, tarea}=React.useContext(GeneralContext)
+  const { usuario, tarea } = React.useContext(GeneralContext);
   //Componente de chat entre el voluntario y el adulto mayor
   const weavyClient = new WeavyClient({
     url: process.env.REACT_APP_WEAVY_URL,
     tokenFactory: async () => usuario.token_chat,
   });
-  console.log(process.env.REACT_APP_WEAVY_URL)
+  console.log(process.env.REACT_APP_WEAVY_URL);
   return (
     <div className="msgs">
       <WeavyProvider client={weavyClient}>
@@ -61,6 +55,7 @@ function Detalle() {
     tarea,
     setOpen,
   } = React.useContext(GeneralContext);
+
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
     setDetalleDisplay("none"); //Se cierra el detalle de la tarea
@@ -69,26 +64,23 @@ function Detalle() {
   };
 
   return (
-    <section
-      className={tarea.voluntario === "" ? "tarea_desc2" : "tarea_desc"}
-      style={{ display: detalleDisplay }}
-    >
+    <section className={tarea.id_voluntario ? "tarea_desc2" : "tarea_desc"} style={{ display: detalleDisplay }}>
       <section>
         <RxCross2 onClick={cerrar_detalle} />
       </section>
 
-      {tarea.voluntario !== "" ? (
+      {tarea.id_voluntario ? (
         <div className="detalles_voluntario">
           <div className="detalles_voluntario__informacion">
-            <img src={cargar_img(tarea.perfil)} alt={tarea.voluntario} />
+            <img src={tarea.voluntario.img} alt={tarea.voluntario.nombre} />
             <div className="detalles_voluntario__datos">
-              <p>{tarea.voluntario}</p>
-              <p>{tarea.tipo}</p>
+              <p>{`${tarea.voluntario.nombre} ${tarea.voluntario.apellidos}`}</p>
+              <p>Voluntario</p>
             </div>
           </div>
           <div className="detalles_voluntario__puntaje">
-            <Rating value={parseFloat(tarea.score)} readOnly precision={0.5} />
-            <p>{tarea.score}</p>
+            <Rating value={parseFloat(tarea.voluntario.calificacion_general)} readOnly precision={0.5} />
+            <p>{tarea.voluntario.calificacion_general}</p>
           </div>
         </div>
       ) : (
@@ -193,14 +185,8 @@ function CuadroDialogo({ msg, title, flag }) {
 }
 
 function Tabla() {
-  const {
-    selectedIdx,
-    refPanel,
-    setDetalleDisplay,
-    setTarea,
-    setSelectedIdx,
-    setTareasDisplay,
-  } = React.useContext(GeneralContext);
+  const { selectedIdx, refPanel, setDetalleDisplay, setTarea, setSelectedIdx, setTareasDisplay, tareas} = React.useContext(GeneralContext);
+  
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
@@ -219,20 +205,21 @@ function Tabla() {
       }
     }
   };
-  const tareas = data.map((tarea, index) => {
+
+  const tareas_e = tareas.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     return (
-      <tr className={index === selectedIdx ? "selected" : ""} onClick={() => {handleOnClickFila(tarea, index);}}>
-        <td>{tarea.tarea_titulo}</td>
-        <td>{tarea.fecha}</td>
+      <tr className={index === selectedIdx ? "selected" : ""} onClick={() => { handleOnClickFila(fila, index); }}>
+        <td>{fila.titulo}</td>
+        <td>{fila.fecha_limite}</td>
         <td>
-          <p className={tarea.estado.toLowerCase().replace(/ /g, "")}>
-            {tarea.estado}
+          <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
+            {fila.estado}
           </p>
         </td>
-        <td>{tarea.tiempo}</td>
+        <td>{fila.duracion}</td>
         <td>
-          {tarea.perfil === "" ? "" : <img src={cargar_img(tarea.perfil)} />}
+          {fila.id_voluntario ? "" : <img src={fila.voluntario.img} />}
         </td>
       </tr>
     );
@@ -268,23 +255,86 @@ function Tabla() {
           <th>Voluntario Asignado</th>
         </tr>
       </thead>
-      <tbody>{tareas}</tbody>
+      <tbody>{tareas_e}</tbody>
     </table>
   );
 }
 
+function getVoluntario(id_voluntario,user_token){
+  const config = {
+    method: "GET",
+    url: `https://wise-helper-backend.onrender.com/api/v1/auth/user`,
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${user_token}`
+    },
+    data: JSON.stringify({userID: id_voluntario})
+  };
+
+  ax(config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return {};
+    });
+}
+
+function getTareas(user_id,user_token) {
+  const toastID = toast.loading("Cargando Tareas...");
+  const config = {
+    method: "GET",
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/${user_id}`,
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${user_token}`
+    }
+  };
+  ax(config)
+    .then(function (response) {
+      let data=response.data.tareas;
+      data.forEach(tarea => {
+        if(tarea.id_voluntario){
+          tarea.voluntario=getVoluntario(tarea.id_voluntario,user_token);
+        }
+        else{
+          tarea.voluntario={};
+        }
+      });
+      localStorage.setItem("tarea", JSON.stringify(data));
+      toast.dismiss(toastID);
+      toast.success("Tareas Cargadas con éxito");
+    })
+    .catch(function (error) {
+      console.log(error);
+      toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
+      toast.dismiss(toastID);
+    });
+}
+
 function TareasAdulto() {
   const navigate = useNavigate();
-  const { refPanel, tareasDisplay, tarea } = React.useContext(GeneralContext);
+  const { refPanel, tareasDisplay, tarea, tareas, setTareas, usuario} =
+    React.useContext(GeneralContext);
+  
+  // React.useEffect(() => {
+  //   getTareas(usuario.user._id,usuario.token);
+  //   setTareas(localStorage.getItem("tarea"));
+  // }, []);
+
+  getTareas(usuario.user._id,usuario.token);
+  setTareas(JSON.parse(localStorage.getItem("tarea")));
+
   return (
     <div className="TareasA">
       <Header></Header>
-
+      <Toaster></Toaster>
       <div className="container" ref={refPanel}>
         <section className="tareas_content" style={{ display: tareasDisplay }}>
           <div className="btns">
             <div
-              class="agregar"
+              className="agregar"
               onClick={() => navigate("/adult/agregar-tarea")}
             >
               <AiOutlinePlus />
@@ -293,7 +343,7 @@ function TareasAdulto() {
           </div>
 
           <div className="table">
-            <Tabla />
+            {/* <Tabla /> */}
           </div>
         </section>
         {tarea !== null ? <Detalle /> : <></>}
@@ -303,4 +353,5 @@ function TareasAdulto() {
     </div>
   );
 }
+
 export { TareasAdulto };

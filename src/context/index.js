@@ -16,6 +16,7 @@ function GeneralProvider(props) {
       setUsuario({});
     }
   };
+  const [tareas, setTareas] = React.useState();
   const [tarea, setTarea] = React.useState(null);
   const [selectedIdx, setSelectedIdx] = React.useState(null);
   const [tareasDisplay, setTareasDisplay] = React.useState("flex");
@@ -42,6 +43,8 @@ function GeneralProvider(props) {
         usuarioLogeado,
         setUsuarioLogeado,
         validarLogeado,
+        tareas,
+        setTareas,
       }}
     >
       {props.children}

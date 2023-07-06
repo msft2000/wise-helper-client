@@ -41,7 +41,7 @@ async function generateChat(uid,id_tarea){
 
 async function updateIdChat(id_tarea,id_chat,toastID,user_token){
   const config = {
-    method: "post",
+    method: "patch",
     url: `https://wise-helper-backend.onrender.com/api/v1/tareas/update/${id_tarea}`,
     headers: {
       "Content-Type": "application/json",
@@ -105,53 +105,50 @@ function AgregarTarea() {
 
     const estado="Activa";
     const ubicacion="Avenida Prueba";
-    updateIdChat("64a616bbb5884900330bdfbc",2,toastID,usuario.token);
-    
-    
-    // const config = {
-    //   method: "post",
-    //   url: "https://wise-helper-backend.onrender.com/api/v1/tareas/create",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${usuario.token}`
-    //   },
-    //   data: JSON.stringify({
-    //     titulo: titulo,
-    //     descripcion: descripcion,
-    //     fecha_limite: fechaLimite,
-    //     duracion: tiempoEstimado,
-    //     estado: estado,
-    //     ubicacion: ubicacion,
-    //     id_adulto_mayor:usuario.user._id,
-    //     id_chat: "default",
-    //   }),
-    // };
+    const config = {
+      method: "post",
+      url: "https://wise-helper-backend.onrender.com/api/v1/tareas/create",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${usuario.token}`
+      },
+      data: JSON.stringify({
+        titulo: titulo,
+        descripcion: descripcion,
+        fecha_limite: fechaLimite,
+        duracion: tiempoEstimado,
+        estado: estado,
+        ubicacion: ubicacion,
+        id_adulto_mayor:usuario.user._id,
+        id_chat: "default",
+      }),
+    };
 
-    // ax(config)
-    //   .then(async function (response) {
-    //     //Actualizar id de chat
-    //     const id_tarea=response.data.tarea._id;
-    //     const id_chat=2;
-    //     //const id_chat = await generateChat(usuario.user.cedula,id_tarea);
-    //     if (id_chat===""){
-    //       toast.error("No se pudo generar el chat para esta tarea. Intentelo más luego.");
-    //       toast.dismiss(toastID);
-    //       return;
-    //     }
-    //     updateIdChat(id_tarea,id_chat,toastID,usuario.token);
-    //     setTitulo("");
-    //     setFechaLimite("");
-    //     setTiempoEstimado("");
-    //     setDescripcion("");
-    //     navigate("/adult");
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //     toast.dismiss(toastID);
-    //     if (error.response.status === 401) {
-    //       toast.error("No se pudo agregar la tarea. Intentelo en otra ocasión.");
-    //     }
-    //   });
+    ax(config)
+      .then(async function (response) {
+        //Actualizar id de chat
+        const id_tarea=response.data.tarea._id;
+        const id_chat = await generateChat(usuario.user.cedula,id_tarea);
+        if (id_chat===""){
+          toast.error("No se pudo generar el chat para esta tarea. Intentelo más luego.");
+          toast.dismiss(toastID);
+          return;
+        }
+        updateIdChat(id_tarea,id_chat,toastID,usuario.token);
+        setTitulo("");
+        setFechaLimite("");
+        setTiempoEstimado("");
+        setDescripcion("");
+        toast.dismiss(toastID);
+        navigate("/adult");
+      })
+      .catch(function (error) {
+        console.log(error);
+        toast.dismiss(toastID);
+        if (error.response.status === 401) {
+          toast.error("No se pudo agregar la tarea. Intentelo en otra ocasión.");
+        }
+      });
   }
 
   return (
