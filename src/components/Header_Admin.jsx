@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { FaSignOutAlt, FaBars } from "react-icons/fa";
 import { GeneralContext } from "../context";
-import "../sass/components/header_voluntario.scss";
+import "../sass/components/header_admin.scss";
 
 function Header() {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function Header() {
     validarLogeado();
   }, []);
   return (
-    <header className={flag ? "header_voluntario mobile" : "header_voluntario"}>
+    <header className={flag ? "header_admin mobile" : "header_admin"}>
       <nav>
         <img
           src={logo}

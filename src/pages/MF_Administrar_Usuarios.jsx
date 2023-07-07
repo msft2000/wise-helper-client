@@ -8,6 +8,14 @@ import "../sass/mf_administrar_usuarios.scss";
 
 function AdministrarUsuarios() {
   const [users, setUsers] = React.useState([]);
+  const [cedula, setCedula] = React.useState("");
+  const [nombre, setNombre] = React.useState("");
+  const [apellidos, setApellidos] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [direccion, setDireccion] = React.useState("");
+  const [edad, setEdad] = React.useState("");
+  const [descripcion, setDescripcion] = React.useState("");
 
   const getUsers = async () => {
     const config = {
@@ -39,6 +47,41 @@ function AdministrarUsuarios() {
       })
       .catch((error) => {
         toast.error("Error al eliminar el usuario");
+      });
+  };
+  const registerAdmin = async () => {
+    const config = {
+      method: "post",
+      url: "https://wise-helper-backend.onrender.com/api/v1/auth/register",
+      headers: {},
+      data: {
+        cedula: cedula,
+        nombre: nombre,
+        apellidos: apellidos,
+        email: email,
+        contrasenia: password,
+        direccion: direccion,
+        edad: edad,
+        descripcion: descripcion,
+        tipo:"admin",
+        token_chat:"123"
+      },
+    };
+    ax.request(config)
+      .then((response) => {
+        setCedula("");
+        setNombre("");
+        setApellidos("");
+        setEmail("");
+        setPassword("");
+        setDireccion("");
+        setEdad("");
+        setDescripcion("");
+        toast.success("Admin registrado");
+        getUsers();
+      })
+      .catch((error) => {
+        toast.error(error.response.data.msg);
       });
   };
   React.useEffect(() => {
@@ -78,17 +121,91 @@ function AdministrarUsuarios() {
                 <div className="form-container">
                   <div className="input--container">
                     <label htmlFor="cedula">Cedula</label>
-                    <input type="text" name="cedula" id="cedula" />
+                    <input
+                      type="text"
+                      name="cedula"
+                      id="cedula"
+                      value={cedula}
+                      onChange={(e) => setCedula(e.target.value)}
+                    />
                   </div>
+                  <hr />
                   <div className="input--container">
                     <label htmlFor="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" />
+                    <input
+                      type="text"
+                      name="nombre"
+                      id="nombre"
+                      value={nombre}
+                      onChange={(e) => setNombre(e.target.value)}
+                    />
                   </div>
+                  <hr />
                   <div className="input--container">
                     <label htmlFor="apellidos">Apellidos</label>
-                    <input type="text" name="apellidos" id="apellidos" />
+                    <input
+                      type="text"
+                      name="apellidos"
+                      id="apellidos"
+                      value={apellidos}
+                      onChange={(e) => setApellidos(e.target.value)}
+                    />
                   </div>
-                  
+                  <hr />
+                  <div className="input--container">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <hr />
+                  <div className="input--container">
+                    <label htmlFor="password">Contraseña</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <hr />
+                  <div className="input--container">
+                    <label htmlFor="direccion">Direccion</label>
+                    <input
+                      type="text"
+                      name="direccion"
+                      id="direccion"
+                      value={direccion}
+                      onChange={(e) => setDireccion(e.target.value)}
+                    />
+                  </div>
+                  <hr />
+                  <div className="input--container">
+                    <label htmlFor="edad">Edad</label>
+                    <input
+                      type="number"
+                      name="edad"
+                      id="edad"
+                      value={edad}
+                      onChange={(e) => setEdad(e.target.value)}
+                    />
+                  </div>
+                  <hr />
+                  <div className="input--container">
+                    <label htmlFor="descripcion">Descripcion</label>
+                    <input
+                      type="text"
+                      name="descripcion"
+                      id="descripcion"
+                      value={descripcion}
+                      onChange={(e) => setDescripcion(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="modal-footer">
@@ -97,10 +214,10 @@ function AdministrarUsuarios() {
                   className="btn-secondary"
                   data-bs-dismiss="modal"
                 >
-                  Close
+                  Cerrar
                 </button>
-                <button type="button" className="btn-primary">
-                  Save changes
+                <button type="button" className="btn-primary" onClick={()=>registerAdmin()}>
+                  Registrar Admin
                 </button>
               </div>
             </div>
@@ -113,7 +230,7 @@ function AdministrarUsuarios() {
                 <React.Fragment key={user._id}>
                   <div className="user--card" key={user._id}>
                     <div className="user--card__info">
-                      <h3>
+                      <h3 style={user.tipo === "admin" ? { color: "red" } : {}}>
                         {user.nombre} {user.apellidos}
                       </h3>
                       <p>{user.email}</p>
@@ -121,7 +238,7 @@ function AdministrarUsuarios() {
                     <div className="user--card__buttons">
                       {/* <button className="btn--edit">Editar</button> */}
                       <button
-                        className="btn--delete"
+                        className="btn"
                         onClick={() => deleteUser(user._id)}
                       >
                         Eliminar

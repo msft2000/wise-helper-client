@@ -1,0 +1,260 @@
+@import "../variables";
+
+header.header_admin {
+  display: flex;
+  justify-content: space-between;
+  height: 125px;
+  background-color: $bg_light_color;
+
+  &.mobile {
+    /*La barra de navegación se mantiene fija cuando se despliega el menu deslizable de movil*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    img {
+      /*Logo del sitio web*/
+      width: 100px;
+      height: 100px;
+      margin: 0 0 0 40px;
+      cursor: pointer;
+    }
+    p{
+      width: max-content;
+    }
+
+    ul {
+      /*Lista de enlaces de navegación (version movil y normal)*/
+      &:not(.mobile) {
+        /*Lista de enlaces de navegación normal*/
+        display: flex;
+        justify-content: space-between;
+        width: max-content;
+        padding: 0;
+        margin-left: 25px;
+        margin-bottom: 0px;
+        user-select: none;
+        list-style: none;
+        li {
+          margin-left: 20px;
+          a {
+            color: $font_dark_color;
+            font-size: 18px;
+            text-decoration: none;
+          }
+
+          &:hover {
+            border-bottom: 2px solid $primary_color;
+          }
+          &.selected {
+            border-bottom: 2px solid $primary_color;
+          }
+        }
+      }
+      &.mobile {
+        /*Lista de enlaces de navegación movil*/
+        display: none;
+      }
+    }
+    span.btn_menu {
+      /*Boton de despliegue de menu deslizable de movil*/
+      display: none;
+      cursor: pointer;
+      svg {
+        /*Icono*/
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
+
+  div.btn {
+    /*Boton para menu dropdown de la barra de navegación*/
+    display: flex;
+    align-items: center;
+    margin: 0 20px 0 0;
+
+    div.dropdown {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-left: 15px;
+      p{
+        width: max-content;
+        margin: 0;
+      }
+      img {
+        /*Imagen de perfil del usuario*/
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        margin-right: 5px;
+        -webkit-user-drag: none;
+      }
+      svg {
+        /*Icono flecha*/
+        width: 20px;
+        height: 20px;
+      }
+      &:hover .dropdown-content {
+        /*Desplegar el menu cuando se pasa por encima del boton*/
+        display: flex;
+      }
+
+      div.dropdown-content {
+        /*Estilo del dropdown menu*/
+        right: -15px;
+        top: 50px;
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        background-color: $bg_secondary_color;
+        border-radius: 15px;
+        padding: 10px 0 10px 0;
+        z-index: 2;
+        span {
+          /*Elementos del dropdown menu*/
+          display: flex;
+          color: $font_light_color;
+          text-align: right;
+          align-items: center;
+          padding: 10px 15px 10px 15px;
+          &:hover {
+            background-color: $bg_tertiary_color;
+          }
+          p {
+            /*Texto del dropdown menu*/
+            font-size: 14px;
+            user-select: none;
+          }
+          svg {
+            /*Iconos del dropdown menu*/
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 651px) and (max-width: 830px) {
+    nav {
+      img {
+        /*Logo del sitio web*/
+        margin-left: 0px;
+      }
+      ul {
+        /*Estilo para la lista de enlaces del menú*/
+        width: 400px;
+        margin-left: 15px;
+      }
+    }
+    div.btn {
+      /*Estilo para el botón del menú normal*/
+      & > p {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    nav {
+      /*Estilo de la barra de navegación*/
+      height: 95px;
+      width: 100%;
+      justify-content: space-between;
+      img {
+        /*Logo del sitio web*/
+        margin-left: 5px;
+      }
+      ul {
+        &:not(.mobile) {
+          /*Estilo del menu normal*/
+          display: none;
+        }
+        &.mobile {
+          /*Estilo del menú deslizable para movil*/
+          list-style: none;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          position: fixed;
+          width: 100vw;
+          height: calc(100% - 95px);
+          background-color: $bg_secondary_color;
+          top: -100vh;
+          text-align: center;
+          transition: all 0.4s;
+          flex-direction: column;
+          z-index: 2;
+          &.show {
+            /*Estilo para la lista de enlaces cuando se preciona el botón del menú*/
+            top: 85px;
+          }
+          li {
+            /*Estilo para cada item del menu*/
+            margin: 20px 0 0 0;
+
+            &:first-child {
+              /*Primer elemento del menu: imagen de usuario y bienvenida*/
+              display: flex;
+              align-items: center;
+              img {
+                /*Imagen de perfil del usuario*/
+                width: 70px;
+                height: 70px;
+                border-radius: 100%;
+                margin-right: 5px;
+                -webkit-user-drag: none;
+                margin-right: 20px;
+              }
+              p {
+                /*Mensaje de bienvenida*/
+                font-size: 18px;
+                user-select: none;
+                color: $font_light_color;
+              }
+            }
+            &:hover {
+              border: 0;
+            }
+            a {
+              /*Estilo para cada enlace del menu*/
+              font-size: 25px;
+              color: $font_light_color;
+              font-weight: bold;
+            }
+
+            &:hover {
+              background-color: $bg_tertiary_color;
+            }
+
+            &.selected {
+              /*Estilo para el item seleccionado*/
+              background-color: $bg_dark_color;
+              border: 0;
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      span.btn_menu {
+        /*Estilo del boton del menú deslizable para movil*/
+        display: flex;
+      }
+    }
+    div.btn {
+      /*Estilo para el botón del menú normal*/
+      display: none;
+    }
+  }
+}

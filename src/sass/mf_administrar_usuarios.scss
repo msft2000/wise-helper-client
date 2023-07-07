@@ -79,4 +79,9 @@
       background-color: $bg_primary_color;
     }
   }
+  .input--container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
