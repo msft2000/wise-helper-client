@@ -1,11 +1,11 @@
 import React from "react";
-import "../sass/mf_perfil.scss";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
 import mujerResenia from "../assets/img/resenia-ujer.png";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import { Header } from "../components/Header_Adulto";
 import { Footer } from "../components/Footer";
 import toast, { Toaster } from "react-hot-toast";
+import "../sass/mf_perfil.scss";
 
 function PerfilAdultoMayor() {
   const save = () =>
