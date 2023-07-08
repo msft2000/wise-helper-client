@@ -16,7 +16,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { GeneralContext } from "../context";
 import toast, { Toaster } from "react-hot-toast";
-import ax from "axios";
+import axios from "axios";
 
 const mensaje_cuadroDialogo="Se aceptará la tarea seleccionada y no se podrán hacer cambios."
 const titulo_cuadroDialogo="Está seguro en querer aceptar la tarea seleccionada?"
@@ -208,25 +208,25 @@ function Detalle() {
   );
 }
 
-function getAdulto(id_adulto, user_token) {
-  const config = {
-    method: "GET",
-    url: `https://wise-helper-backend.onrender.com/api/v1/auth/user/`,
-    headers: {
-      "content-type": "application/json",
-      Authorization: `Bearer ${user_token}`
-    },
-    data: JSON.stringify({ userID: id_adulto }),
+async function getAdulto(id_adulto) {
+  
+  let data = '';
+
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'https://wise-helper-backend.onrender.com/api/v1/auth/all',
+    headers: { },
+    data : data
   };
 
-  ax(config)
-    .then(function (response) {
-      return response.data.user;
-    })
-    .catch(function (error) {
-      console.log(error);
-      return {};
-    });
+  axios.request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 }
 
 
@@ -234,33 +234,33 @@ async function getAllTareas(setTareas,usuario) {
   console.log("Cargando tareas..");
   const toastID = toast.loading("Cargando Tareas Disponibles...");
   const config = {
-    method: "GET",
-    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/all`,
     headers: {
-      "content-type": "application/json",
-      Authorization: `Bearer ${usuario.token}`,
-    },
+      'Content-Type': "application/json",
+      'Authorization': `Bearer ${usuario.token}`,
+    }
   };
-  ax(config)
-    .then(function (response) {
-      const data= response.data.tareas.filter(i => i.estado === 'Activa');
-      console.log(data);
-      toast.dismiss(toastID);
-      toast.success("Tareas Cargadas con éxito");
-      return data;
-    })
-    .catch(function (error) {
-      console.log(error);
-      toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
-      toast.dismiss(toastID);
-      return;
-    });
+
+  try{
+    const response= await axios.get('https://wise-helper-backend.onrender.com/api/v1/tareas/all', config);
+    const data= response.data.tareas.filter(i => i.estado === 'Activa');
+    //console.log(data);
+    toast.dismiss(toastID);
+    toast.success("Tareas Cargadas con éxito");
+    return data;
+  }
+  catch(error){
+    console.log(error);
+    toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
+    toast.dismiss(toastID);
+  }
 }
 
 
 function TareasVoluntario() {
   const { refPanel, tareasDisplay, tarea, setTareas, setTarea, usuario } = React.useContext(GeneralContext);
-  const handlePageLoad = async () => {
+  let effect_exe=0;//Control de ejecuciones de useEffect
+  //const {adulto_a,setAdulto_a}=React.useState([]);
+  /*const handlePageLoad = async () => {
     // Código a ejecutar después de la carga de la página
     setTareas([]);
     setTarea(null);
@@ -277,7 +277,25 @@ function TareasVoluntario() {
     localStorage.setItem("tarea", JSON.stringify(data));
     setTareas(data);
   };
-  window.onload = handlePageLoad;
+
+  window.onload = handlePageLoad;*/
+  React.useEffect(()=>{
+    if(effect_exe===0){
+      /*getAllTareas(setTareas,usuario).then(dt=>{
+        let adulto_a=[];
+        dt.forEach(tarea => {
+          tarea.adulto={};
+          if(!adulto_a.includes(tarea.id_adulto_mayor)) adulto_a=[...adulto_a,tarea.id_adulto_mayor]
+        });
+        //Obtener los adultos
+        const adultos=adulto_a.map(async a => await getAdulto(a));
+        //console.log(adultos);
+      }
+      );*/
+      getAdulto("")
+      effect_exe=1;
+    }
+  },[]);
 
   return (
     <div id="TareasV">
