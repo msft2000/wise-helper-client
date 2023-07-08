@@ -1,10 +1,10 @@
-@import "./variables"; 
+@import "./variables";
 div.perfil-adulto-mayor--page-container {
   div.container {
     /*Contenido de tu pagina aquí*/
     display: flex;
     flex-direction: column;
-    
+
     .ratings {
       width: fit-content;
       margin: 3px auto;
@@ -16,7 +16,7 @@ div.perfil-adulto-mayor--page-container {
     }
 
     .perfil-datos--container {
-      height: 100vh;
+      height: 80vh;
       display: flex;
       flex-direction: column;
       width: 50%;
@@ -45,8 +45,8 @@ div.perfil-adulto-mayor--page-container {
 
         img {
           width: 30%;
-          height: 100%;
-          max-width: 200px;
+          height: auto;
+          border-radius: 100%;
         }
 
         .perfil-datos--container--datos--detalle {
@@ -109,31 +109,35 @@ div.perfil-adulto-mayor--page-container {
           background-color: $bg_dark_color;
         }
       }
-
-      .resenias--inforesenia--container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: $bg_quaternary_color;
-        border-radius: 10px;
-        max-width: 300px;
-        margin: 3px auto;
-        padding: 10px 50px;
-        margin-bottom: 50px;
-
-        img {
-          width: 30%;
-          height: 100% !important;
-          max-width: 200px;
-          margin-top: -50px;
+      .resenias--container--resenias {
+        height: 60vh;
+        margin-top: -50px;
+        padding-top: 50px;
+        overflow: scroll;
+        .resenias--inforesenia--container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: $bg_quaternary_color;
+          border-radius: 10px;
+          max-width: 300px;
+          margin: 3px auto;
+          padding: 10px 50px;
           margin-bottom: 50px;
-        }
 
-        p {
-          margin-top: -50px;
+          img {
+            width: 30%;
+            height: auto !important;
+            margin-top: -50px;
+            margin-bottom: 50px;
+            border-radius: 100%;
+          }
+
+          p {
+            margin-top: -50px;
+          }
         }
       }
-
       button {
         width: 50%;
         font-weight: 900;

@@ -83,6 +83,7 @@ header.header_admin {
 
     div.dropdown {
       display: flex;
+      position: relative;
       align-items: center;
       cursor: pointer;
       margin-left: 15px;
@@ -110,7 +111,7 @@ header.header_admin {
 
       div.dropdown-content {
         /*Estilo del dropdown menu*/
-        right: -15px;
+        left: -65px;
         top: 50px;
         display: none;
         position: absolute;
