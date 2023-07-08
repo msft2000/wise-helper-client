@@ -11,7 +11,7 @@ function Header() {
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState(false);
   const path = window.location.pathname;
-  var nombre=usuario.user.name;
+  const nombre=`${usuario.user.nombre}`;
   var msg=`¡Hola de nuevo, ${nombre}!`;
   return (
     <header className={flag ? "header_voluntario mobile" : "header_voluntario"} >

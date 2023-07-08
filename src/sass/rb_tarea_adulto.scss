@@ -10,8 +10,8 @@
   }
 }
 
-div.TareasA {
-  div.container {
+#TareasA {
+  div.containers {
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -59,7 +59,7 @@ div.TareasA {
         }
       }
 
-      div.table {
+      div.tables {
         /*Div de table*/
         display: flex;
         flex-direction: column;

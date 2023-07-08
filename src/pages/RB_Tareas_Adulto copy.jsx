@@ -13,17 +13,24 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Footer } from "../components/Footer";
-import { WeavyClient, WeavyProvider, Chat as WeavyChat } from "@weavy/uikit-react";
+import {
+  WeavyClient,
+  WeavyProvider,
+  Chat as WeavyChat,
+} from "@weavy/uikit-react";
 import "@weavy/uikit-react/dist/css/weavy.css";
 import { GeneralContext } from "../context";
 import ax from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-
-const msg_finalizar_tarea = "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
-const title_finalizar_tarea = "Está seguro en querer finalizar la tarea seleccionada?";
-const msg_cancelar_tarea = "Se eliminará la tarea seleccionada y no podrá ser asignada ni seleccionada por un voluntario.";
-const title_cancelar_tarea = "Está seguro en querer cancelar la tarea seleccionada?";
+const msg_finalizar_tarea =
+  "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
+const title_finalizar_tarea =
+  "Está seguro en querer finalizar la tarea seleccionada?";
+const msg_cancelar_tarea =
+  "Se eliminará la tarea seleccionada y no podrá ser asignada ni seleccionada por un voluntario.";
+const title_cancelar_tarea =
+  "Está seguro en querer cancelar la tarea seleccionada?";
 
 /*Detalle de la tarea: Seccion que aparece cuando se da click sobre una tarea*/
 
@@ -60,12 +67,19 @@ function Detalle() {
     setTareasDisplay("flex"); //Se muestra la lista de tareas
   };
   return (
-    <section className={Object.keys(tarea.voluntario).length === 0 ? "tarea_desc2" : "tarea_desc"} style={{ display: detalleDisplay }}>
+    <section
+      className={
+        Object.keys(tarea.voluntario).length === 0
+          ? "tarea_desc2"
+          : "tarea_desc"
+      }
+      style={{ display: detalleDisplay }}
+    >
       <section>
         <RxCross2 onClick={cerrar_detalle} />
       </section>
 
-      { Object.keys(tarea.voluntario).length !== 0 ? (
+      {Object.keys(tarea.voluntario).length !== 0 ? (
         <div className="detalles_voluntario">
           <div className="detalles_voluntario__informacion">
             <img src={tarea.voluntario.img} alt={tarea.voluntario.nombre} />
@@ -75,7 +89,11 @@ function Detalle() {
             </div>
           </div>
           <div className="detalles_voluntario__puntaje">
-            <Rating value={parseFloat(tarea.voluntario.calificacion_general)} readOnly precision={0.5} />
+            <Rating
+              value={parseFloat(tarea.voluntario.calificacion_general)}
+              readOnly
+              precision={0.5}
+            />
             <p>{tarea.voluntario.calificacion_general}</p>
           </div>
         </div>
@@ -88,14 +106,20 @@ function Detalle() {
         <p> {tarea.descripcion}</p>
         <input
           type="button"
-          value={Object.keys(tarea.voluntario).length === 0 ? "Cancelar" : "Finalizar Tarea"}
+          value={
+            Object.keys(tarea.voluntario).length === 0
+              ? "Cancelar"
+              : "Finalizar Tarea"
+          }
           onClick={() => {
             setOpen(true);
           }}
         />
         <CuadroDialogo
           msg={
-            Object.keys(tarea.voluntario).length === 0 ? msg_cancelar_tarea : msg_finalizar_tarea
+            Object.keys(tarea.voluntario).length === 0
+              ? msg_cancelar_tarea
+              : msg_finalizar_tarea
           }
           title={
             Object.keys(tarea.voluntario).length === 0
@@ -181,8 +205,16 @@ function CuadroDialogo({ msg, title, flag }) {
 }
 
 function Tabla() {
-  const { selectedIdx, refPanel, setDetalleDisplay, setTarea, setSelectedIdx, setTareasDisplay, tareas} = React.useContext(GeneralContext);
-  
+  const {
+    selectedIdx,
+    refPanel,
+    setDetalleDisplay,
+    setTarea,
+    setSelectedIdx,
+    setTareasDisplay,
+    tareas,
+  } = React.useContext(GeneralContext);
+
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
@@ -202,23 +234,32 @@ function Tabla() {
     }
   };
   const tareas_e = tareas.map((fila, index) => {
-    //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
-    return (
-      <tr className={index === selectedIdx ? "selected" : ""} onClick={() => { handleOnClickFila(fila, index); }}>
-        <td>{fila.titulo}</td>
-        <td>{fila.fecha_limite}</td>
-        <td>
-          <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
-            {fila.estado}
-          </p>
-        </td>
-        <td>{fila.duracion}</td>
-        <td>
-          {Object.keys(fila.voluntario).length===0  ? "" : <img src={fila.voluntario.img} />}
-        </td>
-      </tr>
-    );
-  });
+      //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
+      return (
+        <tr
+          className={index === selectedIdx ? "selected" : ""}
+          onClick={() => {
+            handleOnClickFila(fila, index);
+          }}
+        >
+          <td>{fila.titulo}</td>
+          <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
+          <td>
+            <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
+              {fila.estado}
+            </p>
+          </td>
+          <td>{fila.duracion}</td>
+          <td>
+            {Object.keys(fila.voluntario).length === 0 ? (
+              ""
+            ) : (
+              <img src={fila.voluntario.img} />
+            )}
+          </td>
+        </tr>
+      );
+    });
 
   return (
     <table>
@@ -255,15 +296,15 @@ function Tabla() {
   );
 }
 
-function getVoluntario(id_voluntario,user_token){
+function getVoluntario(id_voluntario, user_token) {
   const config = {
     method: "GET",
     url: `https://wise-helper-backend.onrender.com/api/v1/auth/user`,
     headers: {
       "content-type": "application/json",
-      Authorization: `Bearer ${user_token}`
+      Authorization: `Bearer ${user_token}`,
     },
-    data: JSON.stringify({userID: id_voluntario})
+    data: JSON.stringify({ userID: id_voluntario }),
   };
 
   ax(config)
@@ -276,28 +317,30 @@ function getVoluntario(id_voluntario,user_token){
     });
 }
 
-function getTareas(user_id,user_token) {
+function getTareas(user_id, user_token, setTareas) {
   const toastID = toast.loading("Cargando Tareas...");
   const config = {
     method: "GET",
     url: `https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/${user_id}`,
     headers: {
       "content-type": "application/json",
-      Authorization: `Bearer ${user_token}`
-    }
+      Authorization: `Bearer ${user_token}`,
+    },
   };
   ax(config)
     .then(function (response) {
-      let data=response.data.tareas;
-      data.forEach(tarea => {
-        if(tarea.id_voluntario){
-          tarea.voluntario=getVoluntario(tarea.id_voluntario,user_token);
-        }
-        else{
-          tarea.voluntario={};
+      console.log(response.data)
+      let data = response.data.tareas;
+      data.forEach((tarea) => {
+        if (tarea.hasOwnProperty('id_voluntario')) {
+          console.log("Tiene voluntario");
+          tarea.voluntario = getVoluntario(tarea.id_voluntario, user_token);
+        } else {
+          tarea.voluntario = {};
         }
       });
-      localStorage.setItem("tarea",JSON.stringify(data));
+      localStorage.setItem("tarea", JSON.stringify(data));
+      setTareas(data);
       toast.dismiss(toastID);
       toast.success("Tareas Cargadas con éxito");
     })
@@ -310,20 +353,18 @@ function getTareas(user_id,user_token) {
 
 function TareasAdulto() {
   const navigate = useNavigate();
-  const { refPanel, tareasDisplay, tarea, setTareas, usuario} =
-    React.useContext(GeneralContext);
-  
-  React.useEffect(() => {
-    getTareas(usuario.user._id,usuario.token);
-    setTareas(JSON.parse(localStorage.getItem("tarea")));
-  }, []);
-
+  const { refPanel, tareasDisplay, tarea, setTareas, usuario } = React.useContext(GeneralContext);
+  const handlePageLoad = () => {
+    // Código a ejecutar después de la carga de la página
+    getTareas(usuario.user._id, usuario.token,setTareas);
+  };
+  window.onload = handlePageLoad;
 
   return (
-    <div className="TareasA">
+    <div id="TareasA">
       <Header></Header>
       <Toaster></Toaster>
-      <div className="container" ref={refPanel}>
+      <div className="containers" ref={refPanel}>
         <section className="tareas_content" style={{ display: tareasDisplay }}>
           <div className="btns">
             <div
@@ -335,7 +376,7 @@ function TareasAdulto() {
             </div>
           </div>
 
-          <div className="table">
+          <div className="tables">
             <Tabla />
           </div>
         </section>

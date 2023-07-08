@@ -14,7 +14,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import data from "../assets/json/data_adulto.json";
 function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }) {
   const navigate = useNavigate();
 
@@ -189,42 +189,6 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent, ope
 }
 
 function TareasVoluntario() {
-  const data = [
-    {
-      solicitante: "Javier Sánchez",
-      score: "5",
-      perfil: "./img12.png",
-      tarea_titulo: "Limpieza de hogar",
-      tarea_desc:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-      fecha: "12 Mar 2023",
-      tiempo: "00:45:10",
-      ubicacion: "123 Main Street, Anytown, CA 12345, USA",
-    },
-    {
-      solicitante: "Pedro Perez",
-      score: "2",
-      perfil: "./img12.png",
-      tarea_titulo: "Limpieza de hogar",
-      tarea_desc:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-      fecha: "12 Mar 2023",
-      tiempo: "00:45:10",
-      ubicacion: "123 Main Street, Anytown, CA 12345, USA",
-    },
-    {
-      solicitante: "Juan Galarza",
-      score: "3.5",
-      perfil: "./img12.png",
-      tarea_titulo: "Limpieza de hogar",
-      tarea_desc:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, asperiores. Iure ut aliquid unde itaque a! Sunt pariatur ullam harum asperiores nam aspernatur quis, earum inventore facere magni, numquam laudantium.",
-      fecha: "12 Mar 2023",
-      tiempo: "00:45:10",
-      ubicacion: "123 Main Street, Anytown, CA 12345, USA",
-    },
-  ];
-
   const [detalle, setDetalle] = React.useState({
     display: "none",
     score: "",
@@ -242,7 +206,7 @@ function TareasVoluntario() {
   return (
     <div className="TareasV">
       <Header/>
-      <div className="container">
+      <div className="containers">
         
         <div className="panel" ref={refPanel}>
           <section className="tareas_content" ref={refTareasContent}>
@@ -252,7 +216,7 @@ function TareasVoluntario() {
                 <p>Filtrar Contenido</p>
               </div>
             </div>
-            <div className="table">
+            <div className="tables">
               <Tabla
                 data={data}
                 set={setDetalle}
