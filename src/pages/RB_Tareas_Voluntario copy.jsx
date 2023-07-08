@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { Header } from "../components/Header_Voluntario";
-import {Footer} from "../components/Footer"
+import { Footer } from "../components/Footer";
 import "../sass/rb_tarea_voluntario.scss";
 import { AiFillFilter } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
@@ -18,8 +18,9 @@ import { GeneralContext } from "../context";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
-const mensaje_cuadroDialogo="Se aceptará la tarea seleccionada y no se podrán hacer cambios."
-const titulo_cuadroDialogo="Está seguro en querer aceptar la tarea seleccionada?"
+const mensaje_cuadroDialogo =
+  "Se aceptará la tarea seleccionada y no se podrán hacer cambios.";
+const titulo_cuadroDialogo = "Está seguro en querer aceptar la tarea seleccionada?";
 
 function CuadroDialogo({ msg, title }) {
   const { open, setOpen } = React.useContext(GeneralContext);
@@ -34,23 +35,30 @@ function CuadroDialogo({ msg, title }) {
   return (
     <Dialog
       open={open}
-      onClose={() => {setOpen(false);}}
+      onClose={() => {
+        setOpen(false);
+      }}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {msg}
-        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">{msg}</DialogContentText>
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={() => {setOpen(false);}} color="primary">
+        <Button
+          onClick={() => {
+            setOpen(false);
+          }}
+          color="primary"
+        >
           Cancelar
         </Button>
         <Button
-          onClick={() => {handleAceptarTarea()}}
+          onClick={() => {
+            handleAceptarTarea();
+          }}
           color="primary"
           autoFocus
         >
@@ -60,7 +68,6 @@ function CuadroDialogo({ msg, title }) {
     </Dialog>
   );
 }
-
 
 function Tabla() {
   const {
@@ -105,11 +112,7 @@ function Tabla() {
         <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
         <td>{fila.duracion}</td>
         <td>
-          {typeof fila.adulto=== "undefined" ? (
-            ""
-          ) : (
-            <img src={fila.adulto.img} />
-          )}
+          {typeof fila.adulto === "undefined" ? "" : <img src={fila.adulto.img} />}
         </td>
       </tr>
     );
@@ -144,9 +147,15 @@ function Tabla() {
   );
 }
 
-
 function Detalle() {
-  const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tarea, setOpen} = React.useContext(GeneralContext);
+  const {
+    setSelectedIdx,
+    setTareasDisplay,
+    detalleDisplay,
+    setDetalleDisplay,
+    tarea,
+    setOpen,
+  } = React.useContext(GeneralContext);
 
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
@@ -155,8 +164,7 @@ function Detalle() {
     setTareasDisplay("flex"); //Se muestra la lista de tareas
   };
   return (
-    <section className="tarea_desc" style={{ display: detalleDisplay }}
-    >
+    <section className="tarea_desc" style={{ display: detalleDisplay }}>
       <section>
         <RxCross2 onClick={cerrar_detalle} />
       </section>
@@ -177,13 +185,12 @@ function Detalle() {
           <p>{tarea.adulto.calificacion_general}</p>
         </div>
       </div>
-     
 
       <div className="descripcion_tarea">
         <p>Descripción de la tarea</p>
         <p> {tarea.descripcion}</p>
       </div>
-     
+
       <div>
         <p>Ubicación</p>
 
@@ -195,12 +202,11 @@ function Detalle() {
         <input
           type="button"
           value="Aceptar"
-          onClick={() => {setOpen(true);}}
+          onClick={() => {
+            setOpen(true);
+          }}
         />
-        <CuadroDialogo
-          msg={mensaje_cuadroDialogo}
-          title={titulo_cuadroDialogo}
-        />
+        <CuadroDialogo msg={mensaje_cuadroDialogo} title={titulo_cuadroDialogo} />
 
         <p>Para obtener detalles de la tarea debes aceptarla</p>
       </div>
@@ -209,56 +215,74 @@ function Detalle() {
 }
 
 async function getAdulto(id_adulto) {
-  
-  let data = '';
-
-  let config = {
-    method: 'get',
+  console.log(id_adulto);
+  const config = {
+    method: "get",
     maxBodyLength: Infinity,
-    url: 'https://wise-helper-backend.onrender.com/api/v1/auth/all',
-    headers: { },
-    data : data
+    url: `https://wise-helper-backend.onrender.com/api/v1/auth/user/64a4397a1195856943dd6fc3`,
+    headers: {},
+    data: "",
   };
 
-  axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  axios
+    .request(config)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  // let data = '';
+
+  // let config = {
+  //   method: 'get',
+  //   maxBodyLength: Infinity,
+  //   url: 'https://wise-helper-backend.onrender.com/api/v1/auth/all',
+  //   headers: { },
+  //   data : data
+  // };
+
+  // axios.request(config)
+  // .then((response) => {
+  //   console.log(JSON.stringify(response.data));
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  // });
 }
 
-
-async function getAllTareas(setTareas,usuario) {
+async function getAllTareas(setTareas, usuario) {
   console.log("Cargando tareas..");
   const toastID = toast.loading("Cargando Tareas Disponibles...");
   const config = {
     headers: {
-      'Content-Type': "application/json",
-      'Authorization': `Bearer ${usuario.token}`,
-    }
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${usuario.token}`,
+    },
   };
 
-  try{
-    const response= await axios.get('https://wise-helper-backend.onrender.com/api/v1/tareas/all', config);
-    const data= response.data.tareas.filter(i => i.estado === 'Activa');
+  try {
+    const response = await axios.get(
+      "https://wise-helper-backend.onrender.com/api/v1/tareas/all",
+      config
+    );
+    const data = response.data.tareas.filter((i) => i.estado === "Activa");
     //console.log(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");
     return data;
-  }
-  catch(error){
+  } catch (error) {
     console.log(error);
     toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
     toast.dismiss(toastID);
   }
 }
 
-
 function TareasVoluntario() {
-  const { refPanel, tareasDisplay, tarea, setTareas, setTarea, usuario } = React.useContext(GeneralContext);
-  let effect_exe=0;//Control de ejecuciones de useEffect
+  const { refPanel, tareasDisplay, tarea, setTareas, setTarea, usuario } =
+    React.useContext(GeneralContext);
+  let effect_exe = 0; //Control de ejecuciones de useEffect
   //const {adulto_a,setAdulto_a}=React.useState([]);
   /*const handlePageLoad = async () => {
     // Código a ejecutar después de la carga de la página
@@ -279,8 +303,8 @@ function TareasVoluntario() {
   };
 
   window.onload = handlePageLoad;*/
-  React.useEffect(()=>{
-    if(effect_exe===0){
+  React.useEffect(() => {
+    if (effect_exe === 0) {
       /*getAllTareas(setTareas,usuario).then(dt=>{
         let adulto_a=[];
         dt.forEach(tarea => {
@@ -292,10 +316,10 @@ function TareasVoluntario() {
         //console.log(adultos);
       }
       );*/
-      getAdulto("")
-      effect_exe=1;
+      getAdulto("");
+      effect_exe = 1;
     }
-  },[]);
+  }, []);
 
   return (
     <div id="TareasV">
@@ -303,13 +327,12 @@ function TareasVoluntario() {
       <Toaster></Toaster>
       <div className="containers" ref={refPanel}>
         <section className="tareas_content" style={{ display: tareasDisplay }}>
-        <div className="btns">
-            
+          <div className="btns">
             <div className="filtro" style={{ display: "none" }}>
-                <AiFillFilter />
-                <p>Filtrar Contenido</p>
-              </div>
+              <AiFillFilter />
+              <p>Filtrar Contenido</p>
             </div>
+          </div>
 
           <div className="tables">
             <Tabla />
