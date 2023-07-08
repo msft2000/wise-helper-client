@@ -1,352 +1,361 @@
 @import "./variables";
 
-div.TareasV div.containers {
-  div.panel {
-    /*Panel de contenido*/
-    height: 100%;
+.MuiDialog-paperWidthSm {
+  border-radius: 25px !important;
+  .MuiTypography-colorTextSecondary {
+    color: black;
+  }
+  .MuiButton-textPrimary {
+    color: $color_6;
+  }
+}
+
+
+#TareasV div.containers {
+  /*Panel de contenido*/
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  section.tareas_content {
+    /*Panel que contiene la tabla y botones de filtrado*/
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 100%;
+    height: 150vh;
+    background: $bg_quaternary_color;
+    border-radius: 0 15px 15px 0;
 
-    section.tareas_content {
-      /*Panel que contiene la tabla y botones de filtrado*/
+    div.btns {
       display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 150vh;
-      background: $bg_quaternary_color;
-      border-radius: 0 15px 15px 0;
-      padding: 10px;
-      div.btns {
+      justify-content: space-around;
+      margin: 40px 0px 40px 0px;
+
+      .filtro,
+      .agregar {
+        /*Diseño de los botones de filtrado y agregar tarea*/
         display: flex;
-        justify-content: space-around;
-        margin: 40px 0px 40px 0px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 170px;
+        height: 30px;
+        background: $btn_primary_color;
+        border-radius: 20px;
+        color: $font_light_color;
+        font-size: 15px;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        &:hover {
+          scale: 1.1;
+        }
 
-        .filtro,
-        .agregar {
-          /*Diseño de los botones de filtrado y agregar tarea*/
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          width: 170px;
-          height: 30px;
-          background: $btn_primary_color;
-          border-radius: 20px;
+        svg {
+          width: 20px;
+          height: 20px;
+          margin: 0px 5px 0px 0px;
           color: $font_light_color;
-          font-size: 15px;
-          vertical-align: middle;
-          cursor: pointer;
-          user-select: none;
-          &:hover {
-            scale: 1.1;
-          }
-
-          svg {
-            width: 20px;
-            height: 20px;
-            margin: 0px 5px 0px 0px;
-            color: $font_light_color;
-          }
         }
       }
-      div.tables {
-        /*Div de table*/
-        display: flex;
-        flex-direction: column;
-        overflow-y: scroll;
-        text-align: center;
-        font-size: 15px;
-        overflow-y: scroll;
-        table {
-          border-collapse: collapse;
-        }
+    }
+    div.tables {
+      /*Div de table*/
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      text-align: center;
+      font-size: 15px;
+      overflow-y: scroll;
+      table {
+        border-collapse: collapse;
+      }
 
-        thead {
-          position: sticky;
-          top: 0;
-          background: $bg_quaternary_color;
-          z-index: 1;
+      thead {
+        position: sticky;
+        top: 0;
+        background: $bg_quaternary_color;
+        z-index: 1;
 
-          th {
+        th {
+          font-weight: bold;
+          height: 50px;
+          user-select: none;
+          div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
             height: 50px;
             user-select: none;
-            div {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              justify-content: center;
-              font-weight: bold;
-              height: 50px;
-              user-select: none;
-            }
-            svg {
-              margin-right: 5px;
-              display: none;
-            }
           }
-
-          th:hover {
-            svg {
-              display: flex;
-            }
+          svg {
+            margin-right: 5px;
+            display: none;
           }
         }
 
-        tbody {
-          tr {
-            height: 50px;
-            cursor: pointer;
+        th:hover {
+          svg {
+            display: flex;
           }
+        }
+      }
 
-          tr.selected {
-            background-color: $bg_light_color;
-          }
+      tbody {
+        tr {
+          height: 50px;
+          cursor: pointer;
+        }
 
+        tr.selected {
+          background-color: $bg_light_color;
+        }
+
+        img {
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+        }
+
+        td {
+          user-select: none;
           img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-          }
-
-          td {
-            user-select: none;
-            img {
-              -webkit-user-drag: none;
-            }
+            -webkit-user-drag: none;
           }
         }
       }
     }
+  }
 
-    section.tarea_desc {
-      /*Bloque: detalles de tarea*/
+  section.tarea_desc {
+    /*Bloque: detalles de tarea*/
+    display: none;
+    margin: 30px 50px 0px 50px;
+    width: 50%;
+    flex-direction: column;
+
+    & > section {
       display: none;
-      margin: 30px 50px 0px 50px;
-      width: 50%;
-      flex-direction: column;
+      margin-bottom: 20px;
+      align-self: flex-end;
+      svg {
+        color: $font_dark_color;//black;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
 
-      & > section {
-        display: none;
-        margin-bottom: 20px;
-        align-self: flex-end;
-        svg {
-          color: black;//black;
+    input {
+      /*Diseño Botones de Finalizar y Enviar*/
+      width: fit-content;
+      height: fit-content;
+      color: $font_light_color;
+      font-weight: bold;
+      font-size: 18px;
+      background: $btn_primary_color;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 0;
+      padding: 8px 20px 8px 20px;
+    }
+
+    > div:nth-of-type(1) {
+      /*Bloque: Resumen de datos de solicitante*/
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      width: 100%;
+      max-width: 498px;
+      height: fit-content;
+      background: $color_2;
+      padding: 15px 0 15px 0;
+      border-radius: 42px;
+      margin-bottom: 30px;
+
+      div:nth-of-type(2) {
+        /*Bloque: Sistema de puntuación*/
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+        align-items: center;
+        margin-top: 10px;
+
+        p {
+          /*Puntuación*/
+          color: $font_light_color;
           font-size: 20px;
-          cursor: pointer;
+          font-weight: 600;
+          margin-left: 10px;
+        }
+        span {
+          /*Grupo de estrellas*/
+          font-size: 30px;
+          color: $stars_color;
+          svg {
+            /*Cada estrella*/
+            margin: 0 8px;
+          }
+          svg[data-testid="StarBorderIcon"] {
+            /*Borde de estrella incompleta*/
+            color: $tertiary_color;
+          }
         }
       }
 
+      div:nth-of-type(1) {
+        /*Bloque: foto, nombre y voluntario*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        p {
+          /*Texto: Nombre*/
+          text-align: center;
+          color: $font_light_color;
+          font-size: 23px;
+          display: flex;
+          align-items: center;
+        }
+
+        div {
+          /*Bloque: Nombre de voluntario*/
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 10px;
+          margin-left: 5px;
+          border: 0;
+        }
+      }
+
+      img {
+        /*Img: foto de voluntario*/
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+      }
+    }
+    > div:nth-of-type(2) {
+      /*Bloque*/
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 30px;
+      border-bottom: 1.5px solid $tertiary_color;
+
+      p:nth-child(1) {
+        /*Cabecera: Descripción de tarea*/
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      p:nth-child(2) {
+        /*Contenido: Descripción*/
+        font-size: 17px;
+        text-align: justify;
+      }
+
       input {
-        /*Diseño Botones de Finalizar y Enviar*/
+        /*Boton de finalizar*/
+        display: flex;
+        align-self: flex-end;
+        margin-top: 30px;
+        &:hover {
+          scale: 1.1;
+        }
+      }
+    }
+
+    > div:nth-of-type(3) {
+      /*Bloque*/
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      p:first-child {
+        /*Texto: Ubicación*/
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 17px;
+      }
+
+      svg {
+        /*Img: ubicación*/
+        width: 55px;
+        height: 55px;
+        color: red;
+      }
+
+      p:nth-child(2) {
+        /*Img: ubicación*/
+        font-weight: bold;
+        text-align: center;
+      }
+
+      > div {
+        /*Bloque: Img y ubicación*/
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      > input {
+        /*Boton: Aceptar*/
         width: fit-content;
         height: fit-content;
         color: $font_light_color;
         font-weight: bold;
         font-size: 18px;
-        background: $btn_primary_color;
-        border-radius: 20px;
+        background: $color_2;
+        border-radius: 15px;
         cursor: pointer;
         border: 0;
-        padding: 8px 20px 8px 20px;
-      }
-
-      > div:nth-of-type(1) {
-        /*Bloque: Resumen de datos de solicitante*/
+        padding: 15px 20px 15px 20px;
         display: flex;
-        flex-direction: column;
         align-self: center;
-        width: 100%;
-        max-width: 498px;
-        height: fit-content;
-        background: $bg_primary_color;
-        padding: 15px 0 15px 0;
-        border-radius: 42px;
-        margin-bottom: 30px;
-
-        div:nth-of-type(2) {
-          /*Bloque: Sistema de puntuación*/
-          display: flex;
-          flex-direction: row;
-          align-self: center;
-          align-items: center;
-          margin-top: 10px;
-
-          p {
-            /*Puntuación*/
-            color: $font_light_color;
-            font-size: 20px;
-            font-weight: 600;
-            margin-left: 10px;
-          }
-          span {
-            /*Grupo de estrellas*/
-            font-size: 30px;
-            color: $stars_color;
-            svg {
-              /*Cada estrella*/
-              margin: 0 8px;
-            }
-            svg[data-testid="StarBorderIcon"] {
-              /*Borde de estrella incompleta*/
-              color: $tertiary_color;
-            }
-          }
-        }
-
-        div:nth-of-type(1) {
-          /*Bloque: foto, nombre y voluntario*/
-          display: flex;
-          flex-direction: row;
-          justify-content: space-evenly;
-
-          p {
-            /*Texto: Nombre*/
-            text-align: center;
-            color: $font_light_color;
-            font-size: 23px;
-            display: flex;
-            align-items: center;
-          }
-
-          div {
-            /*Bloque: Nombre de voluntario*/
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
-            margin-left: 5px;
-            border: 0;
-          }
-        }
-
-        img {
-          /*Img: foto de voluntario*/
-          width: 85px;
-          height: 85px;
-          border-radius: 50%;
+        border: 0;
+        margin: 120px 0 0 0;
+        &:hover {
+          scale: 1.1;
         }
       }
-      > div:nth-of-type(2) {
-        /*Bloque*/
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 30px;
-        border-bottom: 1.5px solid $tertiary_color;
-
-        p:nth-child(1) {
-          /*Cabecera: Descripción de tarea*/
-          font-size: 17px;
-          font-weight: bold;
-          margin-bottom: 15px;
-        }
-
-        p:nth-child(2) {
-          /*Contenido: Descripción*/
-          font-size: 17px;
-          text-align: justify;
-        }
-
-        input {
-          /*Boton de finalizar*/
-          display: flex;
-          align-self: flex-end;
-          margin-top: 30px;
-          &:hover {
-            scale: 1.1;
-          }
-        }
+      > p:last-child {
+        margin-top: 29px;
+        font-weight: bold;
+        color: $tertiary_color;
+        text-align: center;
       }
+    }
+  }
 
-      > div:nth-of-type(3) {
-        /*Bloque*/
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-
-        p:first-child {
-          /*Texto: Ubicación*/
-          margin-top: 20px;
-          font-weight: bold;
-          font-size: 17px;
-        }
-
+  @media screen and (max-width: 1007px) {
+    section.tarea_desc {
+      width: 100% !important;
+      & > section {
+        display: unset !important;
+        margin-bottom: 20px;
+        align-self: flex-end;
         svg {
-          /*Img: ubicación*/
-          width: 55px;
-          height: 55px;
-          color: red;
-        }
-
-        p:nth-child(2) {
-          /*Img: ubicación*/
-          font-weight: bold;
-          text-align: center;
-        }
-
-        > div {
-          /*Bloque: Img y ubicación*/
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-        }
-        > input {
-          /*Boton: Aceptar*/
-          width: fit-content;
-          height: fit-content;
-          color: $font_light_color;
-          font-weight: bold;
-          font-size: 18px;
-          background: $btn_primary_color;
-          border-radius: 15px;
+          color: $dark_color;
+          font-size: 20px;
           cursor: pointer;
-          border: 0;
-          padding: 15px 20px 15px 20px;
-          display: flex;
-          align-self: center;
-          border: 0;
-          margin: 120px 0 0 0;
-          &:hover {
-            scale: 1.1;
-          }
         }
-        > p:last-child {
-          margin-top: 29px;
-          font-weight: bold;
-          color: $tertiary_color;
-          text-align: center;
+      }
+    }
+    section.tarea_desc2 {
+      width: 100% !important;
+      & > section {
+        display: unset !important;
+        margin-bottom: 20px;
+        align-self: flex-end;
+        svg {
+          color: $font_dark_color;
+          font-size: 20px;
+          cursor: pointer;
         }
       }
     }
   }
 }
-@media screen and (max-width: 1007px) {
-  section.tarea_desc {
-    width: 100% !important;
-    & > section {
-      display: unset!important;
-      margin-bottom: 20px;
-      align-self: flex-end;
-      svg {
-        color: $dark_color;
-        font-size: 20px;
-        cursor: pointer;
-      }
-    }
-  }
-  section.tarea_desc2 {
-    width: 100% !important;
-    & > section {
-      display: unset!important;
-      margin-bottom: 20px;
-      align-self: flex-end;
-      svg {
-        color: $font_dark_color;
-        font-size: 20px;
-        cursor: pointer;
-      }
-    }
-  }
-}
-

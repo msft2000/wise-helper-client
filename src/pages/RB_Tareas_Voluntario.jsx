@@ -15,6 +15,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import data from "../assets/json/data_adulto.json";
+
 function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }) {
   const navigate = useNavigate();
 

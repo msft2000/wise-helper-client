@@ -10,7 +10,7 @@ import { Index } from "../pages/MR_Index";
 import { Login as LoginAdulto } from "../pages/RB_Login_Adulto";
 import { Login as LoginVoluntario } from "../pages/RB_Login_Voluntario";
 import { Signup } from "../pages/RB_Signup";
-import { TareasVoluntario } from "../pages/RB_Tareas_Voluntario";
+import { TareasVoluntario } from "../pages/RB_Tareas_Voluntario copy";
 import { TareasAdulto } from "../pages/RB_Tareas_Adulto copy";
 import { PerfilVoluntario } from "../pages/CHL_Perfil_Voluntario";
 import { Soporte } from "../pages/RB_Soporte";
