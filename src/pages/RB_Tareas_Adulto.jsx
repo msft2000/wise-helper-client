@@ -18,7 +18,7 @@ import {
   WeavyProvider,
   Chat as WeavyChat,
 } from "@weavy/uikit-react";
-import "@weavy/uikit-react/dist/css/weavy.css";
+import "../css/weavy.css";
 import { GeneralContext } from "../context";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
@@ -41,6 +41,7 @@ function Chat() {
     url: process.env.REACT_APP_WEAVY_URL,
     tokenFactory: async () => usuario.user.token_chat,
   });
+
   return (
     <div className="msgs">
       <WeavyProvider client={weavyClient}>
@@ -233,34 +234,35 @@ function Tabla() {
       }
     }
   };
-  const tareas_e = tareas.map((fila, index) => {
-      //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
-      return (
-        <tr
-          className={index === selectedIdx ? "selected" : ""}
-          onClick={() => {
-            handleOnClickFila(fila, index);
-          }}
-          key={fila._id}
-        >
-          <td>{fila.titulo}</td>
-          <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
-          <td>
-            <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
-              {fila.estado}
-            </p>
-          </td>
-          <td>{fila.duracion}</td>
-          <td>
-            {typeof fila.voluntario=== "undefined" ? (
-              ""
-            ) : (
-              <img src={fila.voluntario.img} />
-            )}
-          </td>
-        </tr>
-      );
-    });
+
+  const tareas_e=tareas.map((fila, index) => {
+    //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
+    return (
+      <tr
+        className={index === selectedIdx ? "selected" : ""}
+        onClick={() => {
+          handleOnClickFila(fila, index);
+        }}
+        key={fila._id}
+      >
+        <td>{fila.titulo}</td>
+        <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
+        <td>
+          <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
+            {fila.estado}
+          </p>
+        </td>
+        <td>{fila.duracion}</td>
+        <td>
+          {typeof fila.voluntario=== "undefined" ? (
+            <></>
+          ) : (
+            <img src={fila.voluntario.img} alt={fila.voluntario.nombre}/>
+          )}
+        </td>
+      </tr>
+    );
+});
 
   return (
     <table>
@@ -325,7 +327,7 @@ async function getTareas(user_id, user_token, setTareas) {
     }
   };
   try{
-    const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/${user_id}`, config);
+    const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/adulto_mayor/${user_id}`, config);
     const data= response.data.tareas.filter(i => i.estado !== 'Finalizado');
     let voluntario_a=[];
     data.forEach(tarea => {
@@ -333,7 +335,7 @@ async function getTareas(user_id, user_token, setTareas) {
       if(tarea.hasOwnProperty('id_voluntario') && !voluntario_a.includes(tarea.id_voluntario)) voluntario_a=[...voluntario_a,tarea.id_voluntario]
     });
     voluntario_a.map(a => getVoluntario(a,data));
-    localStorage.setItem("tarea", JSON.stringify(data));
+    //localStorage.setItem("tarea", JSON.stringify(data));
     setTareas(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");

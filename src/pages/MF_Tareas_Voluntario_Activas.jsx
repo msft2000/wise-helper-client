@@ -18,7 +18,7 @@ import {
   WeavyProvider,
   Chat as WeavyChat,
 } from "@weavy/uikit-react";
-import "@weavy/uikit-react/dist/css/weavy.css";
+import "../css/weavy.css";
 import { GeneralContext } from "../context";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
@@ -281,35 +281,19 @@ async function getAdulto(id_adulto, tareas) {
 
 async function getTareas(user_id, user_token, setTareas) {
   const toastID = toast.loading("Cargando Tareas...");
-  // let data = JSON.stringify({
-  //   "tipo": "voluntario",
-  // });
-  
-  // let config = {
-  //   method: 'get',
-  //   maxBodyLength: Infinity,
-  //   url: `https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/${user_id}`,
-  //   headers: { 
-  //     'Content-Type': 'application/json', 
-  //     'Authorization': `Bearer ${user_token}`
-  //   },
-  //   data : data
-  // };
-
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: 'https://wise-helper-backend.onrender.com/api/v1/tareas/all',
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/voluntario/${user_id}`,
     headers: { 
+      'Content-Type': 'application/json', 
       'Authorization': `Bearer ${user_token}`
     },
-    data : ''
   };
   
   axios.request(config)
   .then((response) => {
-    const data = response.data.tareas.filter((i) => i.estado !== "Activa" && i.id_voluntario===user_id);
-    console.log(data);
+    const data = response.data.tareas.filter((i) => i.estado !== "Activa");
     let adulto_a = [];
     data.forEach((tarea) => {
       tarea.adulto = {};
