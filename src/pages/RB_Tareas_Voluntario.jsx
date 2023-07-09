@@ -169,6 +169,7 @@ function Tabla() {
         onClick={() => {
           handleOnClickFila(fila, index);
         }}
+        key={fila._id}
       >
         <td>{fila.titulo}</td>
         <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>

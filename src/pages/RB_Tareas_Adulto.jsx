@@ -44,7 +44,7 @@ function Chat() {
   return (
     <div className="msgs">
       <WeavyProvider client={weavyClient}>
-        <WeavyChat uid={`chatTarea-${tarea._id}`} />
+        <WeavyChat uid={`chatTarea-${tarea._id}`} features={{thumbnails:false, previews: false, cloudFiles: false, mentions: false, polls: false, reactions: false, meetings: false }}/>
       </WeavyProvider>
     </div>
   );
@@ -241,6 +241,7 @@ function Tabla() {
           onClick={() => {
             handleOnClickFila(fila, index);
           }}
+          key={fila._id}
         >
           <td>{fila.titulo}</td>
           <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
