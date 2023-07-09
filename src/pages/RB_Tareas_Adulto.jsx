@@ -254,7 +254,7 @@ function Tabla() {
         </td>
         <td>{fila.duracion}</td>
         <td>
-          {typeof fila.voluntario=== "undefined" ? (
+          {Object.keys(fila.voluntario).length===0 ? (
             <></>
           ) : (
             <img src={fila.voluntario.img} alt={fila.voluntario.nombre}/>
