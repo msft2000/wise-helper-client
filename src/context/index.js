@@ -6,6 +6,11 @@ function GeneralProvider(props) {
       ? JSON.parse(localStorage.getItem("usuario"))
       : {}
   );
+  const [usuarioV, setUsuarioV] = React.useState(
+    localStorage.getItem("usuarioV")
+      ? JSON.parse(localStorage.getItem("usuarioV"))
+      : {}
+  );
   const [usuarioLogeado, setUsuarioLogeado] = React.useState(
     Object.keys(usuario).length !== 0
   );
@@ -43,6 +48,8 @@ function GeneralProvider(props) {
         setTarea,
         usuario,
         setUsuario,
+        usuarioV,
+        setUsuarioV,
         usuarioLogeado,
         setUsuarioLogeado,
         validarLogeado,

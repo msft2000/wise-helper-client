@@ -12,7 +12,7 @@ import ax from "axios";
 import "../sass/rb_login.scss";
 function Login() {
   const navigate = useNavigate();
-  const { setUsuario, setUsuarioLogeado } = React.useContext(GeneralContext);
+  const { setUsuarioV, setUsuarioLogeado } = React.useContext(GeneralContext);
   const [user, setUser] = React.useState("");
   const [pass, setPass] = React.useState("");
 
@@ -37,8 +37,8 @@ function Login() {
           toast.error("Debes ser un voluntario para ingresar a esta sección.");
           return;
         }
-        localStorage.setItem("usuario", JSON.stringify(response.data));
-        setUsuario(response.data);
+        localStorage.setItem("usuarioV", JSON.stringify(response.data));
+        setUsuarioV(response.data);
         setUsuarioLogeado(true);
         setUser("");
         setPass("");

@@ -1,198 +1,397 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header_Voluntario";
-import {Footer} from "../components/Footer";
-import "../sass/mf_tareas_activas_voluntario.scss";
-import mujerResenia from "../assets/img/img12.png";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import AddIcon from "@mui/icons-material/Add";
-import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import "../sass/rb_tarea_adulto.scss";
+import { AiOutlinePlus, AiFillFilter } from "react-icons/ai";
+import Rating from "@mui/material/Rating";
+import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { Footer } from "../components/Footer";
+import {
+  WeavyClient,
+  WeavyProvider,
+  Chat as WeavyChat,
+} from "@weavy/uikit-react";
+import "@weavy/uikit-react/dist/css/weavy.css";
+import { GeneralContext } from "../context";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
-function TareasActivas() {
+const msg_finalizar_tarea =
+  "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
+const title_finalizar_tarea =
+  "Está seguro en querer finalizar la tarea seleccionada?";
+
+/*Detalle de la tarea: Seccion que aparece cuando se da click sobre una tarea*/
+
+function Chat() {
+  const { usuarioV, tarea } = React.useContext(GeneralContext);
+  //Componente de chat entre el voluntario y el adulto mayor
+  const weavyClient = new WeavyClient({
+    url: process.env.REACT_APP_WEAVY_URL,
+    tokenFactory: async () => usuarioV.user.token_chat,
+  });
+  return (
+    <div className="msgs">
+      <WeavyProvider client={weavyClient}>
+        <WeavyChat uid={`chatTarea-${tarea._id}`} />
+      </WeavyProvider>
+    </div>
+  );
+}
+
+function Detalle() {
+  const {
+    setSelectedIdx,
+    setTareasDisplay,
+    detalleDisplay,
+    setDetalleDisplay,
+    tarea,
+    setOpen,
+  } = React.useContext(GeneralContext);
+
+  const cerrar_detalle = () => {
+    //Funcion ejecutada cuando se presiona X en el detalle
+    setDetalleDisplay("none"); //Se cierra el detalle de la tarea
+    setSelectedIdx(null); //Se deselecciona la tarea
+    setTareasDisplay("flex"); //Se muestra la lista de tareas
+  };
+  return (
+    <section
+      className={"tarea_desc"}
+      style={{ display: detalleDisplay }}
+    >
+      <section>
+        <RxCross2 onClick={cerrar_detalle} />
+      </section>
+
+      <div className="detalles_voluntario">
+        <div className="detalles_voluntario__informacion">
+          <img src={tarea.adulto.img} alt={tarea.adulto.nombre} />
+          <div className="detalles_voluntario__datos">
+            <p>{`${tarea.adulto.nombre} ${tarea.adulto.apellidos}`}</p>
+            <p></p>
+          </div>
+        </div>
+        <div className="detalles_voluntario__puntaje">
+          <Rating
+            value={parseFloat(tarea.adulto.calificacion_general)}
+            readOnly
+            precision={0.5}
+          />
+          <p>{tarea.adulto.calificacion_general}</p>
+        </div>
+      </div>
+      <div className="descripcion_tarea">
+        <p>Descripción de la tarea</p>
+        <p> {tarea.descripcion}</p>
+        {tarea.estado === "En Proceso" ? (
+          <input
+            type="button"
+            value={"Finalizar Tarea"}
+            onClick={() => {
+              setOpen(true);
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        <CuadroDialogo
+          msg={msg_finalizar_tarea}
+          title={title_finalizar_tarea}
+        />
+      </div>
+      <div className="chat_tarea">
+        <p>Mensajes</p>
+        <Chat />
+      </div>
+    </section>
+  );
+}
+
+function CuadroDialogo({ msg, title }) {
+  const {open, setOpen } =
+    React.useContext(GeneralContext);
   const navigate = useNavigate();
-  const mostrarMenuLateral = (tarea) => {
-    if (tarea === "1") {
-      setTareaActiva2("");
-      setTareaActiva3("");
-      setTareaActiva4("");
-      if (tareaActiva1 === "tarea-activa") {
-        setTareaActiva1("");
-        setMenuLateralActivo("todas-tareas--container");
-        setTareaContainer("tarea--container");
-      } else {
-        setTareaActiva1("tarea-activa");
-        setMenuLateralActivo("todas-tareas--container menu-lateral-activo");
-        setTareaContainer("tarea--container tarea-activo");
-      }
-    } else if (tarea === "2") {
-      setTareaActiva1("");
-      setTareaActiva3("");
-      setTareaActiva4("");
-      if (tareaActiva2 === "tarea-activa") {
-        setTareaActiva2("");
-        setMenuLateralActivo("todas-tareas--container");
-        setTareaContainer("tarea--container");
-      } else {
-        setTareaActiva2("tarea-activa");
-        setMenuLateralActivo("todas-tareas--container menu-lateral-activo");
-        setTareaContainer("tarea--container tarea-activo");
-      }
-    } else if (tarea === "3") {
-      setTareaActiva2("");
-      setTareaActiva1("");
-      setTareaActiva4("");
-      if (tareaActiva3 === "tarea-activa") {
-        setTareaActiva3("");
-        setMenuLateralActivo("todas-tareas--container");
-        setTareaContainer("tarea--container");
-      } else {
-        setTareaActiva3("tarea-activa");
-        setMenuLateralActivo("todas-tareas--container menu-lateral-activo");
-        setTareaContainer("tarea--container tarea-activo");
-      }
-    } else if (tarea === "4") {
-      setTareaActiva2("");
-      setTareaActiva3("");
-      setTareaActiva1("");
-      if (tareaActiva4 === "tarea-activa") {
-        setTareaActiva4("");
-        setMenuLateralActivo("todas-tareas--container");
-        setTareaContainer("tarea--container");
-      } else {
-        setTareaActiva4("tarea-activa");
-        setMenuLateralActivo("todas-tareas--container menu-lateral-activo");
-        setTareaContainer("tarea--container tarea-activo");
+
+  const handleFinalizarTarea = () => {
+    setOpen(false); //cerrar el cuadro de dialogo
+    /*Actualizar el estado en la base de datos*/
+    navigate("/volunter/tareas/finalizar");
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onClose={() => {
+        setOpen(false);
+      }}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {msg}
+        </DialogContentText>
+      </DialogContent>
+
+      <DialogActions>
+        <Button
+          onClick={() => {
+            setOpen(false);
+          }}
+          color="primary"
+        >
+          Cancelar
+        </Button>
+        <Button
+          onClick={() => {
+            handleFinalizarTarea();
+          }}
+          color="primary"
+          autoFocus
+        >
+          Continuar
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+function Tabla() {
+  const {
+    selectedIdx,
+    refPanel,
+    setDetalleDisplay,
+    setTarea,
+    setSelectedIdx,
+    setTareasDisplay,
+    tareas,
+  } = React.useContext(GeneralContext);
+
+  const handleOnClickFila = (tarea, index) => {
+    if (selectedIdx === index) {
+      //Deseleccionar un elemento ya seleccionado
+      setSelectedIdx(null);
+      setDetalleDisplay("none");
+      setTarea(null);
+    } else {
+      //Seleccionar un elemento
+      setSelectedIdx(index);
+      setTarea(tarea);
+      setDetalleDisplay("flex");
+
+      if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
+        //Ocultar las tareas cuando se usa la versión movil
+        setTareasDisplay("none");
       }
     }
   };
-  const [tareaActiva1, setTareaActiva1] = React.useState("");
-  const [tareaActiva2, setTareaActiva2] = React.useState("");
-  const [tareaActiva3, setTareaActiva3] = React.useState("");
-  const [tareaActiva4, setTareaActiva4] = React.useState("");
-  const [menuLateralActivo, setMenuLateralActivo] = React.useState(
-    "todas-tareas--container"
-  );
-  const [tareaContainer, setTareaContainer] =
-    React.useState("tarea--container");
+  const tareas_e = tareas.map((fila, index) => {
+    //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
+    return (
+      <tr
+        className={index === selectedIdx ? "selected" : ""}
+        onClick={() => {
+          handleOnClickFila(fila, index);
+        }}
+        key={fila._id}
+      >
+        <td>{fila.titulo}</td>
+        <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
+        <td>
+          <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
+            {fila.estado}
+          </p>
+        </td>
+        <td>{fila.duracion}</td>
+        <td>
+          {typeof fila.adulto === "undefined" ? (
+            ""
+          ) : (
+            <img src={fila.adulto.img} />
+          )}
+        </td>
+      </tr>
+    );
+  });
+
   return (
-    <div className="tareas-activas--page">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <div>
+              <AiFillFilter /> Tarea
+            </div>
+          </th>
+          <th>
+            <div>
+              <AiFillFilter />
+              Fecha Límite
+            </div>
+          </th>
+          <th>
+            <div>
+              <AiFillFilter />
+              Estado
+            </div>
+          </th>
+          <th>
+            <div>
+              <AiFillFilter />
+              Tiempo Estimado
+            </div>
+          </th>
+          <th>Solicitante</th>
+        </tr>
+      </thead>
+      <tbody>{tareas_e}</tbody>
+    </table>
+  );
+}
+
+async function getAdulto(id_adulto, tareas) {
+  const config = {
+    headers: {
+      "content-type": "application/json",
+    },
+  };
+  try {
+    const response = await axios.get(
+      `https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_adulto}`,
+      config
+    );
+    tareas.forEach((tarea) => {
+      if (tarea.id_adulto_mayor === id_adulto) {
+        tarea.adulto = response.data.user;
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getTareas(user_id, user_token, setTareas) {
+  const toastID = toast.loading("Cargando Tareas...");
+  let data = JSON.stringify({
+    "tipo": "voluntario",
+  });
+  
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/${user_id}`,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${user_token}`
+    },
+    data : data
+  };
+  
+  axios.request(config)
+  .then((response) => {
+    console.log(response.data);
+    const data = response.data.tareas.filter((i) => i.estado !== "Activa");
+    let adulto_a = [];
+    data.forEach((tarea) => {
+      tarea.adulto = {};
+      if (!adulto_a.includes(tarea.id_adulto_mayor))
+        adulto_a = [...adulto_a, tarea.id_adulto_mayor];
+    });
+    adulto_a.map(async (a) => {
+      await getAdulto(a, data);
+    });
+    localStorage.setItem("tarea", JSON.stringify(data));
+    setTareas(data);
+    toast.dismiss(toastID);
+    toast.success("Tareas Cargadas con éxito");
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
+    toast.dismiss(toastID);
+  });
+  
+  
+  
+  
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${user_token}`,
+  //   },
+  //   data: JSON.stringify({
+  //     "tipo": "voluntario"
+  //   })
+  // };
+  // try {
+  //   const response = await axios.get(
+  //     `https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/${user_id}`,
+  //     config
+  //   );
+  //   console.log(response.data);
+  //   const data = response.data.tareas.filter((i) => i.estado !== "Activa");
+  //   let adulto_a = [];
+  //   data.forEach((tarea) => {
+  //     tarea.adulto = {};
+  //     if (!adulto_a.includes(tarea.id_adulto_mayor))
+  //       adulto_a = [...adulto_a, tarea.id_adulto_mayor];
+  //   });
+  //   adulto_a.map(async (a) => {
+  //     await getAdulto(a, data);
+  //   });
+  //   localStorage.setItem("tarea", JSON.stringify(data));
+  //   setTareas(data);
+  //   toast.dismiss(toastID);
+  //   toast.success("Tareas Cargadas con éxito");
+  // } catch (error) {
+  //   console.log(error);
+  //   toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
+  //   toast.dismiss(toastID);
+  // }
+}
+
+function TareasActivas() {
+  const { refPanel, tareasDisplay, tarea, setTareas, usuarioV } =
+    React.useContext(GeneralContext);
+  let effect_exe = 0; //Control de ejecuciones de useEffect
+
+  React.useEffect(() => {
+    if (effect_exe === 0) {
+      // Código a ejecutar después de la carga de la página
+      getTareas(usuarioV.user._id, usuarioV.token, setTareas);
+      effect_exe = 1;
+    }
+  }, []);
+
+  return (
+    <div id="TareasA">
       <Header></Header>
-      <div className="tareas-activas--container">
-        <div className={menuLateralActivo}>
-          <div className="todas-tareas--header" style={{display:"none"}}>
-            <button>
-              <FilterAltIcon />
-              Filtrar Contenido
-            </button>
-            <button onClick={()=>navigate("agregar-tarea")}>
-              <AddIcon />
-              Agregar Tarea
-            </button>
-            
-          </div>
-          <div className="todas-tareas--body">
-            <table>
-              <thead>
-                <tr>
-                  <th>Tarea</th>
-                  <th>Fecha Limite</th>
-                  <th>Estado</th>
-                  <th>Tiempo Estimado</th>
-                  <th>Adulto</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  onClick={() => {
-                    mostrarMenuLateral("1");
-                  }}
-                  className={tareaActiva1}
-                >
-                  <td>Limpieza de Hogar</td>
-                  <td>20/10/2021</td>
-                  <td className="en-proceso">En proceso</td>
-                  <td>00:45:10</td>
-                  <td>Carlos</td>
-                </tr>
-                <tr
-                  onClick={() => {
-                    mostrarMenuLateral("2");
-                  }}
-                  className={tareaActiva2}
-                >
-                  <td>Compra viveres</td>
-                  <td>20/10/2021</td>
-                  <td className="en-proceso">En proceso</td>
-                  <td>00:45:10</td>
-                  <td>Carlos</td>
-                </tr>
-                <tr
-                  onClick={() => {
-                    mostrarMenuLateral("3");
-                  }}
-                  className={tareaActiva3}
-                >
-                  <td>Cortar Cesped</td>
-                  <td>20/10/2021</td>
-                  <td className="en-proceso">En proceso</td>
-                  <td>00:45:10</td>
-                  <td>Carlos</td>
-                </tr>
-                <tr
-                  onClick={() => {
-                    mostrarMenuLateral("4");
-                  }}
-                  className={tareaActiva4}
-                >
-                  <td>Cuidados Mascota</td>
-                  <td>20/10/2021</td>
-                  <td className="en-proceso">En proceso</td>
-                  <td>00:45:10</td>
-                  <td>Carlos</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className={tareaContainer}>
-          <div className="volunter--container">
-            <div className="volunter--header">
-              <img src={mujerResenia} alt="foto-perfil-resenia" style={{borderRadius:"100%"}} />
-              <div className="info">
-                <h3>Carlos</h3>
-                <p>Adulto Mayor</p>
-              </div>
-            </div>
-            <div className="ratings">
-              <StarRateRoundedIcon />
-              <StarRateRoundedIcon />
-              <StarRateRoundedIcon />
-              <StarRateRoundedIcon />
-              <StarRateRoundedIcon />
-              4.0
+      <Toaster></Toaster>
+      <div className="containers" ref={refPanel}>
+        <section className="tareas_content" style={{ display: tareasDisplay }}>
+          <div className="btns" style={{display:"none"}}>
+            <div className="agregar">
+              <AiOutlinePlus />
+              <p></p>
             </div>
           </div>
-          <div className="descripcion-tarea--container">
-            <h3>Descripcion de la tarea</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              voluptatum, quibusdam, voluptate, quia quod quas voluptas
-              voluptatem quos doloribus quae natus. Quisquam voluptatum,
-              quibusdam, voluptate, quia quod quas voluptas voluptatem quos
-              doloribus quae natus.
-            </p>
+
+          <div className="tables">
+            <Tabla />
           </div>
-          <hr />
-          <div className="ubicacion--container">
-            <h3>Ubicacion</h3>
-            <p>
-              <LocationOnIcon /> 123 Main Street, Anytown, CA 12345, USA
-            </p>
-          </div>
-          <button className="btn-finalizar" style={{cursor:"pointer"}} onClick={()=>{navigate("/volunter/tareas/finalizar")}}>Finalizar</button>
-        </div>
+        </section>
+        {tarea !== null ? <Detalle /> : <></>}
       </div>
+
       <Footer></Footer>
     </div>
   );

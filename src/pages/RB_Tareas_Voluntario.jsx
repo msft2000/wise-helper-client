@@ -93,11 +93,11 @@ async function updateTarea(usuario,tarea,navigate){
 
 
 function CuadroDialogo({ msg, title }) {
-  const { open, setOpen, tarea,usuario } = React.useContext(GeneralContext);
+  const { open, setOpen, tarea,usuarioV } = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const handleAceptarTarea = () => {
     setOpen(false); //cerrar el cuadro de dialogo
-    updateTarea(usuario,tarea,navigate)//Actualizar el estado de la tarea
+    updateTarea(usuarioV,tarea,navigate)//Actualizar el estado de la tarea
   };
 
   return (
@@ -328,12 +328,12 @@ async function getAllTareas(setTareas,usuario) {
 
 
 function TareasVoluntario() {
-  const { refPanel, tareasDisplay, tarea, setTareas, usuario } = React.useContext(GeneralContext);
+  const { refPanel, tareasDisplay, tarea, setTareas, usuarioV } = React.useContext(GeneralContext);
   let effect_exe=0;//Control de ejecuciones de useEffect
 
   React.useEffect(()=>{
     if(effect_exe===0){
-      getAllTareas(setTareas,usuario)
+      getAllTareas(setTareas,usuarioV)
       effect_exe=1;
     }
   },[]);
