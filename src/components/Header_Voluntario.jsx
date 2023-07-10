@@ -7,7 +7,7 @@ import "../sass/components/header_voluntario.scss";
 import { GeneralContext } from "../context";
 
 function Header() {
-  const { usuarioV} = React.useContext(GeneralContext);
+  const { usuarioV,setUsuarioV, setTareas} = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState(false);
   const path = window.location.pathname;
@@ -73,7 +73,7 @@ function Header() {
             <a onClick={() => navigate("/volunter/perfil")}>Mi Perfil</a>
           </li>
           <li>
-            <a onClick={() => navigate("/")}>Cerrar Sesión</a>
+          <a onClick={() => {navigate("/"); setUsuarioV({});setTareas([])}}>Cerrar Sesión</a>
           </li>
         </ul>
         <span
@@ -98,7 +98,7 @@ function Header() {
               <FaRegUserCircle></FaRegUserCircle>
               <p>Mi perfil</p>
             </span>
-            <span className="dropdown-item2" onClick={() => navigate("/")}>
+            <span className="dropdown-item2" onClick={() => {navigate("/"); setUsuarioV({}); setTareas([])}}>
               <FaSignOutAlt></FaSignOutAlt>
               <p>Cerrar Sesión</p>
             </span>

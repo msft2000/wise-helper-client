@@ -31,8 +31,87 @@ const msg_cancelar_tarea =
   "Se eliminará la tarea seleccionada y no podrá ser asignada ni seleccionada por un voluntario.";
 const title_cancelar_tarea =
   "Está seguro en querer cancelar la tarea seleccionada?";
-
+let ref = null;
 /*Detalle de la tarea: Seccion que aparece cuando se da click sobre una tarea*/
+async function eliminarChat(tarea,usuario){
+  const toastID = toast.loading("Cancelando la Tarea...");
+  let config = {
+    method: 'delete',
+    maxBodyLength: Infinity,
+    url: `${process.env.REACT_APP_WEAVY_URL}/api/apps/${tarea.id_chat}`,
+    headers: { 
+      'Authorization': `Bearer ${process.env.REACT_APP_WEAVY_API}`
+    }
+  };
+
+  axios.request(config)
+  .then((response) => {
+    //Se elimino el chat correctamente
+    cancelarTarea(tarea._id,usuario.token,toastID);
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.dismiss(toastID);
+    toast.error("Error en el servidor. No se logro cancelar la tarea.");
+  });
+}
+
+async function cancelarTarea(id_tarea,user_token,toastID){
+  let config = {
+    method: 'delete',
+    maxBodyLength: Infinity,
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/delete/${id_tarea}`,
+    headers: { 
+      'Authorization': `Bearer ${user_token}`
+    },
+  };
+
+  axios.request(config)
+  .then((response) => {
+    //Tarea eliminada correctamente
+    ref.setAttribute("class", " ");
+    ref.setAttribute("hidden", "");
+    toast.dismiss(toastID);
+    toast.success("Tarea Cancelada Correctamente!");
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.dismiss(toastID);
+    toast.error("Error en el servidor. No se logro cancelar la tarea.");
+  });
+}
+
+async function finalizarTarea(id_tarea,user_token){
+  const toastID = toast.loading("Finalizando la Tarea...");
+  let data = JSON.stringify({
+    "estado": "Finalizada"
+  });
+
+  let config = {
+    method: 'patch',
+    maxBodyLength: Infinity,
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/update/${id_tarea}`,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${user_token}`
+    },
+    data : data
+  };
+
+  axios.request(config)
+  .then((response) => {
+    //Tarea Finalizada
+    ref.setAttribute("class", " ");
+    ref.setAttribute("hidden", "");
+    toast.dismiss(toastID);
+    toast.success("Tarea Finalizada Correctamente!")
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.dismiss(toastID);
+    toast.error("Error en el servidor. No se puede finalizar la tarea.")
+  });
+}
 
 function Chat() {
   const { usuario, tarea } = React.useContext(GeneralContext);
@@ -144,26 +223,26 @@ function Detalle() {
 }
 
 function CuadroDialogo({ msg, title, flag }) {
-  const { setTareasDisplay, setDetalleDisplay, setSelectedIdx, open, setOpen } =
+  const { setTareasDisplay, setDetalleDisplay, setSelectedIdx, open, setOpen, tarea, usuario } =
     React.useContext(GeneralContext);
   const navigate = useNavigate();
 
-  const handleCancelarTarea = () => {
+  const handleCancelarTarea = async () => {
     setOpen(false); //cerrar el cuadro de dialogo
-    /*Eliminar de la base de datos*/
-    const ref = document.querySelector("div.TareasA tr.selected"); //fila seleccionada
-    ref.setAttribute("class", " ");
-    ref.setAttribute("hidden", "");
-    ref.setAttribute("class", " ");
+    ref=document.querySelector("#TareasA tr.selected");
+    await eliminarChat(tarea, usuario)
     setDetalleDisplay("none");
     setTareasDisplay("flex");
     setSelectedIdx(null);
   };
 
-  const handleFinalizarTarea = () => {
+  const handleFinalizarTarea = async () => {
     setOpen(false); //cerrar el cuadro de dialogo
-    /*Actualizar el estado en la base de datos*/
-    navigate("/adult/finalizar");
+    ref=document.querySelector("#TareasA tr.selected");
+    await finalizarTarea(tarea._id,usuario.token);
+    setDetalleDisplay("none");
+    setTareasDisplay("flex");
+    setSelectedIdx(null);
   };
 
   return (
@@ -328,7 +407,7 @@ async function getTareas(user_id, user_token, setTareas) {
   };
   try{
     const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/adulto_mayor/${user_id}`, config);
-    const data= response.data.tareas.filter(i => i.estado !== 'Finalizado');
+    const data= response.data.tareas.filter(i => i.estado !== 'Finalizada');
     let voluntario_a=[];
     data.forEach(tarea => {
       tarea.voluntario={};
@@ -339,11 +418,13 @@ async function getTareas(user_id, user_token, setTareas) {
     setTareas(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");
+    return;
   }
   catch(error){
     console.log(error);
     toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
     toast.dismiss(toastID);
+    return;
   }
 }
 

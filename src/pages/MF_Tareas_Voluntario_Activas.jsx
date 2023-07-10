@@ -107,7 +107,7 @@ function Detalle() {
           title={title_finalizar_tarea}
         />
       </div>
-      <div className="chat_tarea">
+      <div className={tarea.estado==="Finalizada" ? "chat_tarea finalizada" :"chat_tarea"}>
         <p>Mensajes</p>
         <Chat />
       </div>

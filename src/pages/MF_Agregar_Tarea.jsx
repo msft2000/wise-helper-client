@@ -26,7 +26,7 @@ async function generateChat(uid,id_tarea){
     let token_gen = await fetch(`${process.env.REACT_APP_WEAVY_URL}/api/apps/init`,token_config);
     if (token_gen.ok) {
       let resp = await token_gen.json();
-      console.log(resp);
+      //console.log(resp);
       return resp.id;
     }
     else{
@@ -54,7 +54,7 @@ async function updateIdChat(id_tarea,id_chat,toastID,user_token){
   ax(config)
     .then(async function (response) {
       //Actualizar id de chat
-      console.log(response)
+      //console.log(response)
     })
     .catch(function (error) {
       console.log(error);
