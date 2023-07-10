@@ -22,6 +22,7 @@ import "../css/weavy.css";
 import { GeneralContext } from "../context";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { render } from "react-dom";
 
 const msg_finalizar_tarea =
   "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
@@ -290,11 +291,33 @@ function Tabla() {
     refPanel,
     setDetalleDisplay,
     setTarea,
+    setTareas,
     setSelectedIdx,
     setTareasDisplay,
     tareas,
   } = React.useContext(GeneralContext);
 
+  const sorting=(idx,field)=>{
+    if(idx===1){
+      const tareas_sorted=tareas.sort((a,b)=>{
+        if(a[field] < b[field]) return 1;
+        else if(a[field]  > b[field]) return -1;
+        return 0;
+      });
+      setTareas(tareas_sorted);
+    }
+    else{
+      const tareas_sorted=tareas.sort((a,b)=>{
+        let f_a=new Date(a[field]);
+        let f_b=new Date(b[field]);
+        if( f_a > f_b) return 1;
+        else if(f_a < f_b) return -1;
+        return 0;
+      });
+      console.log(tareas_sorted)
+      setTareas(tareas_sorted);
+    }
+  }
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
@@ -347,24 +370,24 @@ function Tabla() {
     <table>
       <thead>
         <tr>
-          <th>
+          <th onClick={()=>{sorting(1,"titulo")}}>
             <div>
               <AiFillFilter /> Tarea
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"fecha_limite")}}>
             <div>
               <AiFillFilter />
               Fecha Límite
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(1,"estado")}}>
             <div>
               <AiFillFilter />
               Estado
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"duracion")}}>
             <div>
               <AiFillFilter />
               Tiempo Estimado
