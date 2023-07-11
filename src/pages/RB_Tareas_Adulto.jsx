@@ -82,7 +82,7 @@ async function cancelarTarea(id_tarea,user_token,toastID){
   });
 }
 
-async function finalizarTarea(id_tarea,user_token){
+async function finalizarTarea(id_tarea,user_token,navigate){
   const toastID = toast.loading("Finalizando la Tarea...");
   let data = JSON.stringify({
     "estado": "Finalizada"
@@ -106,6 +106,7 @@ async function finalizarTarea(id_tarea,user_token){
     ref.setAttribute("hidden", "");
     toast.dismiss(toastID);
     toast.success("Tarea Finalizada Correctamente!")
+    navigate("/adult/finalizar");
   })
   .catch((error) => {
     console.log(error);
@@ -240,7 +241,7 @@ function CuadroDialogo({ msg, title, flag }) {
   const handleFinalizarTarea = async () => {
     setOpen(false); //cerrar el cuadro de dialogo
     ref=document.querySelector("#TareasA tr.selected");
-    await finalizarTarea(tarea._id,usuario.token);
+    await finalizarTarea(tarea._id,usuario.token,navigate);
     setDetalleDisplay("none");
     setTareasDisplay("flex");
     setSelectedIdx(null);
