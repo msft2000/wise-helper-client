@@ -62,13 +62,10 @@ function GeneralProvider(props) {
         validarLogeado,
         tareas,
         setTareas,
-<<<<<<< Updated upstream
         setTareaV,
         tareaV,
         setTareasV,
         tareasV,
-=======
->>>>>>> Stashed changes
         tickets,
         setTickets,
         ticket,
