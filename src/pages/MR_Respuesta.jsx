@@ -1,12 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header_Admin";
 import "../sass/mr_respuesta.scss";
+import { GeneralContext } from "../context";
 
 function Respuesta() {
   const navigate = useNavigate();
+
+  const {ticket} = React.useContext(GeneralContext);
+
   return (
     <React.Fragment>
       <Header />
@@ -16,18 +20,18 @@ function Respuesta() {
 
           <div className="Asunto">
             <h2>Asunto:</h2>
-            <p>Lorem Ipsum</p>
+            <p>{ticket.titulo}</p>
           </div>
 
           <div className="Detalles">
             <h2>Detalles:</h2>
             <div>
-              <p></p>
-              <input
+              <p>{ticket.descripcion}</p>
+              {/* <input
                 type="button"
                 value="+  Descargar contenido adjunto"
                 className="btn btn-orange"
-              ></input>
+              ></input> */}
             </div>
           </div>
 
