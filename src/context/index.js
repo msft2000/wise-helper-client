@@ -34,7 +34,10 @@ function GeneralProvider(props) {
   const [refPanel, setRefPanel] = React.useState(React.useRef(null));
   const [tickets, setTickets] = React.useState([]);
   const [ticket, setTicket] = React.useState([]);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   return (
     <GeneralContext.Provider
       value={{
@@ -59,10 +62,13 @@ function GeneralProvider(props) {
         validarLogeado,
         tareas,
         setTareas,
+<<<<<<< Updated upstream
         setTareaV,
         tareaV,
         setTareasV,
         tareasV,
+=======
+>>>>>>> Stashed changes
         tickets,
         setTickets,
         ticket,
