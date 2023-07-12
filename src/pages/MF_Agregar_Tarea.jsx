@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { GeneralContext } from "../context";
 
 async function generateChat(uid,id_tarea){
-  uid=`u-${uid}`;
+  uid=`userChat-${uid}`;
 
   const token_config={
     method: "POST",
@@ -17,7 +17,7 @@ async function generateChat(uid,id_tarea){
       Authorization: `Bearer ${process.env.REACT_APP_WEAVY_API}`
     },
     body: JSON.stringify({
-      app: {uid: `t-${id_tarea}`, name: "Chat", type: "Chat"},
+      app: {uid: `chatTarea-${id_tarea}`, name: "Chat", type: "Chat"},
       user: {uid: uid}
     })
   };
@@ -34,9 +34,8 @@ async function generateChat(uid,id_tarea){
     }
   }
 
-  var token=await getToken();
-  //Agregar datos de usuario
-  return token;
+  var id=await getToken();
+  return id;
 }
 
 async function updateIdChat(id_tarea,id_chat,toastID,user_token){

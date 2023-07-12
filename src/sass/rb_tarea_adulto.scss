@@ -443,6 +443,7 @@
   @media screen and (max-width: 1007px) {
     section.tarea_desc {
       width: 100% !important;
+      margin: 0 !important;
       & > section {
         display: unset !important;
         margin-bottom: 20px;
@@ -452,6 +453,10 @@
           font-size: 20px;
           cursor: pointer;
         }
+      }
+
+      div.msgs{
+        height: 70vh !important;
       }
     }
     section.tarea_desc2 {

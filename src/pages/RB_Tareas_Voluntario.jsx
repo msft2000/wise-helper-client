@@ -14,32 +14,96 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import data from "../assets/json/data_adulto.json";
+import { GeneralContext } from "../context";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
-function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }) {
+const mensaje_cuadroDialogo="Se aceptará la tarea seleccionada y no se podrán hacer cambios."
+const titulo_cuadroDialogo="Está seguro en querer aceptar la tarea seleccionada?"
+
+async function generateChat(usuario,tarea){
+  const uid=`userChat-${usuario.user.cedula}`;
+
+  const token_config={
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${process.env.REACT_APP_WEAVY_API}`
+    },
+    body: JSON.stringify({
+      app: {uid: `chatTarea-${tarea._id}`, name: "Chat", type: "Chat"},
+      user: {uid: uid}
+    })
+  };
+
+  const getToken=async ()=>{//Se genera el token de usuario
+    let token_gen = await fetch(`${process.env.REACT_APP_WEAVY_URL}/api/apps/init`,token_config);
+    if (token_gen.ok) {
+      let resp = await token_gen.json();
+      return resp.id;
+    }
+    else{
+      return "";
+    }
+  }
+
+  var token=await getToken();
+  //Agregar datos de usuario
+  return token;
+}
+
+async function updateTarea(usuario,tarea,navigate){
+  const toastID = toast.loading("Aceptando la tarea...");
+  let data = JSON.stringify({
+    "id_voluntario": usuario.user._id,
+    "estado": "En Proceso",
+  });
+
+  let config = {
+    method: 'patch',
+    maxBodyLength: Infinity,
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/update/${tarea._id}`,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${usuario.token}`
+    },
+    data : data
+  };
+
+  axios.request(config)
+  .then(async (response) => {
+    const id_chat=await generateChat(usuario,tarea);
+    console.log("Id Chat ", id_chat);
+    if(id_chat!==""){
+      toast.success("Tarea Correctamente Aceptada");
+      toast.dismiss(toastID);
+      navigate("/volunter/tareas");
+    }
+    else{
+      toast.error("Hubo un error al aceptar la tarea. Intentelo después.");
+      toast.dismiss(toastID);
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.error("Hubo un error al aceptar la tarea. Intentelo después.");
+    toast.dismiss(toastID);
+  });
+}
+
+
+function CuadroDialogo({ msg, title }) {
+  const { open, setOpen, tarea,usuarioV } = React.useContext(GeneralContext);
   const navigate = useNavigate();
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleSubmmit = () => {
-    setOpen(false);
-    const ref = document.querySelector("div.TareasA tr.selected");
-    const ref2 = document.querySelector("div.TareasA section.tarea_desc2");
-    ref.setAttribute("hidden", "");
-    ref2.setAttribute("style", "display:none");
-    refTareasContent.current.style.display = "flex";
-  };
-
-  const handleSubmmit2 = () => {
-    setOpen(false);
-    navigate("/volunter/tareas")
+  const handleAceptarTarea = () => {
+    setOpen(false); //cerrar el cuadro de dialogo
+    updateTarea(usuarioV,tarea,navigate)//Actualizar el estado de la tarea
   };
 
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={() => {setOpen(false);}}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -49,11 +113,16 @@ function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }
           {msg}
         </DialogContentText>
       </DialogContent>
+
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={() => {setOpen(false);}} color="primary">
           Cancelar
         </Button>
-        <Button onClick={()=>{flag ? handleSubmmit(): handleSubmmit2()}} color="primary" autoFocus>
+        <Button
+          onClick={() => {handleAceptarTarea()}}
+          color="primary"
+          autoFocus
+        >
           Continuar
         </Button>
       </DialogActions>
@@ -62,46 +131,56 @@ function CuadroDialogo({ refTareasContent, open, setOpen, msg, title,flag=true }
 }
 
 
-function Tabla({
-  data,
-  set,
-  setFilaSeleccionada,
-  filaSeleccionada,
-  refTareasContent,
-  refPanel,
-}) {
-  const img = require.context("../assets/img", true); //Contexto para cargar imagenes
+function Tabla() {
+  const {
+    selectedIdx,
+    refPanel,
+    setDetalleDisplay,
+    setTarea,
+    setSelectedIdx,
+    setTareasDisplay,
+    tareas,
+  } = React.useContext(GeneralContext);
 
-  const filas = data.map((fila, index) => {
-    //Recorrido de todas las filas de los datos obtenidos y creación de cada fila
+  const handleOnClickFila = (tarea, index) => {
+    if (selectedIdx === index) {
+      //Deseleccionar un elemento ya seleccionado
+      setSelectedIdx(null);
+      setDetalleDisplay("none");
+      setTarea(null);
+    } else {
+      //Seleccionar un elemento
+      setSelectedIdx(index);
+      setTarea(tarea);
+      setDetalleDisplay("flex");
+
+      if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
+        //Ocultar las tareas cuando se usa la versión movil
+        setTareasDisplay("none");
+      }
+    }
+  };
+  const tareas_e = tareas.map((fila, index) => {
+    //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
+    //console.log(fila);
     return (
       <tr
-        className={index === filaSeleccionada ? "selected" : ""}
+        className={index === selectedIdx ? "selected" : ""}
         onClick={() => {
-          if (filaSeleccionada === index) {
-            setFilaSeleccionada(null);
-            set({ display: "none" });
-          } else {
-            setFilaSeleccionada(index);
-            let perfil = fila.perfil === "" ? "" : img(fila.perfil);
-            set({
-              img: perfil,
-              display: "flex",
-              score: fila.score,
-              nombre: fila.solicitante,
-              desc: fila.tarea_desc,
-              ubicacion: fila.ubicacion,
-            });
-            if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
-              refTareasContent.current.style.display = "none";
-            }
-          }
+          handleOnClickFila(fila, index);
         }}
+        key={fila._id}
       >
-        <td>{fila.tarea_titulo}</td>
-        <td>{fila.fecha}</td>
-        <td>{fila.tiempo}</td>
-        <td>{fila.perfil === "" ? "" : <img src={img(fila.perfil)} />}</td>
+        <td>{fila.titulo}</td>
+        <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
+        <td>{fila.duracion}</td>
+        <td>
+          {typeof fila.adulto=== "undefined" ? (
+            ""
+          ) : (
+            <img src={fila.adulto.img} />
+          )}
+        </td>
       </tr>
     );
   });
@@ -130,58 +209,68 @@ function Tabla({
           <th>Solicitante</th>
         </tr>
       </thead>
-      <tbody>{filas}</tbody>
+      <tbody>{tareas_e}</tbody>
     </table>
   );
 }
 
-function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent, open, setOpen}) {
-  const handleClickOpen = () => {
-    setOpen(true);
+
+function Detalle() {
+  const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tarea, setOpen} = React.useContext(GeneralContext);
+
+  const cerrar_detalle = () => {
+    //Funcion ejecutada cuando se presiona X en el detalle
+    setDetalleDisplay("none"); //Se cierra el detalle de la tarea
+    setSelectedIdx(null); //Se deselecciona la tarea
+    setTareasDisplay("flex"); //Se muestra la lista de tareas
   };
   return (
-    <section className="tarea_desc" style={{ display: detalle.display }}>
+    <section className="tarea_desc" style={{ display: detalleDisplay }}
+    >
       <section>
-        <RxCross2
-          onClick={() => {
-            set({ display: "none" });
-            setFilaSeleccionada(null);
-            refTareasContent.current.style.display = "flex";
-          }}
-        />
+        <RxCross2 onClick={cerrar_detalle} />
       </section>
-      <div>
-        <div>
-          <img src={detalle.img} alt="" />
-          <p>{detalle.nombre}</p>
-        </div>
-        <div>
-          <Rating value={parseFloat(detalle.score)} readOnly precision={0.2} />
-          <p>{detalle.score}</p>
-        </div>
-      </div>
-      <div>
-        <p>Descripción de la tarea</p>
-        <p> {detalle.desc}</p>
-      </div>
 
+      <div className="detalles_adulto">
+        <div className="detalles_adulto__informacion">
+          <img src={tarea.adulto.img} alt={tarea.adulto.nombre} />
+          <div className="detalles_adulto_datos">
+            <p>{`${tarea.adulto.nombre} ${tarea.adulto.apellidos}`}</p>
+          </div>
+        </div>
+        <div className="detalles_adulto__puntaje">
+          <Rating
+            value={parseFloat(tarea.adulto.calificacion_general)}
+            readOnly
+            precision={0.5}
+          />
+          <p>{tarea.adulto.calificacion_general}</p>
+        </div>
+      </div>
+     
+
+      <div className="descripcion_tarea">
+        <p>Descripción de la tarea</p>
+        <p> {tarea.descripcion}</p>
+      </div>
+     
       <div>
         <p>Ubicación</p>
 
         <div>
           <MdLocationOn />
-          <p>{detalle.ubicacion}</p>
+          <p>{tarea.ubicacion}</p>
         </div>
 
-        <input type="button" value="Aceptar" onClick={handleClickOpen}/>
+        <input
+          type="button"
+          value="Aceptar"
+          onClick={() => {setOpen(true);}}
+        />
         <CuadroDialogo
-        open={open}
-        setOpen={setOpen}
-        refTareasContent={refTareasContent}
-        msg="Se aceptará la tarea seleccionada y no se podrán hacer cambios."
-        title="Está seguro en querer aceptar la tarea seleccionada?"
-        flag={false}
-      />
+          msg={mensaje_cuadroDialogo}
+          title={titulo_cuadroDialogo}
+        />
 
         <p>Para obtener detalles de la tarea debes aceptarla</p>
       </div>
@@ -189,58 +278,91 @@ function DetalleTarea({ detalle, set, setFilaSeleccionada, refTareasContent, ope
   );
 }
 
+async function getAdulto(id_adulto,tareas) {
+  const config = {
+    headers: {
+      "content-type": "application/json",
+    }
+  };
+  try{
+    const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_adulto}`, config);
+    tareas.forEach(tarea => {
+      if(tarea.id_adulto_mayor===id_adulto){
+        tarea.adulto=response.data.user;
+      }
+    });
+  }
+  catch(error){
+    console.log(error);
+  }
+}
+
+
+async function getAllTareas(setTareas,usuario) {
+  const toastID = toast.loading("Cargando Tareas Disponibles...");
+  const config = {
+    headers: {
+      'Content-Type': "application/json",
+      'Authorization': `Bearer ${usuario.token}`,
+    }
+  };
+
+  try{
+    const response= await axios.get('https://wise-helper-backend.onrender.com/api/v1/tareas/all', config);
+    const data= response.data.tareas.filter(i => i.estado === 'Activa');
+    let adulto_a=[];
+    data.forEach(tarea => {
+      tarea.adulto={};
+      if(!adulto_a.includes(tarea.id_adulto_mayor)) adulto_a=[...adulto_a,tarea.id_adulto_mayor]
+    });
+    adulto_a.map(async (a) => {await getAdulto(a,data)});
+    setTareas(data);
+    toast.dismiss(toastID);
+    toast.success("Tareas Cargadas con éxito");
+  }
+  catch(error){
+    console.log(error);
+    toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
+    toast.dismiss(toastID);
+  }
+}
+
+
 function TareasVoluntario() {
-  const [detalle, setDetalle] = React.useState({
-    display: "none",
-    score: "",
-    nombre: "",
-    desc: "",
-    img: "",
-    ubicacion: "",
-  });
+  const { refPanel, tareasDisplay, tarea, setTareas, usuarioV } = React.useContext(GeneralContext);
+  let effect_exe=0;//Control de ejecuciones de useEffect
 
-  const [filaSeleccionada, setFilaSeleccionada] = React.useState(null); //Variables de estado para saber que fila se seleccionó
+  React.useEffect(()=>{
+    if(effect_exe===0){
+      getAllTareas(setTareas,usuarioV)
+      effect_exe=1;
+    }
+  },[]);
 
-  const refTareasContent = React.useRef(null);
-  const refPanel = React.useRef(null);
-  const [open, setOpen] = React.useState(false);
   return (
-    <div className="TareasV">
-      <Header/>
-      <div className="containers">
-        
-        <div className="panel" ref={refPanel}>
-          <section className="tareas_content" ref={refTareasContent}>
-            <div className="btns">
-              <div class="filtro" style={{ display: "none" }}>
+    <div id="TareasV">
+      <Header></Header>
+      <Toaster></Toaster>
+      <div className="containers" ref={refPanel}>
+        <section className="tareas_content" style={{ display: tareasDisplay }}>
+        <div className="btns">
+            
+            <div className="filtro" style={{ display: "none" }}>
                 <AiFillFilter />
                 <p>Filtrar Contenido</p>
               </div>
             </div>
-            <div className="tables">
-              <Tabla
-                data={data}
-                set={setDetalle}
-                detalle={detalle}
-                filaSeleccionada={filaSeleccionada}
-                setFilaSeleccionada={setFilaSeleccionada}
-                refTareasContent={refTareasContent}
-                refPanel={refPanel}
-              />
-            </div>
-          </section>
-          <DetalleTarea
-            detalle={detalle}
-            set={setDetalle}
-            setFilaSeleccionada={setFilaSeleccionada}
-            refTareasContent={refTareasContent}
-            open={open}
-            setOpen={setOpen}
-          />
-        </div>
+
+          <div className="tables">
+            <Tabla />
+          </div>
+        </section>
+        {tarea !== null ? <Detalle /> : <></>}
       </div>
+
       <Footer></Footer>
     </div>
   );
 }
+
 export { TareasVoluntario };

@@ -16,7 +16,7 @@ function AdministrarUsuarios() {
   const [direccion, setDireccion] = React.useState("");
   const [edad, setEdad] = React.useState("");
   const [descripcion, setDescripcion] = React.useState("");
-
+  const [modal, setModal] = React.useState(false);
   const getUsers = async () => {
     const config = {
       method: "get",
@@ -63,8 +63,8 @@ function AdministrarUsuarios() {
         direccion: direccion,
         edad: edad,
         descripcion: descripcion,
-        tipo:"admin",
-        token_chat:"123"
+        tipo: "admin",
+        token_chat: "123",
       },
     };
     ax.request(config)
@@ -93,136 +93,132 @@ function AdministrarUsuarios() {
       <div id="administrar-usuarios">
         <h1>
           Lista de Usuarios
-          <button type="button" data-bs-toggle="modal" data-bs-target="#modal-add">
+          <button type="button" onClick={()=>setModal(true)}>
             <AddCircleIcon />
           </button>
         </h1>
-        <div
-          className="modal fade"
-          id="modal-add"
-          tabIndex="100"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">
-                  Agregar Administrador
-                </h1>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div className="form-container">
-                  <div className="input--container">
-                    <label htmlFor="cedula">Cedula</label>
-                    <input
-                      type="text"
-                      name="cedula"
-                      id="cedula"
-                      value={cedula}
-                      onChange={(e) => setCedula(e.target.value)}
-                    />
-                  </div>
-                  <hr />
-                  <div className="input--container">
-                    <label htmlFor="nombre">Nombre</label>
-                    <input
-                      type="text"
-                      name="nombre"
-                      id="nombre"
-                      value={nombre}
-                      onChange={(e) => setNombre(e.target.value)}
-                    />
-                  </div>
-                  <hr />
-                  <div className="input--container">
-                    <label htmlFor="apellidos">Apellidos</label>
-                    <input
-                      type="text"
-                      name="apellidos"
-                      id="apellidos"
-                      value={apellidos}
-                      onChange={(e) => setApellidos(e.target.value)}
-                    />
-                  </div>
-                  <hr />
-                  <div className="input--container">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <hr />
-                  <div className="input--container">
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  <hr />
-                  <div className="input--container">
-                    <label htmlFor="direccion">Direccion</label>
-                    <input
-                      type="text"
-                      name="direccion"
-                      id="direccion"
-                      value={direccion}
-                      onChange={(e) => setDireccion(e.target.value)}
-                    />
-                  </div>
-                  <hr />
-                  <div className="input--container">
-                    <label htmlFor="edad">Edad</label>
-                    <input
-                      type="number"
-                      name="edad"
-                      id="edad"
-                      value={edad}
-                      onChange={(e) => setEdad(e.target.value)}
-                    />
-                  </div>
-                  <hr />
-                  <div className="input--container">
-                    <label htmlFor="descripcion">Descripcion</label>
-                    <input
-                      type="text"
-                      name="descripcion"
-                      id="descripcion"
-                      value={descripcion}
-                      onChange={(e) => setDescripcion(e.target.value)}
-                    />
+        {modal ? (
+          <div
+            id="modal-add"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="exampleModalLabel">
+                    Agregar Administrador
+                  </h1>
+                </div>
+                <div className="modal-body">
+                  <div className="form-container">
+                    <div className="input--container">
+                      <label htmlFor="cedula">Cedula</label>
+                      <input
+                        type="text"
+                        name="cedula"
+                        id="cedula"
+                        value={cedula}
+                        onChange={(e) => setCedula(e.target.value)}
+                      />
+                    </div>
+                    <hr />
+                    <div className="input--container">
+                      <label htmlFor="nombre">Nombre</label>
+                      <input
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
+                      />
+                    </div>
+                    <hr />
+                    <div className="input--container">
+                      <label htmlFor="apellidos">Apellidos</label>
+                      <input
+                        type="text"
+                        name="apellidos"
+                        id="apellidos"
+                        value={apellidos}
+                        onChange={(e) => setApellidos(e.target.value)}
+                      />
+                    </div>
+                    <hr />
+                    <div className="input--container">
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                    <hr />
+                    <div className="input--container">
+                      <label htmlFor="password">Contraseña</label>
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                    <hr />
+                    <div className="input--container">
+                      <label htmlFor="direccion">Direccion</label>
+                      <input
+                        type="text"
+                        name="direccion"
+                        id="direccion"
+                        value={direccion}
+                        onChange={(e) => setDireccion(e.target.value)}
+                      />
+                    </div>
+                    <hr />
+                    <div className="input--container">
+                      <label htmlFor="edad">Edad</label>
+                      <input
+                        type="number"
+                        name="edad"
+                        id="edad"
+                        value={edad}
+                        onChange={(e) => setEdad(e.target.value)}
+                      />
+                    </div>
+                    <hr />
+                    <div className="input--container">
+                      <label htmlFor="descripcion">Descripcion</label>
+                      <input
+                        type="text"
+                        name="descripcion"
+                        id="descripcion"
+                        value={descripcion}
+                        onChange={(e) => setDescripcion(e.target.value)}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Cerrar
-                </button>
-                <button type="button" className="btn-primary" onClick={()=>registerAdmin()}>
-                  Registrar Admin
-                </button>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={() => setModal(false)}
+                  >
+                    Cerrar
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    onClick={() => registerAdmin()}
+                  >
+                    Registrar Admin
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : null}
         <div className="users--container">
           {Object.keys(users).length > 0 ? (
             users.map((user) => {
@@ -237,10 +233,7 @@ function AdministrarUsuarios() {
                     </div>
                     <div className="user--card__buttons">
                       {/* <button className="btn--edit">Editar</button> */}
-                      <button
-                        className="btn"
-                        onClick={() => deleteUser(user._id)}
-                      >
+                      <button className="btn" onClick={() => deleteUser(user._id)}>
                         Eliminar
                       </button>
                     </div>

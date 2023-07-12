@@ -7,11 +7,11 @@ import "../sass/components/header_voluntario.scss";
 import { GeneralContext } from "../context";
 
 function Header() {
-  const { usuario} = React.useContext(GeneralContext);
+  const { usuarioV} = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState(false);
   const path = window.location.pathname;
-  const nombre=`${usuario.user.nombre}`;
+  const nombre=`${usuarioV.user.nombre}`;
   var msg=`¡Hola de nuevo, ${nombre}!`;
   return (
     <header className={flag ? "header_voluntario mobile" : "header_voluntario"} >
@@ -57,7 +57,7 @@ function Header() {
         </ul>
         <ul className={flag ? "mobile show":"mobile"}>
             <li>
-                <img src={usuario.user.img} alt="" />
+                <img src={usuarioV.user.img} alt="" />
                 <p>{msg}</p>
             </li>
           <li className={path === "/volunter" ? "selected" : ""}>
@@ -88,7 +88,7 @@ function Header() {
       <div className="btn">
         <p>{msg}</p>
         <div className="dropdown">
-          <img src={usuario.user.img} alt="" />
+          <img src={usuarioV.user.img} alt="" />
           <RiArrowDownSFill></RiArrowDownSFill>
           <div className="dropdown-content">
             <span

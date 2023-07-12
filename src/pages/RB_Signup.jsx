@@ -12,7 +12,7 @@ import ax from "axios";
 import { GeneralContext } from "../context";
 
 async function getChatToken(uid, email, nombre, apellido) {
-  uid=`u-${uid}`;
+  uid=`userChat-${uid}`;
   const token_config={
     method: "POST",
     headers: {
@@ -130,6 +130,7 @@ function Signup() {
         setID("");
         setApellidos("");
         setNombre("");
+        toast.dismiss(toastID);
         tipo_usuario==="voluntario" ? navigate("/volunter") : navigate("/adult");
       })
       .catch(function (error) {
