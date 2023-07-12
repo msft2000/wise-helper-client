@@ -32,6 +32,9 @@ function GeneralProvider(props) {
   const [detalleDisplay, setDetalleDisplay] = React.useState("none");
   const [open, setOpen] = React.useState(false);
   const [refPanel, setRefPanel] = React.useState(React.useRef(null));
+  const [tickets, setTickets] = React.useState([]);
+  const [ticket, setTicket] = React.useState([]);
+
   return (
     <GeneralContext.Provider
       value={{
@@ -60,6 +63,10 @@ function GeneralProvider(props) {
         tareaV,
         setTareasV,
         tareasV,
+        tickets,
+        setTickets,
+        ticket,
+        setTicket,
       }}
     >
       {props.children}
