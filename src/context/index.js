@@ -21,10 +21,7 @@ function GeneralProvider(props) {
       setUsuario({});
     }
   };
-  const [tareas, setTareas] = React.useState(
-    localStorage.getItem("tarea")
-      ? JSON.parse(localStorage.getItem("tarea"))
-      : []);
+  const [tareas, setTareas] = React.useState([]);
   const [tarea, setTarea] = React.useState(null);
   const [selectedIdx, setSelectedIdx] = React.useState(null);
   const [tareasDisplay, setTareasDisplay] = React.useState("flex");

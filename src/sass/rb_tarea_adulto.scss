@@ -11,17 +11,17 @@
 }
 
 #TareasA {
+  display: flex;
+  flex-direction: column;
   div.containers {
     height: 100%;
     display: flex;
     flex-direction: row;
-    padding: 10px;
     section.tareas_content {
       /*Panel que contiene la tabla y botones de filtrado*/
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 150vh;
       background: $bg_quaternary_color;
       border-radius: 0 15px 15px 0;
 
@@ -63,10 +63,11 @@
         /*Div de table*/
         display: flex;
         flex-direction: column;
-        overflow-y: scroll;
         text-align: center;
         font-size: 15px;
         overflow-y: scroll;
+        padding-bottom: 25px;
+        min-height: 60vh;
         table {
           border-collapse: collapse;
         }
@@ -97,6 +98,7 @@
           }
 
           th:hover {
+            cursor: pointer;
             svg {
               display: flex;
             }
@@ -155,8 +157,9 @@
     section.tarea_desc {
       /*Bloque: detalles de tarea*/
       display: none;
-      margin: 30px 50px 0px 50px;
+      margin: 30px 35px 0px 35px;
       width: 50%;
+      max-width: 400px;
       flex-direction: column;
 
       & > section {
@@ -184,7 +187,7 @@
         padding: 8px 20px 8px 20px;
       }
 
-      > div:nth-of-type(1) {
+      & > div:nth-of-type(1) {
         /*Bloque: Resumen de datos de voluntario*/
         display: flex;
         flex-direction: column;
@@ -269,7 +272,7 @@
         }
       }
 
-      > div:nth-of-type(2) {
+      & > div:nth-of-type(2) {
         /*Bloque*/
         display: flex;
         flex-direction: column;
@@ -300,12 +303,19 @@
         }
       }
 
-      > div:nth-of-type(3) {
+      & div.chat_tarea{
         /*Bloque*/
         display: flex;
         flex-direction: column;
         width: 100%;
-
+        &.finalizada{
+          .wy-message-editor-inputs{
+            display: none !important;
+          }
+          .wy-scroll-y:not(.wy-scroll-x){
+            min-height: 30vh;
+          }
+        }
         p {
           /*Parrafo Texto*/
           margin-top: 20px;
@@ -317,64 +327,24 @@
           /*Bloque: contenido de comentarios*/
           height: 30vw;
           overflow: auto;
-        }
-
-        div.txtfield {
-          /*Bloque: Textarea y div con imgs de documento y foto*/
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          textarea {
-            /*Sección de texto*/
-            text-decoration: none;
-            width: 100%;
-            max-width: 614px;
-            height: 60px;
-            background: $bg_quaternary_color;
-            border-radius: 20px 20px 0px 0px;
-            border-bottom: 0;
-            resize: none;
-            font-size: 17px;
-            padding: 10px 10px 25px 10px;
-            overflow: auto;
-            outline: none;
+          & *{
+            font-weight: normal !important;
+            z-index: 1;
           }
-          div {
-            /*Bloque: div con imgs de documento y foto*/
-            display: flex;
-            flex-direction: row;
-            background: $bg_quaternary_color;
-            padding: 0px 10px 15px 10px;
-            border: 1px solid $tertiary_color;
-            border-top: 0;
-            width: 100%;
-            max-width: 614px;
-            border-radius: 0px 0px 20px 20px;
-
-            svg {
-              /*Imgs de documento y foto*/
-              width: 25px;
-              height: 23px;
-              margin-right: 10px;
-              cursor: pointer;
-              color: $tertiary_color;
-              path {
-                stroke: $tertiary_color;
-              }
-            }
+          .wy-scroll-y{
+            will-change:inherit;
           }
-        }
-        input {
-          /*Boton: Enviar*/
-          display: flex;
-          align-self: flex-end;
-          border: 0;
-          align-items: center;
-          justify-content: center;
-          margin: 30px 0 0 0;
-          &:hover {
-            scale: 1.1;
+          .wy-message .wy-avatar-presence{
+            display: none;
+          }
+          .wy-message-bubble .wy-likes, .wy-message-bubble .wy-reactions-line{
+            display: none;
+          }
+          .wy-appbars > .wy-appbar, .wy-appbars > .wy-toolbar{
+            display: none;
+          }
+          .wy-scroll-y:not(.wy-scroll-x){
+            min-height: 30vh;
           }
         }
       }
@@ -443,6 +413,7 @@
   @media screen and (max-width: 1007px) {
     section.tarea_desc {
       width: 100% !important;
+      max-width: unset !important;
       margin: 0 !important;
       & > section {
         display: unset !important;

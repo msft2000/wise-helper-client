@@ -18,10 +18,11 @@ import {
   WeavyProvider,
   Chat as WeavyChat,
 } from "@weavy/uikit-react";
-import "@weavy/uikit-react/dist/css/weavy.css";
+import "../css/weavy.css";
 import { GeneralContext } from "../context";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { render } from "react-dom";
 
 const msg_finalizar_tarea =
   "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
@@ -31,8 +32,88 @@ const msg_cancelar_tarea =
   "Se eliminará la tarea seleccionada y no podrá ser asignada ni seleccionada por un voluntario.";
 const title_cancelar_tarea =
   "Está seguro en querer cancelar la tarea seleccionada?";
-
+let ref = null;
 /*Detalle de la tarea: Seccion que aparece cuando se da click sobre una tarea*/
+async function eliminarChat(tarea,usuario){
+  const toastID = toast.loading("Cancelando la Tarea...");
+  let config = {
+    method: 'delete',
+    maxBodyLength: Infinity,
+    url: `${process.env.REACT_APP_WEAVY_URL}/api/apps/${tarea.id_chat}`,
+    headers: { 
+      'Authorization': `Bearer ${process.env.REACT_APP_WEAVY_API}`
+    }
+  };
+
+  axios.request(config)
+  .then((response) => {
+    //Se elimino el chat correctamente
+    cancelarTarea(tarea._id,usuario.token,toastID);
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.dismiss(toastID);
+    toast.error("Error en el servidor. No se logro cancelar la tarea.");
+  });
+}
+
+async function cancelarTarea(id_tarea,user_token,toastID){
+  let config = {
+    method: 'delete',
+    maxBodyLength: Infinity,
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/delete/${id_tarea}`,
+    headers: { 
+      'Authorization': `Bearer ${user_token}`
+    },
+  };
+
+  axios.request(config)
+  .then((response) => {
+    //Tarea eliminada correctamente
+    ref.setAttribute("class", " ");
+    ref.setAttribute("hidden", "");
+    toast.dismiss(toastID);
+    toast.success("Tarea Cancelada Correctamente!");
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.dismiss(toastID);
+    toast.error("Error en el servidor. No se logro cancelar la tarea.");
+  });
+}
+
+async function finalizarTarea(id_tarea,user_token,navigate){
+  const toastID = toast.loading("Finalizando la Tarea...");
+  let data = JSON.stringify({
+    "estado": "Finalizada"
+  });
+
+  let config = {
+    method: 'patch',
+    maxBodyLength: Infinity,
+    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/update/${id_tarea}`,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${user_token}`
+    },
+    data : data
+  };
+
+  axios.request(config)
+  .then((response) => {
+    //Tarea Finalizada
+    ref.setAttribute("class", " ");
+    ref.setAttribute("hidden", "");
+    toast.dismiss(toastID);
+    toast.success("Tarea Finalizada Correctamente!")
+    navigate("/adult/finalizar");
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.dismiss(toastID);
+    toast.error("Error en el servidor. No se puede finalizar la tarea.")
+  });
+}
 
 function Chat() {
   const { usuario, tarea } = React.useContext(GeneralContext);
@@ -41,6 +122,7 @@ function Chat() {
     url: process.env.REACT_APP_WEAVY_URL,
     tokenFactory: async () => usuario.user.token_chat,
   });
+
   return (
     <div className="msgs">
       <WeavyProvider client={weavyClient}>
@@ -143,26 +225,26 @@ function Detalle() {
 }
 
 function CuadroDialogo({ msg, title, flag }) {
-  const { setTareasDisplay, setDetalleDisplay, setSelectedIdx, open, setOpen } =
+  const { setTareasDisplay, setDetalleDisplay, setSelectedIdx, open, setOpen, tarea, usuario } =
     React.useContext(GeneralContext);
   const navigate = useNavigate();
 
-  const handleCancelarTarea = () => {
+  const handleCancelarTarea = async () => {
     setOpen(false); //cerrar el cuadro de dialogo
-    /*Eliminar de la base de datos*/
-    const ref = document.querySelector("div.TareasA tr.selected"); //fila seleccionada
-    ref.setAttribute("class", " ");
-    ref.setAttribute("hidden", "");
-    ref.setAttribute("class", " ");
+    ref=document.querySelector("#TareasA tr.selected");
+    await eliminarChat(tarea, usuario)
     setDetalleDisplay("none");
     setTareasDisplay("flex");
     setSelectedIdx(null);
   };
 
-  const handleFinalizarTarea = () => {
+  const handleFinalizarTarea = async () => {
     setOpen(false); //cerrar el cuadro de dialogo
-    /*Actualizar el estado en la base de datos*/
-    navigate("/adult/finalizar");
+    ref=document.querySelector("#TareasA tr.selected");
+    await finalizarTarea(tarea._id,usuario.token,navigate);
+    setDetalleDisplay("none");
+    setTareasDisplay("flex");
+    setSelectedIdx(null);
   };
 
   return (
@@ -210,11 +292,33 @@ function Tabla() {
     refPanel,
     setDetalleDisplay,
     setTarea,
+    setTareas,
     setSelectedIdx,
     setTareasDisplay,
     tareas,
   } = React.useContext(GeneralContext);
 
+  const sorting=(idx,field)=>{
+    if(idx===1){
+      const tareas_sorted=tareas.sort((a,b)=>{
+        if(a[field] < b[field]) return 1;
+        else if(a[field]  > b[field]) return -1;
+        return 0;
+      });
+      setTareas(tareas_sorted);
+    }
+    else{
+      const tareas_sorted=tareas.sort((a,b)=>{
+        let f_a=new Date(a[field]);
+        let f_b=new Date(b[field]);
+        if( f_a > f_b) return 1;
+        else if(f_a < f_b) return -1;
+        return 0;
+      });
+      console.log(tareas_sorted)
+      setTareas(tareas_sorted);
+    }
+  }
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
@@ -233,57 +337,58 @@ function Tabla() {
       }
     }
   };
-  const tareas_e = tareas.map((fila, index) => {
-      //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
-      return (
-        <tr
-          className={index === selectedIdx ? "selected" : ""}
-          onClick={() => {
-            handleOnClickFila(fila, index);
-          }}
-          key={fila._id}
-        >
-          <td>{fila.titulo}</td>
-          <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
-          <td>
-            <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
-              {fila.estado}
-            </p>
-          </td>
-          <td>{fila.duracion}</td>
-          <td>
-            {typeof fila.voluntario=== "undefined" ? (
-              ""
-            ) : (
-              <img src={fila.voluntario.img} />
-            )}
-          </td>
-        </tr>
-      );
-    });
+
+  const tareas_e=tareas.map((fila, index) => {
+    //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
+    return (
+      <tr
+        className={index === selectedIdx ? "selected" : ""}
+        onClick={() => {
+          handleOnClickFila(fila, index);
+        }}
+        key={fila._id}
+      >
+        <td>{fila.titulo}</td>
+        <td>{new Date(fila.fecha_limite).toJSON().slice(0, 10)}</td>
+        <td>
+          <p className={fila.estado.toLowerCase().replace(/ /g, "")}>
+            {fila.estado}
+          </p>
+        </td>
+        <td>{fila.duracion}</td>
+        <td>
+          {Object.keys(fila.voluntario).length===0 ? (
+            <></>
+          ) : (
+            <img src={fila.voluntario.img} alt={fila.voluntario.nombre}/>
+          )}
+        </td>
+      </tr>
+    );
+});
 
   return (
     <table>
       <thead>
         <tr>
-          <th>
+          <th onClick={()=>{sorting(1,"titulo")}}>
             <div>
               <AiFillFilter /> Tarea
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"fecha_limite")}}>
             <div>
               <AiFillFilter />
               Fecha Límite
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(1,"estado")}}>
             <div>
               <AiFillFilter />
               Estado
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"duracion")}}>
             <div>
               <AiFillFilter />
               Tiempo Estimado
@@ -325,23 +430,25 @@ async function getTareas(user_id, user_token, setTareas) {
     }
   };
   try{
-    const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/${user_id}`, config);
-    const data= response.data.tareas.filter(i => i.estado !== 'Finalizado');
+    const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/adulto_mayor/${user_id}`, config);
+    const data= response.data.tareas.filter(i => i.estado !== 'Finalizada');
     let voluntario_a=[];
     data.forEach(tarea => {
       tarea.voluntario={};
       if(tarea.hasOwnProperty('id_voluntario') && !voluntario_a.includes(tarea.id_voluntario)) voluntario_a=[...voluntario_a,tarea.id_voluntario]
     });
     voluntario_a.map(a => getVoluntario(a,data));
-    localStorage.setItem("tarea", JSON.stringify(data));
+    //localStorage.setItem("tarea", JSON.stringify(data));
     setTareas(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");
+    return;
   }
   catch(error){
     console.log(error);
     toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
     toast.dismiss(toastID);
+    return;
   }
 }
 

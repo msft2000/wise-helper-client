@@ -7,7 +7,7 @@ import "../sass/components/header_adulto.scss";
 import { GeneralContext } from "../context";
 
 function Header() {
-  const { usuario} = React.useContext(GeneralContext);
+  const { usuario, setUsuario, setTareas} = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const [flag, setFlag] = React.useState(false);
   const path = window.location.pathname;
@@ -73,7 +73,7 @@ function Header() {
             <a onClick={() => navigate("/adult/perfil")}>Mi Perfil</a>
           </li>
           <li>
-            <a onClick={() => navigate("/")}>Cerrar Sesión</a>
+            <a onClick={() => {navigate("/"); setUsuario({});setTareas([])}}>Cerrar Sesión</a>
           </li>
         </ul>
         <span
@@ -98,7 +98,7 @@ function Header() {
               <FaRegUserCircle></FaRegUserCircle>
               <p>Mi perfil</p>
             </span>
-            <span className="dropdown-item2" onClick={() => navigate("/")}>
+            <span className="dropdown-item2" onClick={() => {navigate("/"); setUsuario({});setTareas([])}}>
               <FaSignOutAlt></FaSignOutAlt>
               <p>Cerrar Sesión</p>
             </span>

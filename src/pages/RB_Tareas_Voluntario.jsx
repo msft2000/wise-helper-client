@@ -345,14 +345,6 @@ function TareasVoluntario() {
       <Toaster></Toaster>
       <div className="containers" ref={refPanel}>
         <section className="tareas_content" style={{ display: tareasDisplay }}>
-        <div className="btns">
-            
-            <div className="filtro" style={{ display: "none" }}>
-                <AiFillFilter />
-                <p>Filtrar Contenido</p>
-              </div>
-            </div>
-
           <div className="tables">
             <Tabla />
           </div>
