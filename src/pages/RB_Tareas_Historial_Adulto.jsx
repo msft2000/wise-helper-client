@@ -118,7 +118,7 @@ function Tabla() {
     }
   };
 
-  const tareas_e=tareas.map((fila, index) => {
+  let tareas_e=tareas.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     return (
       <tr

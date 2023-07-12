@@ -22,7 +22,11 @@ function GeneralProvider(props) {
     }
   };
   const [tareas, setTareas] = React.useState([]);
+  const [tareasV,setTareasV]=React.useState(localStorage.getItem("tareasV")
+  ? JSON.parse(localStorage.getItem("tareasV"))
+  : []);
   const [tarea, setTarea] = React.useState(null);
+  const [tareaV,setTareaV]=React.useState(null);
   const [selectedIdx, setSelectedIdx] = React.useState(null);
   const [tareasDisplay, setTareasDisplay] = React.useState("flex");
   const [detalleDisplay, setDetalleDisplay] = React.useState("none");
@@ -52,6 +56,10 @@ function GeneralProvider(props) {
         validarLogeado,
         tareas,
         setTareas,
+        setTareaV,
+        tareaV,
+        setTareasV,
+        tareasV,
       }}
     >
       {props.children}

@@ -93,11 +93,11 @@ async function updateTarea(usuario,tarea,navigate){
 
 
 function CuadroDialogo({ msg, title }) {
-  const { open, setOpen, tarea,usuarioV } = React.useContext(GeneralContext);
+  const { open, setOpen, tareaV,usuarioV } = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const handleAceptarTarea = () => {
     setOpen(false); //cerrar el cuadro de dialogo
-    updateTarea(usuarioV,tarea,navigate)//Actualizar el estado de la tarea
+    updateTarea(usuarioV,tareaV,navigate)//Actualizar el estado de la tarea
   };
 
   return (
@@ -136,10 +136,10 @@ function Tabla() {
     selectedIdx,
     refPanel,
     setDetalleDisplay,
-    setTarea,
+    setTareaV,
     setSelectedIdx,
     setTareasDisplay,
-    tareas,
+    tareasV,
   } = React.useContext(GeneralContext);
 
   const handleOnClickFila = (tarea, index) => {
@@ -147,11 +147,11 @@ function Tabla() {
       //Deseleccionar un elemento ya seleccionado
       setSelectedIdx(null);
       setDetalleDisplay("none");
-      setTarea(null);
+      setTareaV(null);
     } else {
       //Seleccionar un elemento
       setSelectedIdx(index);
-      setTarea(tarea);
+      setTareaV(tarea);
       setDetalleDisplay("flex");
 
       if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
@@ -160,7 +160,7 @@ function Tabla() {
       }
     }
   };
-  const tareas_e = tareas.map((fila, index) => {
+  const tareas_e = tareasV.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     //console.log(fila);
     return (
@@ -216,7 +216,7 @@ function Tabla() {
 
 
 function Detalle() {
-  const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tarea, setOpen} = React.useContext(GeneralContext);
+  const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tareaV, setOpen} = React.useContext(GeneralContext);
 
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
@@ -233,25 +233,25 @@ function Detalle() {
 
       <div className="detalles_adulto">
         <div className="detalles_adulto__informacion">
-          <img src={tarea.adulto.img} alt={tarea.adulto.nombre} />
+          <img src={tareaV.adulto.img} alt={tareaV.adulto.nombre} />
           <div className="detalles_adulto_datos">
-            <p>{`${tarea.adulto.nombre} ${tarea.adulto.apellidos}`}</p>
+            <p>{`${tareaV.adulto.nombre} ${tareaV.adulto.apellidos}`}</p>
           </div>
         </div>
         <div className="detalles_adulto__puntaje">
           <Rating
-            value={parseFloat(tarea.adulto.calificacion_general)}
+            value={parseFloat(tareaV.adulto.calificacion_general)}
             readOnly
             precision={0.5}
           />
-          <p>{tarea.adulto.calificacion_general}</p>
+          <p>{tareaV.adulto.calificacion_general}</p>
         </div>
       </div>
      
 
       <div className="descripcion_tarea">
         <p>Descripción de la tarea</p>
-        <p> {tarea.descripcion}</p>
+        <p> {tareaV.descripcion}</p>
       </div>
      
       <div>
@@ -259,7 +259,7 @@ function Detalle() {
 
         <div>
           <MdLocationOn />
-          <p>{tarea.ubicacion}</p>
+          <p>{tareaV.ubicacion}</p>
         </div>
 
         <input
@@ -329,12 +329,12 @@ async function getAllTareas(setTareas,usuario) {
 
 
 function TareasVoluntario() {
-  const { refPanel, tareasDisplay, tarea, setTareas, usuarioV } = React.useContext(GeneralContext);
+  const { refPanel, tareasDisplay, tareaV, setTareasV, usuarioV } = React.useContext(GeneralContext);
   let effect_exe=0;//Control de ejecuciones de useEffect
 
   React.useEffect(()=>{
     if(effect_exe===0){
-      getAllTareas(setTareas,usuarioV)
+      getAllTareas(setTareasV,usuarioV)
       effect_exe=1;
     }
   },[]);
@@ -349,7 +349,7 @@ function TareasVoluntario() {
             <Tabla />
           </div>
         </section>
-        {tarea !== null ? <Detalle /> : <></>}
+        {tareaV !== null ? <Detalle /> : <></>}
       </div>
 
       <Footer></Footer>
