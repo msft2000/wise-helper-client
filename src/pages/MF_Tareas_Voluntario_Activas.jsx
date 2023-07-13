@@ -31,7 +31,7 @@ let ref = null;
 /*Detalle de la tarea: Seccion que aparece cuando se da click sobre una tarea*/
 
 function Chat() {
-  const { usuarioV, tarea } = React.useContext(GeneralContext);
+  const { usuarioV, tareaV } = React.useContext(GeneralContext);
   //Componente de chat entre el voluntario y el adulto mayor
   const weavyClient = new WeavyClient({
     url: process.env.REACT_APP_WEAVY_URL,
@@ -40,7 +40,7 @@ function Chat() {
   return (
     <div className="msgs">
       <WeavyProvider client={weavyClient}>
-        <WeavyChat uid={`chatTarea-${tarea._id}`} features={{thumbnails:false, previews: false, cloudFiles: false, mentions: false, polls: false, reactions: false, meetings: false }}/>
+        <WeavyChat uid={`chatTarea-${tareaV._id}`} features={{thumbnails:false, previews: false, cloudFiles: false, mentions: false, polls: false, reactions: false, meetings: false }}/>
       </WeavyProvider>
     </div>
   );
@@ -52,7 +52,7 @@ function Detalle() {
     setTareasDisplay,
     detalleDisplay,
     setDetalleDisplay,
-    tarea,
+    tareaV,
     setOpen,
   } = React.useContext(GeneralContext);
 
@@ -73,25 +73,25 @@ function Detalle() {
 
       <div className="detalles_voluntario">
         <div className="detalles_voluntario__informacion">
-          <img src={tarea.adulto.img} alt={tarea.adulto.nombre} />
+          <img src={tareaV.adulto.img} alt={tareaV.adulto.nombre} />
           <div className="detalles_voluntario__datos">
-            <p>{`${tarea.adulto.nombre} ${tarea.adulto.apellidos}`}</p>
+            <p>{`${tareaV.adulto.nombre} ${tareaV.adulto.apellidos}`}</p>
             <p></p>
           </div>
         </div>
         <div className="detalles_voluntario__puntaje">
           <Rating
-            value={parseFloat(tarea.adulto.calificacion_general)}
+            value={parseFloat(tareaV.adulto.calificacion_general)}
             readOnly
             precision={0.5}
           />
-          <p>{tarea.adulto.calificacion_general}</p>
+          <p>{tareaV.adulto.calificacion_general}</p>
         </div>
       </div>
       <div className="descripcion_tarea">
         <p>Descripción de la tarea</p>
-        <p> {tarea.descripcion}</p>
-        {tarea.estado === "En Proceso" ? (
+        <p> {tareaV.descripcion}</p>
+        {tareaV.estado === "En Proceso" ? (
           <input
             type="button"
             value={"Finalizar Tarea"}
@@ -107,7 +107,7 @@ function Detalle() {
           title={title_finalizar_tarea}
         />
       </div>
-      <div className={tarea.estado==="Finalizada" ? "chat_tarea finalizada" :"chat_tarea"}>
+      <div className={tareaV.estado==="Finalizada" ? "chat_tarea finalizada" :"chat_tarea"}>
         <p>Mensajes</p>
         <Chat />
       </div>
@@ -135,22 +135,21 @@ async function finalizarTarea(id_tarea,user_token,navigate){
   axios.request(config)
   .then((response) => {
     //Tarea Finalizada
-    ref.setAttribute("class", " ");
-    ref.setAttribute("hidden", "");
     toast.dismiss(toastID);
-    toast.success("Tarea Finalizada Correctamente!")
+    toast.success("Tarea Finalizada Correctamente!");
     navigate("/volunter/tareas/finalizar");
   })
   .catch((error) => {
     console.log(error);
     toast.dismiss(toastID);
-    toast.error("Error en el servidor. No se puede finalizar la tarea.")
+    toast.error("Error en el servidor. No se puede finalizar la tarea.");
+    return null;
   });
 }
 
 
 function CuadroDialogo({ msg, title }) {
-  const {setTareasDisplay, setDetalleDisplay, setSelectedIdx, open, setOpen, tarea, usuarioV } =
+  const {setTareasDisplay, setDetalleDisplay, setSelectedIdx, open, setOpen, tareaV, usuarioV } =
     React.useContext(GeneralContext);
   const navigate = useNavigate();
 
@@ -158,10 +157,12 @@ function CuadroDialogo({ msg, title }) {
     setOpen(false); //cerrar el cuadro de dialogo
     /*Actualizar el estado en la base de datos*/
     ref=document.querySelector("#TareasA tr.selected");
-    await finalizarTarea(tarea._id,usuarioV.token,navigate);
-    setDetalleDisplay("none");
-    setTareasDisplay("flex");
-    setSelectedIdx(null);
+    const res=await finalizarTarea(tareaV._id,usuarioV.token,navigate);
+    if(res===null){
+      setDetalleDisplay("none");
+      setTareasDisplay("flex");
+      setSelectedIdx(null);
+    }
     
   };
 
@@ -209,22 +210,25 @@ function Tabla() {
     selectedIdx,
     refPanel,
     setDetalleDisplay,
-    setTarea,
+    setTareaV,
     setSelectedIdx,
     setTareasDisplay,
-    tareas,
+    tareasV,
+    setTareasV
   } = React.useContext(GeneralContext);
+
+  const [sort_type,setSortType]=React.useState(1);
 
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
       setSelectedIdx(null);
       setDetalleDisplay("none");
-      setTarea(null);
+      setTareaV(null);
     } else {
       //Seleccionar un elemento
       setSelectedIdx(index);
-      setTarea(tarea);
+      setTareaV(tarea);
       setDetalleDisplay("flex");
 
       if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
@@ -233,7 +237,61 @@ function Tabla() {
       }
     }
   };
-  const tareas_e = tareas.map((fila, index) => {
+
+  const sorting=(idx,field)=>{
+    setDetalleDisplay("none");
+    let tareas_copy=[...tareasV];
+    let tareas_sorted=[];
+    if(idx===1){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        if(a[field].toLowerCase() < b[field].toLowerCase()) return 1 * sort_type;
+        else if(a[field].toLowerCase()  > b[field].toLowerCase()) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    else if(idx===2){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=new Date(a[field]);
+        let f_b=new Date(b[field]);
+        if( f_a > f_b) return 1 * sort_type;
+        else if(f_a < f_b) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    else{
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=a[field].split(":");
+        let f_b=b[field].split(":");
+        console.log(f_a,f_b)
+        let f_a_h=parseInt(f_a[0]);
+        let f_b_h=parseInt(f_b[0]);
+        let f_a_m=parseInt(f_a[1]);
+        let f_b_m=parseInt(f_b[1]);
+        if( f_a_h > f_b_h ){
+          return 1 * sort_type;
+        }
+        else if(f_a_h < f_b_h){
+          return -1 * sort_type;
+        }
+        else{
+          if(f_a_m > f_b_m){
+            return 1 * sort_type;
+          }
+          else if(f_a_m < f_b_m){
+            return -1 * sort_type;
+          }
+          return 0;
+        }
+    });
+    setSortType(-1*sort_type);
+  }
+    setTareasV(tareas_sorted);
+  }
+
+
+  const tareas_e = tareasV.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     return (
       <tr
@@ -266,24 +324,24 @@ function Tabla() {
     <table>
       <thead>
         <tr>
-          <th>
+          <th onClick={()=>{sorting(1,"titulo")}}>
             <div>
               <AiFillFilter /> Tarea
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"fecha_limite")}}>
             <div>
               <AiFillFilter />
               Fecha Límite
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(1,"estado")}}>
             <div>
               <AiFillFilter />
               Estado
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(3,"duracion")}}>
             <div>
               <AiFillFilter />
               Tiempo Estimado
@@ -297,7 +355,7 @@ function Tabla() {
   );
 }
 
-async function getAdulto(id_adulto, tareas) {
+async function getAdulto(id_adulto) {
   const config = {
     headers: {
       "content-type": "application/json",
@@ -308,30 +366,24 @@ async function getAdulto(id_adulto, tareas) {
       `https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_adulto}`,
       config
     );
-    tareas.forEach((tarea) => {
-      if (tarea.id_adulto_mayor === id_adulto) {
-        tarea.adulto = response.data.user;
-      }
-    });
+    return response.data.user;
   } catch (error) {
     console.log(error);
+    return null;
   }
 }
 
 async function getTareas(user_id, user_token, setTareas) {
   const toastID = toast.loading("Cargando Tareas...");
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/voluntario/${user_id}`,
+  const config = {
     headers: { 
       'Content-Type': 'application/json', 
-      'Authorization': `Bearer ${user_token}`
+      'Authorization': `Bearer ${user_token}`,
     },
   };
   
-  axios.request(config)
-  .then((response) => {
+  try{
+    const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/tareas/get-tareas-by-user/voluntario/${user_id}`, config);
     const data = response.data.tareas.filter((i) => i.estado !== "Activa");
     let adulto_a = [];
     data.forEach((tarea) => {
@@ -339,30 +391,40 @@ async function getTareas(user_id, user_token, setTareas) {
       if (!adulto_a.includes(tarea.id_adulto_mayor))
         adulto_a = [...adulto_a, tarea.id_adulto_mayor];
     });
-    adulto_a.map(async (a) => {
-      await getAdulto(a, data);
-    });
-    localStorage.setItem("tarea", JSON.stringify(data));
+
+    for (let i=0; i<adulto_a.length ; i++){
+      //Obtener la información del adulto mayor
+      let id_adulto=adulto_a[i];
+      let data_adulto=await getAdulto(id_adulto);//Datos del adulto mayor
+      if(data_adulto !== null) {
+        //Agregar la información del adulto a la lista de tareas
+        data.forEach(tarea => {
+          if(tarea.id_adulto_mayor===id_adulto){
+            tarea.adulto=data_adulto;
+          }
+        });
+      }
+    }
     setTareas(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");
-  })
-  .catch((error) => {
+  }
+  catch(error){
     console.log(error);
     toast.error("Error en el servidor. Intentelo de nuevo en otra ocasión.");
     toast.dismiss(toastID);
-  });
+  };
 }
 
 function TareasActivas() {
-  const { refPanel, tareasDisplay, tarea, setTareas, usuarioV } =
+  const { refPanel, tareasDisplay, tareaV, setTareasV, usuarioV } =
     React.useContext(GeneralContext);
   let effect_exe = 0; //Control de ejecuciones de useEffect
 
   React.useEffect(() => {
     if (effect_exe === 0) {
       // Código a ejecutar después de la carga de la página
-      getTareas(usuarioV.user._id, usuarioV.token, setTareas);
+      getTareas(usuarioV.user._id, usuarioV.token, setTareasV);
       effect_exe = 1;
     }
   }, []);
@@ -384,7 +446,7 @@ function TareasActivas() {
             <Tabla />
           </div>
         </section>
-        {tarea !== null ? <Detalle /> : <></>}
+        {tareaV !== null ? <Detalle /> : <></>}
       </div>
 
       <Footer></Footer>

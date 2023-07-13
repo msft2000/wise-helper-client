@@ -140,7 +140,10 @@ function Tabla() {
     setSelectedIdx,
     setTareasDisplay,
     tareasV,
+    setTareasV
   } = React.useContext(GeneralContext);
+
+  const [sort_type,setSortType]=React.useState(1);
 
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
@@ -160,6 +163,59 @@ function Tabla() {
       }
     }
   };
+
+  const sorting=(idx,field)=>{
+    setDetalleDisplay("none");
+    let tareas_copy=[...tareasV];
+    let tareas_sorted=[];
+    if(idx===1){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        if(a[field].toLowerCase() < b[field].toLowerCase()) return 1 * sort_type;
+        else if(a[field].toLowerCase()  > b[field].toLowerCase()) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    else if(idx===2){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=new Date(a[field]);
+        let f_b=new Date(b[field]);
+        if( f_a > f_b) return 1 * sort_type;
+        else if(f_a < f_b) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    else{
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=a[field].split(":");
+        let f_b=b[field].split(":");
+        console.log(f_a,f_b)
+        let f_a_h=parseInt(f_a[0]);
+        let f_b_h=parseInt(f_b[0]);
+        let f_a_m=parseInt(f_a[1]);
+        let f_b_m=parseInt(f_b[1]);
+        if( f_a_h > f_b_h ){
+          return 1 * sort_type;
+        }
+        else if(f_a_h < f_b_h){
+          return -1 * sort_type;
+        }
+        else{
+          if(f_a_m > f_b_m){
+            return 1 * sort_type;
+          }
+          else if(f_a_m < f_b_m){
+            return -1 * sort_type;
+          }
+          return 0;
+        }
+    });
+    setSortType(-1*sort_type);
+  }
+    setTareasV(tareas_sorted);
+  }
+
   const tareas_e = tareasV.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     //console.log(fila);
@@ -189,18 +245,18 @@ function Tabla() {
     <table>
       <thead>
         <tr>
-          <th>
+          <th onClick={()=>{sorting(1,"titulo")}}>
             <div>
               <AiFillFilter /> Tarea
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"fecha_limite")}}>
             <div>
               <AiFillFilter />
               Fecha Límite
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(3,"duracion")}}>
             <div>
               <AiFillFilter />
               Tiempo Estimado
@@ -278,7 +334,7 @@ function Detalle() {
   );
 }
 
-async function getAdulto(id_adulto,tareas) {
+async function getAdulto(id_adulto) {
   const config = {
     headers: {
       "content-type": "application/json",
@@ -286,14 +342,11 @@ async function getAdulto(id_adulto,tareas) {
   };
   try{
     const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_adulto}`, config);
-    tareas.forEach(tarea => {
-      if(tarea.id_adulto_mayor===id_adulto){
-        tarea.adulto=response.data.user;
-      }
-    });
+    return response.data.user;
   }
   catch(error){
     console.log(error);
+    return null;
   }
 }
 
@@ -309,13 +362,28 @@ async function getAllTareas(setTareas,usuario) {
 
   try{
     const response= await axios.get('https://wise-helper-backend.onrender.com/api/v1/tareas/all', config);
+    
     const data= response.data.tareas.filter(i => i.estado === 'Activa');
+    
     let adulto_a=[];
+
     data.forEach(tarea => {
       tarea.adulto={};
       if(!adulto_a.includes(tarea.id_adulto_mayor)) adulto_a=[...adulto_a,tarea.id_adulto_mayor]
     });
-    adulto_a.map(async (a) => {await getAdulto(a,data)});
+    
+    for (let i=0; i<adulto_a.length ; i++){
+      let id_adulto=adulto_a[i];
+      let data_adulto=await getAdulto(id_adulto);
+      if(data_adulto !== null) {
+        data.forEach(tarea => {
+          if(tarea.id_adulto_mayor===id_adulto){
+            tarea.adulto=data_adulto;
+          }
+        });
+      }
+    }
+
     setTareas(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");

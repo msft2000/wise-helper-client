@@ -22,7 +22,6 @@ import "../css/weavy.css";
 import { GeneralContext } from "../context";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { render } from "react-dom";
 
 const msg_finalizar_tarea =
   "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
@@ -37,81 +36,72 @@ let ref = null;
 async function eliminarChat(tarea,usuario){
   const toastID = toast.loading("Cancelando la Tarea...");
   let config = {
-    method: 'delete',
-    maxBodyLength: Infinity,
-    url: `${process.env.REACT_APP_WEAVY_URL}/api/apps/${tarea.id_chat}`,
     headers: { 
-      'Authorization': `Bearer ${process.env.REACT_APP_WEAVY_API}`
-    }
+      'Authorization': `Bearer ${process.env.REACT_APP_WEAVY_API}`,
+    },
   };
 
-  axios.request(config)
-  .then((response) => {
-    //Se elimino el chat correctamente
-    cancelarTarea(tarea._id,usuario.token,toastID);
-  })
-  .catch((error) => {
+  try{
+    await axios.delete(`${process.env.REACT_APP_WEAVY_URL}/api/apps/${tarea.id_chat}`,config);
+    const res=await cancelarTarea(tarea._id,usuario.token);
+    if(res!==null){
+      ref.remove();
+      toast.dismiss(toastID);
+      toast.success("Tarea Cancelada Correctamente!");
+    }
+    else{
+      throw new Error("");
+    }
+  }catch(error){
     console.log(error);
     toast.dismiss(toastID);
     toast.error("Error en el servidor. No se logro cancelar la tarea.");
-  });
+  }
 }
 
-async function cancelarTarea(id_tarea,user_token,toastID){
+async function cancelarTarea(id_tarea,user_token){
   let config = {
-    method: 'delete',
-    maxBodyLength: Infinity,
-    url: `https://wise-helper-backend.onrender.com/api/v1/tareas/delete/${id_tarea}`,
     headers: { 
       'Authorization': `Bearer ${user_token}`
     },
   };
 
-  axios.request(config)
-  .then((response) => {
+  try{
+    await axios.delete(`https://wise-helper-backend.onrender.com/api/v1/tareas/delete/${id_tarea}`, config);
+    return true;
     //Tarea eliminada correctamente
-    ref.setAttribute("class", " ");
-    ref.setAttribute("hidden", "");
-    toast.dismiss(toastID);
-    toast.success("Tarea Cancelada Correctamente!");
-  })
-  .catch((error) => {
+  }catch(error){
     console.log(error);
-    toast.dismiss(toastID);
-    toast.error("Error en el servidor. No se logro cancelar la tarea.");
-  });
+    return null;
+  };
 }
 
 async function finalizarTarea(id_tarea,user_token,navigate){
   const toastID = toast.loading("Finalizando la Tarea...");
-  let data = JSON.stringify({
-    "estado": "Finalizada"
-  });
 
   let config = {
-    method: 'patch',
-    maxBodyLength: Infinity,
+    method : 'patch',
     url: `https://wise-helper-backend.onrender.com/api/v1/tareas/update/${id_tarea}`,
     headers: { 
       'Content-Type': 'application/json', 
-      'Authorization': `Bearer ${user_token}`
+      'Authorization': `Bearer ${user_token}`,
     },
-    data : data
+    data : JSON.stringify({
+      "estado": "Finalizada"
+    }),
   };
 
-  axios.request(config)
-  .then((response) => {
+  axios.request(config).then((response)=>{
     //Tarea Finalizada
-    ref.setAttribute("class", " ");
-    ref.setAttribute("hidden", "");
     toast.dismiss(toastID);
-    toast.success("Tarea Finalizada Correctamente!")
+    toast.success("Tarea Finalizada Correctamente!");
     navigate("/adult/finalizar");
   })
   .catch((error) => {
     console.log(error);
     toast.dismiss(toastID);
     toast.error("Error en el servidor. No se puede finalizar la tarea.")
+    return null;
   });
 }
 
@@ -241,10 +231,12 @@ function CuadroDialogo({ msg, title, flag }) {
   const handleFinalizarTarea = async () => {
     setOpen(false); //cerrar el cuadro de dialogo
     ref=document.querySelector("#TareasA tr.selected");
-    await finalizarTarea(tarea._id,usuario.token,navigate);
-    setDetalleDisplay("none");
-    setTareasDisplay("flex");
-    setSelectedIdx(null);
+    const res=await finalizarTarea(tarea._id,usuario.token,navigate);
+    if(res===null){
+      setDetalleDisplay("none");
+      setTareasDisplay("flex");
+      setSelectedIdx(null);
+    }
   };
 
   return (
@@ -297,28 +289,60 @@ function Tabla() {
     setTareasDisplay,
     tareas,
   } = React.useContext(GeneralContext);
+  const [sort_type,setSortType]=React.useState(1);
 
   const sorting=(idx,field)=>{
+    setDetalleDisplay("none");
+    let tareas_copy=[...tareas];
+    let tareas_sorted=[];
     if(idx===1){
-      const tareas_sorted=tareas.sort((a,b)=>{
-        if(a[field] < b[field]) return 1;
-        else if(a[field]  > b[field]) return -1;
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        if(a[field].toLowerCase() < b[field].toLowerCase()) return 1 * sort_type;
+        else if(a[field].toLowerCase()  > b[field].toLowerCase()) return -1 * sort_type;
         return 0;
       });
-      setTareas(tareas_sorted);
+      setSortType(-1*sort_type);
     }
-    else{
-      const tareas_sorted=tareas.sort((a,b)=>{
+    else if(idx===2){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
         let f_a=new Date(a[field]);
         let f_b=new Date(b[field]);
-        if( f_a > f_b) return 1;
-        else if(f_a < f_b) return -1;
+        if( f_a > f_b) return 1 * sort_type;
+        else if(f_a < f_b) return -1 * sort_type;
         return 0;
       });
-      console.log(tareas_sorted)
-      setTareas(tareas_sorted);
+      setSortType(-1*sort_type);
     }
+    else{
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=a[field].split(":");
+        let f_b=b[field].split(":");
+        console.log(f_a,f_b)
+        let f_a_h=parseInt(f_a[0]);
+        let f_b_h=parseInt(f_b[0]);
+        let f_a_m=parseInt(f_a[1]);
+        let f_b_m=parseInt(f_b[1]);
+        if( f_a_h > f_b_h ){
+          return 1 * sort_type;
+        }
+        else if(f_a_h < f_b_h){
+          return -1 * sort_type;
+        }
+        else{
+          if(f_a_m > f_b_m){
+            return 1 * sort_type;
+          }
+          else if(f_a_m < f_b_m){
+            return -1 * sort_type;
+          }
+          return 0;
+        }
+    });
+    setSortType(-1*sort_type);
   }
+    setTareas(tareas_sorted);
+  }
+
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
@@ -337,6 +361,7 @@ function Tabla() {
       }
     }
   };
+
 
   let tareas_e=tareas.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
@@ -388,7 +413,7 @@ function Tabla() {
               Estado
             </div>
           </th>
-          <th onClick={()=>{sorting(2,"duracion")}}>
+          <th onClick={()=>{sorting(3,"duracion")}}>
             <div>
               <AiFillFilter />
               Tiempo Estimado
@@ -402,7 +427,7 @@ function Tabla() {
   );
 }
 
-async function getVoluntario(id_voluntario,tareas) {
+async function getVoluntario(id_voluntario) {
   const config = {
     headers: {
       "content-type": "application/json",
@@ -410,14 +435,11 @@ async function getVoluntario(id_voluntario,tareas) {
   };
   try{
     const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_voluntario}`, config);
-    tareas.forEach(tarea => {
-      if(tarea.id_voluntario===id_voluntario){
-        tarea.voluntario=response.data.user;
-      }
-    });
+    return response.data.user;
   }
   catch(error){
     console.log(error);
+    return null;
   }
 }
 
@@ -437,8 +459,18 @@ async function getTareas(user_id, user_token, setTareas) {
       tarea.voluntario={};
       if(tarea.hasOwnProperty('id_voluntario') && !voluntario_a.includes(tarea.id_voluntario)) voluntario_a=[...voluntario_a,tarea.id_voluntario]
     });
-    voluntario_a.map(a => getVoluntario(a,data));
-    //localStorage.setItem("tarea", JSON.stringify(data));
+
+    for (let i=0; i<voluntario_a.length ; i++){//Recorrer la lista de voluntarios que han aceptado una tarea
+      let id_voluntario=voluntario_a[i];//id de voluntario a consultar
+      let data_voluntario=await getVoluntario(id_voluntario);//Obtener los datos del voluntario
+      if(data_voluntario !== null) {
+        data.forEach(tarea => {
+          if(tarea.id_voluntario===id_voluntario){
+            tarea.voluntario=data_voluntario;//Agregar los datos a cada objeto de tarea
+          }
+        });
+      }
+    }
     setTareas(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");
