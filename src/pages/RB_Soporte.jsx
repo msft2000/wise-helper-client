@@ -98,7 +98,7 @@ function Soporte() {
           <div
             class="Guia"
             onClick={() => {
-              navigate("tyc");
+              navigate("consultas");
             }}
           >
             <BsFileEarmarkText />

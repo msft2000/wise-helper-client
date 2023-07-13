@@ -2,18 +2,32 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
-import { Header } from "../components/Header_Admin";
+import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
+import { Header as HeaderAdulto } from "../components/Header_Adulto";
+import { Header as HeaderIndex } from "../components/Header_Index";
 import "../sass/mr_respuesta.scss";
 import { GeneralContext } from "../context";
 
 function Respuesta() {
   const navigate = useNavigate();
+  const url = window.location.href;
 
   const {ticket} = React.useContext(GeneralContext);
 
+  useEffect(() => {
+    console.log(ticket);
+  }, [ticket]);
+
   return (
     <React.Fragment>
-      <Header />
+      {url.includes("adult") ? (
+        <HeaderAdulto />
+      ) : url.includes("volunter") ? (
+        <HeaderVoluntario />
+      ) : (
+        <HeaderIndex></HeaderIndex>
+      )}
+
       <div id="respuesta">
         <section>
           <h1> Escribe tu respuesta al comentario </h1>
@@ -37,7 +51,10 @@ function Respuesta() {
 
           <div className="Respuesta">
             <h2>Respuesta:</h2>
-            <textarea></textarea>
+            <textarea
+              disabled ={url.includes("adult") || url.includes("volunter") ? true : false}
+              style={url.includes("adult") || url.includes("volunter") ? {backgroundColor: '#ecebeb'} : {}}
+            ></textarea>
             <p className="ocultar">* Este campo es requerido</p>
           </div>
 

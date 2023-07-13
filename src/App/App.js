@@ -25,6 +25,7 @@ import { AdminLogin } from "../pages/MF_AdminLogin";
 import { SoporteAdmin } from "../pages/MR_Soporte";
 import { AdministrarUsuarios } from "../pages/MF_Administrar_Usuarios";
 import { Respuesta } from "../pages/MR_Respuesta";
+import { ConsultasGeneradas } from "../pages/MR_ConsultasGeneradas";
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
           <Route path="/support" element={<Soporte />} />
           <Route path="/support/send-message" element={<SoporteMessage />} />
           <Route path="/support/tyc" element={<TerminosCondiciones />} />
+
+          
+
           <Route path="/our_volunters" element={<NuestrosVoluntarios />} />
           {/* Paginas del adulto mayor */}
           <Route path="/adult" element={<TareasAdulto />} />
@@ -53,6 +57,10 @@ function App() {
           <Route path="/adult/support/send-message" element={<SoporteMessage />} />
           <Route path="/adult/support/tyc" element={<TerminosCondiciones />} />
           <Route path="/adult/our_volunters" element={<NuestrosVoluntarios />} />
+
+          <Route path="/adult/support/consultas" element={<ConsultasGeneradas />} />
+          <Route path="/adult/support/consultas/respuesta/:id" element={<Respuesta/>} />
+          
           {/* Paginas del voluntario */}
           <Route path="/volunter" element={<TareasVoluntario />} />
           <Route path="/volunter/tareas" element={<TareasActivas />} />
@@ -65,6 +73,11 @@ function App() {
           />
           <Route path="/volunter/support/tyc" element={<TerminosCondiciones />} />
           <Route path="/volunter/our_volunters" element={<NuestrosVoluntarios />} />
+
+          <Route path="/volunter/support/consultas" element={<ConsultasGeneradas />} />
+          <Route path="/volunter/support/consultas/respuesta/:id" element={<Respuesta/>} />
+
+
           {/* Paginas del admin */}
           <Route path="/admin">
             <Route path="" element={<SoporteAdmin />} />

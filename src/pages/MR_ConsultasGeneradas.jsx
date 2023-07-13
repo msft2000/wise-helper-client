@@ -3,7 +3,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../components/Header_Admin";
+import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
+import { Header as HeaderAdulto } from "../components/Header_Adulto";
+import { Header as HeaderIndex } from "../components/Header_Index";
 import img12 from "../assets/img/img12.png";
 import "../sass/mr_soporte.scss";
 import { Footer } from "../components/Footer";
@@ -12,8 +14,8 @@ import { GeneralContext } from "../context";
 
 import axios from 'axios';
 
-async function eliminarTicket(user_token, ticket_id){
-  const toastID = toast.loading("Eliminando Ticket...");
+async function eliminarConsulta(user_token, ticket_id){
+  const toastID = toast.loading("Eliminando Consulta...");
   let data = '';
 
   let config = {
@@ -53,7 +55,6 @@ async function getConsultas(user_id, user_token, setConsultas){
     
     axios.request(config)
     .then((response) => {
-      console.log(JSON.stringify(response.data));
       setConsultas(response.data.tickets);
     })
     .catch((error) => {
@@ -61,18 +62,19 @@ async function getConsultas(user_id, user_token, setConsultas){
     });    
 }
 
-function SoporteAdmin() {
+function ConsultasGeneradas() {
   let effect_exe=0;//Control de ejecuciones de useEffect+
   const navigate = useNavigate();
+  const url = window.location.href;
 
-  const { usuario, consultas, setConsultas, setConsulta, consulta } = React.useContext(GeneralContext);
+  const { usuario, consultas, setConsultas, setTicket, ticket } = React.useContext(GeneralContext);
 
   let filaSeleccionada = null;
   useEffect(() => {
     
     if(effect_exe===0){
       // Código a ejecutar después de la carga de la página
-      getConsultas(usuario._id, usuario.token, setConsultas);
+      getConsultas(usuario.user._id, usuario.token, setConsultas);
       effect_exe=1;
     }
   }, []);
@@ -87,7 +89,7 @@ function SoporteAdmin() {
         }
         fila.classList.add("selected");
         filaSeleccionada = fila;
-        setConsulta(tickets[index-1]);
+        setTicket(consultas[index-1]);
       });
     });
 
@@ -95,15 +97,21 @@ function SoporteAdmin() {
 
   useEffect(() => {
     
-  }, [consulta]);
+  }, [ticket]);
 
   return (
     <React.Fragment>
-      <Header />
+      {url.includes("adult") ? (
+        <HeaderAdulto />
+      ) : url.includes("volunter") ? (
+        <HeaderVoluntario />
+      ) : (
+        <HeaderIndex></HeaderIndex>
+      )}
       <Toaster></Toaster>
       <div id="soporte">
         <section>
-          <h1>Lista de mensajes de ayuda</h1>
+          <h1>Lista de consultas generadas</h1>
           <div>
             <table>
               <thead>
@@ -142,13 +150,18 @@ function SoporteAdmin() {
               type="button" 
               value="Eliminar" 
               className="btn btn-grey"
-              onClick={() => eliminarTicket(usuario.token, ticket._id)}
+              onClick={() => 
+                {
+                  eliminarConsulta(usuario.token, ticket._id);
+                  window.location.reload();
+                }
+              }
             ></input>
             <input
               type="button"
-              value="Responder"
+              value="Detalles"
               className="btn btn-orange"
-              onClick={() => navigate("/admin/respuesta/123")}
+              onClick={() => navigate("respuesta/123")}
             ></input>
           </div>
 
@@ -159,4 +172,4 @@ function SoporteAdmin() {
   );
 }
 
-export { SoporteAdmin };
+export { ConsultasGeneradas };
