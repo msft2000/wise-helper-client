@@ -12,32 +12,36 @@ import { GeneralContext } from "../context";
 
 import axios from 'axios';
 
-async function eliminarTicket(user_token, ticket_id){
-  const toastID = toast.loading("Eliminando Ticket...");
-  let data = '';
+async function eliminarTicket(user_token, ticket_id) {
+  return new Promise((resolve, reject) => {
+    const toastID = toast.loading("Eliminando Ticket...");
+    let data = '';
 
-  let config = {
-    method: 'delete',
-    maxBodyLength: Infinity,
-    url: `https://wise-helper-backend.onrender.com/api/v1/tickets/delete/${ticket_id}`,
-    headers: { 
-      'Authorization': `Bearer ${user_token}`
-    },
-    data : data
-  };
+    let config = {
+      method: 'delete',
+      maxBodyLength: Infinity,
+      url: `https://wise-helper-backend.onrender.com/api/v1/tickets/delete/${ticket_id}`,
+      headers: { 
+        'Authorization': `Bearer ${user_token}`
+      },
+      data: data
+    };
 
-  axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
 
-    toast.dismiss(toastID);
-    toast.success("Ticket eliminado con éxito");
-  })
-  .catch((error) => {
-    console.log(error);
+        toast.dismiss(toastID);
+        toast.success("Ticket eliminado con éxito");
+        resolve(response.data); // Resolvemos la promesa con los datos de respuesta
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error); // Rechazamos la promesa con el error
+      });
   });
-
 }
+
 
 async function getTickets(user_token, setTickets){
   const toastID = toast.loading("Cargando Tickets...");
@@ -151,8 +155,8 @@ function SoporteAdmin() {
               type="button" 
               value="Eliminar" 
               className="btn btn-grey"
-              onClick={() => {
-                  eliminarTicket(usuario.token, ticket._id);
+              onClick={async () => {
+                  await eliminarTicket(usuario.token, ticket._id);
                   window.location.reload();
                 }
               }

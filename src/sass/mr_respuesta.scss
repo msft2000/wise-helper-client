@@ -111,25 +111,30 @@
   /*Botones*/
 
   .btn {
+    width: -moz-fit-content;
     width: fit-content;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 15px;
     margin-top: 1vh;
     cursor: pointer;
+    border: none;
+    font-weight: bold;
+    border: 2px solid #d38713;
   }
 
   .btn-orange {
     /*Boton naranja*/
-    background-color: #f1b74d;
+    background-color: #d38713;
     color: white;
+    margin-left: 6px;
   }
 
   .btn-grey {
     /*Boton gris*/
-    background-color: #ecebeb;
-    color: black;
-    margin-right: 10px;
-    border: white;
+    background-color: white;
+    color: #d38713;
+    margin-right: 6px;
   }
 
   .btn-white {

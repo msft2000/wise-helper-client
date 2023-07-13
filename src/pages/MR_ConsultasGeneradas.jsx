@@ -15,29 +15,32 @@ import { GeneralContext } from "../context";
 import axios from 'axios';
 
 async function eliminarConsulta(user_token, ticket_id){
-  const toastID = toast.loading("Eliminando Consulta...");
-  let data = '';
+  return new Promise((resolve, reject) => {
+    const toastID = toast.loading("Eliminando Consulta...");
+    let data = '';
 
-  let config = {
-    method: 'delete',
-    maxBodyLength: Infinity,
-    url: `https://wise-helper-backend.onrender.com/api/v1/tickets/delete/${ticket_id}`,
-    headers: { 
-      'Authorization': `Bearer ${user_token}`
-    },
-    data : data
-  };
+    let config = {
+      method: 'delete',
+      maxBodyLength: Infinity,
+      url: `https://wise-helper-backend.onrender.com/api/v1/tickets/delete/${ticket_id}`,
+      headers: { 
+        'Authorization': `Bearer ${user_token}`
+      },
+      data : data
+    };
 
-  axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-    toast.dismiss(toastID);
-    toast.success("Ticket eliminado con éxito");
-  })
-  .catch((error) => {
-    console.log(error);
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+      toast.dismiss(toastID);
+      toast.success("Consulta eliminada con éxito");
+      resolve(response.data); // Resolvemos la promesa con los datos de respuesta
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error); // Rechazamos la promesa con el error
+    });
   });
-
 }
 
 async function getConsultas(user_id, user_token, setConsultas){
@@ -150,9 +153,8 @@ function ConsultasGeneradas() {
               type="button" 
               value="Eliminar" 
               className="btn btn-grey"
-              onClick={() => 
-                {
-                  eliminarConsulta(usuario.token, ticket._id);
+              onClick={async () => {
+                  await eliminarConsulta(usuario.token, ticket._id);
                   window.location.reload();
                 }
               }
