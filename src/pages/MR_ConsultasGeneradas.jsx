@@ -29,7 +29,6 @@ async function eliminarTicket(user_token, ticket_id){
   axios.request(config)
   .then((response) => {
     console.log(JSON.stringify(response.data));
-
     toast.dismiss(toastID);
     toast.success("Ticket eliminado con éxito");
   })
@@ -39,49 +38,41 @@ async function eliminarTicket(user_token, ticket_id){
 
 }
 
-async function getTickets(user_token, setTickets){
-  const toastID = toast.loading("Cargando Tickets...");
-  let data = '';
-
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: 'https://wise-helper-backend.onrender.com/api/v1/tickets/get-tickets-by-admin',
-    headers: {
-      'Content-Type': "application/json",
-      'Authorization': `Bearer ${user_token}`,
-    },
-    data : data
-  };
-
-  axios.request(config)
-  .then((response) => {
-
-    // response.data.tickets.forEach((ticket) => {
-    //   console.log(ticket);
-    // });
-    setTickets(response.data.tickets);
-
-    toast.dismiss(toastID);
-    toast.success("Tickets Cargadas con éxito");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+async function getConsultas(user_id, user_token, setConsultas){
+    let data = '';
+    
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `https://wise-helper-backend.onrender.com/api/v1/tickets/get-tickets-by-user/${user_id}`,
+      headers: { 
+        'Authorization': `Bearer ${user_token}`
+      },
+      data : data
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+      setConsultas(response.data.tickets);
+    })
+    .catch((error) => {
+      console.log(error);
+    });    
 }
 
 function SoporteAdmin() {
   let effect_exe=0;//Control de ejecuciones de useEffect+
   const navigate = useNavigate();
 
-  const { usuario, tickets, setTickets, setTicket, ticket } = React.useContext(GeneralContext);
+  const { usuario, consultas, setConsultas, setConsulta, consulta } = React.useContext(GeneralContext);
 
   let filaSeleccionada = null;
   useEffect(() => {
     
     if(effect_exe===0){
       // Código a ejecutar después de la carga de la página
-      getTickets(usuario.token,setTickets);
+      getConsultas(usuario._id, usuario.token,setTickets);
       effect_exe=1;
     }
   }, []);
@@ -97,6 +88,7 @@ function SoporteAdmin() {
         fila.classList.add("selected");
         filaSeleccionada = fila;
         setTicket(tickets[index-1]);
+        setidxTicket(index-1);
       });
     });
 
@@ -151,11 +143,7 @@ function SoporteAdmin() {
               type="button" 
               value="Eliminar" 
               className="btn btn-grey"
-              onClick={() => {
-                  eliminarTicket(usuario.token, ticket._id);
-                  window.location.reload();
-                }
-              }
+              onClick={() => eliminarTicket(usuario.token, ticket._id)}
             ></input>
             <input
               type="button"
