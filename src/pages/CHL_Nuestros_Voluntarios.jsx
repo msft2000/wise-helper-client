@@ -7,48 +7,75 @@ import { Header as HeaderIndex } from "../components/Header_Index";
 import { Footer } from "../components/Footer";
 import Rating from "@mui/material/Rating";
 import adultoMayor from "../assets/img/adultoMayor-hombre.png";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+
+
+
+
+
 function NuestrosVoluntarios() {
+  const [volunters, setVolunters]=React.useState([]);
+  const obtenerVoluntarios= async () =>  {
+    //const toastID = toast.loading("Obteniendo voluntarios...");
+    let data = '';
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://wise-helper-backend.onrender.com/api/v1/auth/all',
+      headers: { },
+      data : data
+    };
+    axios.request(config)
+    .then((response) => {
+      const data=response.data.users;
+      let voluntarios=data.filter(u => u.tipo==="voluntario");
+      setVolunters(voluntarios);
+      console.log(voluntarios);
+      //toast.dismiss(toastID);
+    })
+    .catch((error) => {
+      console.log(error);
+      //toast.dismiss(toastID);
+      //toast.error("Error en el servidor.");
+    });
+  }
   const url = window.location.href;
-  console.log(url)
-  
-  const [volunters, setVolunters]=React.useState(
-    [
-      {
-        name: "Luis Chusino",
-        descrition: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque labore rem veritatis sequi! Sequi commodi odio numquam alias ipsa voluptate fuga cupiditate et. Non animi dolores pariatur reprehenderit. Ullam, magnam.",
-        rating: 4
-      },
-      {
-        name: "Juan",
-        descrition: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque labore rem veritatis sequi! Sequi commodi odio numquam alias ipsa voluptate fuga cupiditate et. Non animi dolores pariatur reprehenderit. Ullam, magnam.",
-        rating: 3
-      }
-    ]
-  );
+  let effect_exe=0;//Control de ejecuciones de useEffect
+
+  React.useEffect(()=>{
+    if(effect_exe===0){
+      // Código a ejecutar después de la carga de la página
+      obtenerVoluntarios();
+      effect_exe=1;
+    }
+  },[]);
+
   function ShowVoluntario({v, flag}){
 
     return(
       <div className={flag ? "voluntario v1" : "voluntario v2"}>
         <div className="informacion">
-        <h2>{v.name}</h2>
-            <span>{v.descrition}</span>
+        <h2>{v.nombre+" "+v.apellidos}</h2>
+            <span>{v.descripcion}</span>
             <div>
-                <Rating value={parseFloat(v.rating)} readOnly precision={0.5} />
+                <Rating value={parseFloat(v.calificacion_general)} readOnly precision={0.5} />
             </div>
         </div>
         <div className="imagen">
-            <img src={adultoMayor} alt="" />
+            <img src={v.img} alt="" />
         </div>       
       </div> 
     );
   }
+
   return (
     <div className="nuestrosVoluntarios">
 
-      {url.includes("adult") ? (
+      {url.includes("/adult") ? (
         <HeaderAdulto />
-      ) : url.includes("volunter") ? (
-        <HeaderVoluntario />
+      ) : url.includes("/volunter") ? (
+        <HeaderVoluntario /> 
       ) : (
         <HeaderIndex />
       )}
