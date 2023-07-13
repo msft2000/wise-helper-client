@@ -44,15 +44,15 @@ async function enviarComentario(id_adulto,id_voluntario,calificacion,comentario)
 }
 function TareaFinAdulto() {
   const {
-    usuariov,
-    tareav,
+    usuarioV,
+    tareaV,
   } = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
   const [text, setText] = React.useState(""); //es adulto
   const sendComent= (event) =>{
     (value===0) ? <></> :
-    enviarComentario(usuariov._id,tareav.voluntario._id,value,text) ? navigate("/volunter/tareas"): <div></div>;
+    enviarComentario(tareaV.adulto._id,usuarioV._id,value,text) ? navigate("/volunter/tareas"): <div></div>;
   }
    
   return (
@@ -62,9 +62,9 @@ function TareaFinAdulto() {
         <section className="content">
           <h1>Tarea Finalizada</h1>
           <div>
-            <img id="foto" src={tareav.voluntario.img} alt=""/>
+            <img id="foto" src={tareaV.adulto.img} alt=""/>
             <label id="nombre" for="nombre">
-              {tareav.voluntario.nombre+" "+ tareav.voluntario.apellidos}
+              {tareaV.adulto.nombre+" "+ tareaV.adulto.apellidos}
             </label>
           </div>
           <p> Califica a la persona por el trabajo recibido</p>
