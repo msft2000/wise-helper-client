@@ -7,7 +7,7 @@ import {
   MdLiveHelp,
   MdHelp,
 } from "react-icons/md";
-import { BsHeadset, BsFileEarmarkText } from "react-icons/bs";
+import { BsHeadset, BsFileEarmarkText,BsQuestionDiamondFill } from "react-icons/bs";
 import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
 import { Header as HeaderAdulto } from "../components/Header_Adulto";
 import { Header as HeaderIndex } from "../components/Header_Index";
@@ -98,11 +98,16 @@ function Soporte() {
           <div
             class="Guia"
             onClick={() => {
-              navigate("consultas");
+              if(url.includes("adult") || url.includes("volunter")){
+                navigate("consultas");
+              }
+              else{
+                navigate("tyc");
+              }
             }}
           >
-            <BsFileEarmarkText />
-            <p>TyC</p>
+            {url.includes("adult") || url.includes("volunter") ?  <BsQuestionDiamondFill/> : <BsFileEarmarkText /> }
+            <p>{url.includes("adult") || url.includes("volunter") ? "Mis Consultas" : "TyC"}</p>
           </div>
 
           <div
