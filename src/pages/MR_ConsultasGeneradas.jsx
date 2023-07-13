@@ -72,7 +72,7 @@ function SoporteAdmin() {
     
     if(effect_exe===0){
       // Código a ejecutar después de la carga de la página
-      getConsultas(usuario._id, usuario.token,setTickets);
+      getConsultas(usuario._id, usuario.token, setConsultas);
       effect_exe=1;
     }
   }, []);
@@ -87,16 +87,15 @@ function SoporteAdmin() {
         }
         fila.classList.add("selected");
         filaSeleccionada = fila;
-        setTicket(tickets[index-1]);
-        setidxTicket(index-1);
+        setConsulta(tickets[index-1]);
       });
     });
 
-  }, [tickets]);
+  }, [consultas]);
 
   useEffect(() => {
     
-  }, [ticket]);
+  }, [consulta]);
 
   return (
     <React.Fragment>
@@ -116,12 +115,12 @@ function SoporteAdmin() {
               </thead>
               <tbody>
                 {
-                  tickets.map((ticket) => {
+                  consultas.map((consulta) => {
                     return (
                       <tr>
-                        <td>{ticket.id_usuario}</td>
+                        <td>{consulta.id_usuario}</td>
                         <td>
-                          {new Date(ticket.createdAt).toLocaleString("es-ES", {
+                          {new Date(consulta.createdAt).toLocaleString("es-ES", {
                           year: "numeric",
                           month: "2-digit",
                           day: "2-digit",
@@ -129,7 +128,7 @@ function SoporteAdmin() {
                           minute: "2-digit",
                         })}
                         </td>
-                        <td>{ticket.titulo}</td>
+                        <td>{consulta.titulo}</td>
                       </tr>
                     );
                   })
