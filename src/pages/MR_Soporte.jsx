@@ -60,10 +60,6 @@ async function getTickets(user_token, setTickets){
 
   axios.request(config)
   .then((response) => {
-
-    // response.data.tickets.forEach((ticket) => {
-    //   console.log(ticket);
-    // });
     setTickets(response.data.tickets);
 
     toast.dismiss(toastID);

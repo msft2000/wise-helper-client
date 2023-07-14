@@ -10,60 +10,61 @@ import axios from 'axios';
 import { GeneralContext } from "../context";
 import toast, { Toaster } from "react-hot-toast";
 
+
+async function crearTicket(asunto, detalles, user_id, user_token, setAsunto, setDetalles){
+  if(asunto==="" || detalles === ""){
+    toast.error("Todos los campos deben ser llenados");
+    return;
+  }
+
+  return toast.promise(
+    new Promise((resolve, reject) => {
+      let data = JSON.stringify({
+        "titulo": asunto,
+        "descripcion": detalles,
+        "estado": "Activo",
+        "id_usuario": user_id
+      });
+  
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'https://wise-helper-backend.onrender.com/api/v1/tickets/create',
+        headers: { 
+          'Content-Type': "application/json",
+          'Authorization': `Bearer ${user_token}`,
+        },
+        data: data
+      };
+
+      axios.request(config)
+        .then((response) => {
+          setAsunto("");
+          setDetalles("");
+          resolve(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
+    }),
+    {
+      loading: 'Creando Consulta...',
+      success: 'Consulta Creada Correctamente!',
+      error: 'Error al Crear la Consulta',
+    }
+  );
+}
+
+
 function SoporteMessage({ adultoMayor }) {
   const url = window.location.href;
   const navigate=useNavigate();
 
   const [asunto, setAsunto] = useState("");
-  const [detalles, setDetalles] = useState("");
+  const [detalles, setDetalles] = useState(""); 
 
-  const { usuario } = React.useContext(GeneralContext);
-
-  const enviarMensaje = (e) => {
-    e.preventDefault();
-
-    if(asunto==="" || detalles === ""){
-      toast.error("Todos los campos deben ser llenados");
-      return;
-    }
-
-    const toastID = toast.loading("Enviando Ticket...");
-
-    let data = JSON.stringify({
-      "titulo": asunto,
-      "descripcion": detalles,
-      "estado": "Activo",
-      "id_usuario": usuario.user._id
-    });
-  
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://wise-helper-backend.onrender.com/api/v1/tickets/create',
-      headers: { 
-        'Content-Type': "application/json",
-        'Authorization': `Bearer ${usuario.token}`,
-      },
-      data: data
-    };
-  
-    axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        toast.dismiss(toastID);
-        setAsunto("");
-        setDetalles("");
-        toast.success("Ticket Creado Correctamente!");
-        navigate(`/adult/support`);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.dismiss(toastID);
-        if (error.response.status === 401 || error.response.status === 400) {
-          toast.error("Error al crear el ticket");
-        }
-      });
-  };  
+  const {usuario} = React.useContext(GeneralContext);
 
   return (
     <div className="soporte-message">
@@ -120,7 +121,14 @@ function SoporteMessage({ adultoMayor }) {
             className="btn btn-grey"
             onClick={() =>{url.includes("adult") ? navigate("/adult/support") : url.includes("volunter") ? navigate("/volunter/support") : navigate("/support") }}
           />
-          <input type="button" value="Enviar" className="btn btn-orange" onClick={enviarMensaje}/>
+          <input 
+            type="button" 
+            value="Enviar" 
+            className="btn btn-orange" 
+            onClick={async() => {
+              await crearTicket(asunto, detalles, usuario.user._id, usuario.token, setAsunto, setDetalles);
+              navigate(-1);
+            }}/>
         </div>
       </section>
 

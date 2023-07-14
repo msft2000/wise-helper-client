@@ -1,0 +1,151 @@
+@import "./variables";
+
+#soporte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  * {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 7px;
+  }
+
+  h2 {
+    margin-bottom: 7px;
+    font-weight: bold;
+  }
+
+  /*Barra inferior seleccion*/
+
+  li.selected {
+    border-bottom: 3px solid #d38713;
+  }
+
+  /*Contenedor de la tabla y los botones*/
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    z-index: 1;
+
+    > div:nth-child(2) {
+      /*Bloque: Tabla de tareas*/
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      text-align: center;
+      font-size: 15px;
+      width: 90vw;
+      max-width: 90vw;
+      height: 60vh;
+      max-height: 60vh;
+      background-color: $bg_quaternary_color;
+      border-radius: 5px;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+
+    thead {
+      /*Cabecera de la tabla*/
+      position: sticky;
+      top: 0;
+      background: $bg_quaternary_color;
+
+      th {
+        /*Nombres de la columnas de la tabla*/
+        font-weight: bold;
+        height: 30px;
+        padding: 30px;
+        border-bottom: 1px solid $dark_color;
+      }
+    } 
+
+    tbody {
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+      }
+
+      tr {
+        /*Filas de la tabla*/
+        height: 50px;
+
+        .selected {
+          /*Estilo de fila seleccionada*/
+          background-color: $bg_light_color;
+        }
+
+        td {
+          p.activo,
+          p.enproceso,
+          p.finalizada {
+            display: inline;
+            color: $font_light_color;
+            border-radius: 20px;
+            width: fit-content;
+            height: auto;
+            padding: 0px 20px 0px 20px;
+          }
+
+          p.activo {
+            background: green;
+          }
+
+          p.enproceso {
+            background: #d38713;
+          }
+        }
+      }
+      
+    }
+  }
+
+  /*Botones*/
+
+  section .btns {
+    margin-top: 10px;
+  }
+
+  .btn {
+    width: fit-content;
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 15px;
+    margin-top: 1vh;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;      
+    border: 2px solid $btn_primary_color;
+    &:hover {
+      scale: 1.1;
+    }
+  }
+
+  .btn-orange {
+    /*Boton agregar captura*/
+    background-color: $btn_primary_color;
+    color: $font_light_color;
+    margin-left: 6px;
+  }
+
+  .btn-grey {
+    /*Boton agregar captura*/
+    background-color: $bg_light_color;
+    color: $btn_primary_color;
+    margin-right: 6px;
+  }
+}

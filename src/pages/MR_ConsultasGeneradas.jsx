@@ -7,7 +7,7 @@ import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
 import { Header as HeaderAdulto } from "../components/Header_Adulto";
 import { Header as HeaderIndex } from "../components/Header_Index";
 import img12 from "../assets/img/img12.png";
-import "../sass/mr_soporte.scss";
+import "../sass/mr_consultas.scss";
 import { Footer } from "../components/Footer";
 import toast, { Toaster } from "react-hot-toast";
 import { GeneralContext } from "../context";
@@ -121,6 +121,7 @@ function ConsultasGeneradas() {
                 <tr>
                   <th>Usuario</th>
                   <th>Fecha Petición</th>
+                  <th>Estado</th>
                   <th>Asunto</th>
                 </tr>
               </thead>
@@ -138,6 +139,11 @@ function ConsultasGeneradas() {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
+                        </td>
+                        <td>
+                        <p className={consulta.estado.toLowerCase().replace(/ /g, "")}>
+                          {consulta.estado}
+                        </p>
                         </td>
                         <td>{consulta.titulo}</td>
                       </tr>

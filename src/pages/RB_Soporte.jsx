@@ -17,6 +17,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import questions from "../assets/json/faq_questions.json";
+import toast, { Toaster } from "react-hot-toast";
+
 function CuadroDialogo({ open, setOpen }) {
   const style = {
     position: "absolute",
@@ -92,6 +94,9 @@ function Soporte() {
       ) : (
         <HeaderIndex></HeaderIndex>
       )}
+
+      <Toaster></Toaster>
+
       <div className="container">
         <div className="btns">
           {/*Bloque de botones*/}
