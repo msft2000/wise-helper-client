@@ -31,7 +31,6 @@ async function eliminarConsulta(user_token, ticket_id){
 
     axios.request(config)
     .then((response) => {
-      console.log(JSON.stringify(response.data));
       toast.dismiss(toastID);
       toast.success("Consulta eliminada con éxito");
       resolve(response.data); // Resolvemos la promesa con los datos de respuesta
@@ -119,7 +118,6 @@ function ConsultasGeneradas() {
             <table>
               <thead>
                 <tr>
-                  <th>Usuario</th>
                   <th>Fecha Petición</th>
                   <th>Estado</th>
                   <th>Asunto</th>
@@ -130,7 +128,6 @@ function ConsultasGeneradas() {
                   consultas.map((consulta) => {
                     return (
                       <tr>
-                        <td>{consulta.id_usuario}</td>
                         <td>
                           {new Date(consulta.createdAt).toLocaleString("es-ES", {
                           year: "numeric",

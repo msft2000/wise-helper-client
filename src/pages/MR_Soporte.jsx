@@ -29,7 +29,6 @@ async function eliminarTicket(user_token, ticket_id) {
 
     axios.request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
 
         toast.dismiss(toastID);
         toast.success("Ticket eliminado con éxito");
@@ -41,7 +40,6 @@ async function eliminarTicket(user_token, ticket_id) {
       });
   });
 }
-
 
 async function getTickets(user_token, setTickets){
   const toastID = toast.loading("Cargando Tickets...");

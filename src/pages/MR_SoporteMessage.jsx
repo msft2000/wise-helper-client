@@ -11,7 +11,7 @@ import { GeneralContext } from "../context";
 import toast, { Toaster } from "react-hot-toast";
 
 
-async function crearTicket(asunto, detalles, user_id, user_token, setAsunto, setDetalles){
+async function crearConsulta(asunto, detalles, user_id, user_token, setAsunto, setDetalles){
   if(asunto==="" || detalles === ""){
     toast.error("Todos los campos deben ser llenados");
     return;
@@ -126,7 +126,7 @@ function SoporteMessage({ adultoMayor }) {
             value="Enviar" 
             className="btn btn-orange" 
             onClick={async() => {
-              await crearTicket(asunto, detalles, usuario.user._id, usuario.token, setAsunto, setDetalles);
+              await crearConsulta(asunto, detalles, usuario.user._id, usuario.token, setAsunto, setDetalles);
               navigate(-1);
             }}/>
         </div>
