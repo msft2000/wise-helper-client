@@ -8,7 +8,7 @@ import '../sass/components/footer.scss';
 function Footer(){
     const navigate=useNavigate();//Para navegar entre paginas del sitio
     const path = window.location.pathname;
-    const path2 = path.includes("/adult") ? "/adult/" : (path.includes("/volunter/") ? "/volunter" : "/");
+    const path2 = path.includes("/adult") ? "/adult/" : (path.includes("/volunter/") ? "/volunter/" : "/");
     return(
         <footer className="footer">
             <section className="logo">

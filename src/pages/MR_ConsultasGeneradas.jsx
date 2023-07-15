@@ -3,18 +3,20 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../components/Header_Admin";
+import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
+import { Header as HeaderAdulto } from "../components/Header_Adulto";
+import { Header as HeaderIndex } from "../components/Header_Index";
 import img12 from "../assets/img/img12.png";
-import "../sass/mr_soporte.scss";
+import "../sass/mr_consultas.scss";
 import { Footer } from "../components/Footer";
 import toast, { Toaster } from "react-hot-toast";
 import { GeneralContext } from "../context";
 
 import axios from 'axios';
 
-async function eliminarTicket(user_token, ticket_id) {
+async function eliminarConsulta(user_token, ticket_id){
   return new Promise((resolve, reject) => {
-    const toastID = toast.loading("Eliminando Ticket...");
+    const toastID = toast.loading("Eliminando Consulta...");
     let data = '';
 
     let config = {
@@ -24,62 +26,57 @@ async function eliminarTicket(user_token, ticket_id) {
       headers: { 
         'Authorization': `Bearer ${user_token}`
       },
-      data: data
+      data : data
     };
 
     axios.request(config)
-      .then((response) => {
-
-        toast.dismiss(toastID);
-        toast.success("Ticket eliminado con éxito");
-        resolve(response.data); // Resolvemos la promesa con los datos de respuesta
-      })
-      .catch((error) => {
-        console.log(error);
-        reject(error); // Rechazamos la promesa con el error
-      });
+    .then((response) => {
+      toast.dismiss(toastID);
+      toast.success("Consulta eliminada con éxito");
+      resolve(response.data); // Resolvemos la promesa con los datos de respuesta
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error); // Rechazamos la promesa con el error
+    });
   });
 }
 
-async function getTickets(user_token, setTickets){
-  const toastID = toast.loading("Cargando Tickets...");
-  let data = '';
-
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: 'https://wise-helper-backend.onrender.com/api/v1/tickets/get-tickets-by-admin',
-    headers: {
-      'Content-Type': "application/json",
-      'Authorization': `Bearer ${user_token}`,
-    },
-    data : data
-  };
-
-  axios.request(config)
-  .then((response) => {
-    setTickets(response.data.tickets);
-
-    toast.dismiss(toastID);
-    toast.success("Tickets Cargadas con éxito");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+async function getConsultas(user_id, user_token, setConsultas){
+    let data = '';
+    
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `https://wise-helper-backend.onrender.com/api/v1/tickets/get-tickets-by-user/${user_id}`,
+      headers: { 
+        'Authorization': `Bearer ${user_token}`
+      },
+      data : data
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      setConsultas(response.data.tickets);
+    })
+    .catch((error) => {
+      console.log(error);
+    });    
 }
 
-function SoporteAdmin() {
+function ConsultasGeneradas() {
   let effect_exe=0;//Control de ejecuciones de useEffect+
   const navigate = useNavigate();
+  const url = window.location.href;
 
-  const { usuario, tickets, setTickets, setTicket, ticket } = React.useContext(GeneralContext);
+  const { usuario, consultas, setConsultas, setTicket, ticket } = React.useContext(GeneralContext);
 
   let filaSeleccionada = null;
   useEffect(() => {
     
     if(effect_exe===0){
       // Código a ejecutar después de la carga de la página
-      getTickets(usuario.token,setTickets);
+      getConsultas(usuario.user._id, usuario.token, setConsultas);
       effect_exe=1;
     }
   }, []);
@@ -94,11 +91,11 @@ function SoporteAdmin() {
         }
         fila.classList.add("selected");
         filaSeleccionada = fila;
-        setTicket(tickets[index-1]);
+        setTicket(consultas[index-1]);
       });
     });
 
-  }, [tickets]);
+  }, [consultas]);
 
   useEffect(() => {
     
@@ -106,28 +103,33 @@ function SoporteAdmin() {
 
   return (
     <React.Fragment>
-      <Header />
+      {url.includes("adult") ? (
+        <HeaderAdulto />
+      ) : url.includes("volunter") ? (
+        <HeaderVoluntario />
+      ) : (
+        <HeaderIndex></HeaderIndex>
+      )}
       <Toaster></Toaster>
       <div id="soporte">
         <section>
-          <h1>Lista de mensajes de ayuda</h1>
+          <h1>Lista de consultas generadas</h1>
           <div>
             <table>
               <thead>
                 <tr>
-                  <th>Usuario</th>
                   <th>Fecha Petición</th>
+                  <th>Estado</th>
                   <th>Asunto</th>
                 </tr>
               </thead>
               <tbody>
                 {
-                  tickets.map((ticket) => {
+                  consultas.map((consulta) => {
                     return (
                       <tr>
-                        <td>{ticket.id_usuario}</td>
                         <td>
-                          {new Date(ticket.createdAt).toLocaleString("es-ES", {
+                          {new Date(consulta.createdAt).toLocaleString("es-ES", {
                           year: "numeric",
                           month: "2-digit",
                           day: "2-digit",
@@ -135,7 +137,12 @@ function SoporteAdmin() {
                           minute: "2-digit",
                         })}
                         </td>
-                        <td>{ticket.titulo}</td>
+                        <td>
+                        <p className={consulta.estado.toLowerCase().replace(/ /g, "")}>
+                          {consulta.estado}
+                        </p>
+                        </td>
+                        <td>{consulta.titulo}</td>
                       </tr>
                     );
                   })
@@ -150,16 +157,16 @@ function SoporteAdmin() {
               value="Eliminar" 
               className="btn btn-grey"
               onClick={async () => {
-                  await eliminarTicket(usuario.token, ticket._id);
+                  await eliminarConsulta(usuario.token, ticket._id);
                   window.location.reload();
                 }
               }
             ></input>
             <input
               type="button"
-              value="Responder"
+              value="Detalles"
               className="btn btn-orange"
-              onClick={() => navigate("/admin/respuesta/123")}
+              onClick={() => navigate("respuesta/123")}
             ></input>
           </div>
 
@@ -170,4 +177,4 @@ function SoporteAdmin() {
   );
 }
 
-export { SoporteAdmin };
+export { ConsultasGeneradas };

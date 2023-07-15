@@ -100,6 +100,7 @@ div.containers {
         }
 
         th:hover {
+          cursor: pointer;
           svg {
             display: flex;
           }
@@ -276,6 +277,16 @@ div.containers {
       display: flex;
       flex-direction: column;
       width: 100%;
+      div.mapaApi{
+        .leaflet-container {
+          height: 200px;
+          width:500px;
+        }
+        .leaflet-attribution-flag{
+          height: inherit !important;
+          width: inherit !important;
+        }
+      }
 
       p:first-child {
         /*Texto: Ubicación*/

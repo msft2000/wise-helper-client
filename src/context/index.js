@@ -22,12 +22,21 @@ function GeneralProvider(props) {
     }
   };
   const [tareas, setTareas] = React.useState([]);
+  const [tareasV,setTareasV]=React.useState(localStorage.getItem("tareasV")
+  ? JSON.parse(localStorage.getItem("tareasV"))
+  : []);
   const [tarea, setTarea] = React.useState(null);
+  const [tareaV,setTareaV]=React.useState(null);
   const [selectedIdx, setSelectedIdx] = React.useState(null);
   const [tareasDisplay, setTareasDisplay] = React.useState("flex");
   const [detalleDisplay, setDetalleDisplay] = React.useState("none");
   const [open, setOpen] = React.useState(false);
   const [refPanel, setRefPanel] = React.useState(React.useRef(null));
+  const [tickets, setTickets] = React.useState([]);
+  const [ticket, setTicket] = React.useState([]);
+  const [consultas, setConsultas] = React.useState([]);
+  const [consulta, setConsulta] = React.useState([]);
+
   return (
     <GeneralContext.Provider
       value={{
@@ -52,6 +61,18 @@ function GeneralProvider(props) {
         validarLogeado,
         tareas,
         setTareas,
+        setTareaV,
+        tareaV,
+        setTareasV,
+        tareasV,
+        tickets,
+        setTickets,
+        ticket,
+        setTicket,
+        consultas,
+        setConsultas,
+        consulta,
+        setConsulta,
       }}
     >
       {props.children}

@@ -17,6 +17,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { GeneralContext } from "../context";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { MapContainer } from 'react-leaflet/MapContainer'
+import { TileLayer } from 'react-leaflet/TileLayer'
+import { Marker } from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 const mensaje_cuadroDialogo="Se aceptará la tarea seleccionada y no se podrán hacer cambios."
 const titulo_cuadroDialogo="Está seguro en querer aceptar la tarea seleccionada?"
@@ -93,11 +98,11 @@ async function updateTarea(usuario,tarea,navigate){
 
 
 function CuadroDialogo({ msg, title }) {
-  const { open, setOpen, tarea,usuarioV } = React.useContext(GeneralContext);
+  const { open, setOpen, tareaV,usuarioV } = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const handleAceptarTarea = () => {
     setOpen(false); //cerrar el cuadro de dialogo
-    updateTarea(usuarioV,tarea,navigate)//Actualizar el estado de la tarea
+    updateTarea(usuarioV,tareaV,navigate)//Actualizar el estado de la tarea
   };
 
   return (
@@ -136,22 +141,25 @@ function Tabla() {
     selectedIdx,
     refPanel,
     setDetalleDisplay,
-    setTarea,
+    setTareaV,
     setSelectedIdx,
     setTareasDisplay,
-    tareas,
+    tareasV,
+    setTareasV
   } = React.useContext(GeneralContext);
+
+  const [sort_type,setSortType]=React.useState(1);
 
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
       setSelectedIdx(null);
       setDetalleDisplay("none");
-      setTarea(null);
+      setTareaV(null);
     } else {
       //Seleccionar un elemento
       setSelectedIdx(index);
-      setTarea(tarea);
+      setTareaV(tarea);
       setDetalleDisplay("flex");
 
       if (parseFloat(refPanel.current.offsetWidth) <= 1006) {
@@ -160,7 +168,60 @@ function Tabla() {
       }
     }
   };
-  const tareas_e = tareas.map((fila, index) => {
+
+  const sorting=(idx,field)=>{
+    setDetalleDisplay("none");
+    let tareas_copy=[...tareasV];
+    let tareas_sorted=[];
+    if(idx===1){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        if(a[field].toLowerCase() < b[field].toLowerCase()) return 1 * sort_type;
+        else if(a[field].toLowerCase()  > b[field].toLowerCase()) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    else if(idx===2){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=new Date(a[field]);
+        let f_b=new Date(b[field]);
+        if( f_a > f_b) return 1 * sort_type;
+        else if(f_a < f_b) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    else{
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=a[field].split(":");
+        let f_b=b[field].split(":");
+        console.log(f_a,f_b)
+        let f_a_h=parseInt(f_a[0]);
+        let f_b_h=parseInt(f_b[0]);
+        let f_a_m=parseInt(f_a[1]);
+        let f_b_m=parseInt(f_b[1]);
+        if( f_a_h > f_b_h ){
+          return 1 * sort_type;
+        }
+        else if(f_a_h < f_b_h){
+          return -1 * sort_type;
+        }
+        else{
+          if(f_a_m > f_b_m){
+            return 1 * sort_type;
+          }
+          else if(f_a_m < f_b_m){
+            return -1 * sort_type;
+          }
+          return 0;
+        }
+    });
+    setSortType(-1*sort_type);
+  }
+    setTareasV(tareas_sorted);
+  }
+
+  const tareas_e = tareasV.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     //console.log(fila);
     return (
@@ -189,18 +250,18 @@ function Tabla() {
     <table>
       <thead>
         <tr>
-          <th>
+          <th onClick={()=>{sorting(1,"titulo")}}>
             <div>
               <AiFillFilter /> Tarea
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"fecha_limite")}}>
             <div>
               <AiFillFilter />
               Fecha Límite
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(3,"duracion")}}>
             <div>
               <AiFillFilter />
               Tiempo Estimado
@@ -216,8 +277,13 @@ function Tabla() {
 
 
 function Detalle() {
-  const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tarea, setOpen} = React.useContext(GeneralContext);
-
+  const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tareaV, setOpen} = React.useContext(GeneralContext);
+  var myIcon = L.icon({//Icono de punto en el mapa
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
+    iconRetinaUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
+    popupAnchor:  [-0, -0],
+    iconSize: [32,40], 
+  });
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
     setDetalleDisplay("none"); //Se cierra el detalle de la tarea
@@ -233,25 +299,25 @@ function Detalle() {
 
       <div className="detalles_adulto">
         <div className="detalles_adulto__informacion">
-          <img src={tarea.adulto.img} alt={tarea.adulto.nombre} />
+          <img src={tareaV.adulto.img} alt={tareaV.adulto.nombre} />
           <div className="detalles_adulto_datos">
-            <p>{`${tarea.adulto.nombre} ${tarea.adulto.apellidos}`}</p>
+            <p>{`${tareaV.adulto.nombre} ${tareaV.adulto.apellidos}`}</p>
           </div>
         </div>
         <div className="detalles_adulto__puntaje">
           <Rating
-            value={parseFloat(tarea.adulto.calificacion_general)}
+            value={parseFloat(tareaV.adulto.calificacion_general)}
             readOnly
             precision={0.5}
           />
-          <p>{tarea.adulto.calificacion_general}</p>
+          <p>{tareaV.adulto.calificacion_general}</p>
         </div>
       </div>
      
 
       <div className="descripcion_tarea">
         <p>Descripción de la tarea</p>
-        <p> {tarea.descripcion}</p>
+        <p> {tareaV.descripcion}</p>
       </div>
      
       <div>
@@ -259,7 +325,18 @@ function Detalle() {
 
         <div>
           <MdLocationOn />
-          <p>{tarea.ubicacion}</p>
+          <p>{tareaV.ubicacion}</p>
+        </div>
+
+        <div className="mapaApi">
+        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+            <TileLayer
+              attribution=''
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker icon={myIcon} position={[51.505, -0.09]}>
+            </Marker>
+        </MapContainer>
         </div>
 
         <input
@@ -278,7 +355,7 @@ function Detalle() {
   );
 }
 
-async function getAdulto(id_adulto,tareas) {
+async function getAdulto(id_adulto) {
   const config = {
     headers: {
       "content-type": "application/json",
@@ -286,14 +363,11 @@ async function getAdulto(id_adulto,tareas) {
   };
   try{
     const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_adulto}`, config);
-    tareas.forEach(tarea => {
-      if(tarea.id_adulto_mayor===id_adulto){
-        tarea.adulto=response.data.user;
-      }
-    });
+    return response.data.user;
   }
   catch(error){
     console.log(error);
+    return null;
   }
 }
 
@@ -309,13 +383,28 @@ async function getAllTareas(setTareas,usuario) {
 
   try{
     const response= await axios.get('https://wise-helper-backend.onrender.com/api/v1/tareas/all', config);
+    
     const data= response.data.tareas.filter(i => i.estado === 'Activa');
+    
     let adulto_a=[];
+
     data.forEach(tarea => {
       tarea.adulto={};
       if(!adulto_a.includes(tarea.id_adulto_mayor)) adulto_a=[...adulto_a,tarea.id_adulto_mayor]
     });
-    adulto_a.map(async (a) => {await getAdulto(a,data)});
+    
+    for (let i=0; i<adulto_a.length ; i++){
+      let id_adulto=adulto_a[i];
+      let data_adulto=await getAdulto(id_adulto);
+      if(data_adulto !== null) {
+        data.forEach(tarea => {
+          if(tarea.id_adulto_mayor===id_adulto){
+            tarea.adulto=data_adulto;
+          }
+        });
+      }
+    }
+
     setTareas(data);
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");
@@ -329,12 +418,12 @@ async function getAllTareas(setTareas,usuario) {
 
 
 function TareasVoluntario() {
-  const { refPanel, tareasDisplay, tarea, setTareas, usuarioV } = React.useContext(GeneralContext);
+  const { refPanel, tareasDisplay, tareaV, setTareasV, usuarioV } = React.useContext(GeneralContext);
   let effect_exe=0;//Control de ejecuciones de useEffect
 
   React.useEffect(()=>{
     if(effect_exe===0){
-      getAllTareas(setTareas,usuarioV)
+      getAllTareas(setTareasV,usuarioV)
       effect_exe=1;
     }
   },[]);
@@ -349,7 +438,7 @@ function TareasVoluntario() {
             <Tabla />
           </div>
         </section>
-        {tarea !== null ? <Detalle /> : <></>}
+        {tareaV !== null ? <Detalle /> : <></>}
       </div>
 
       <Footer></Footer>

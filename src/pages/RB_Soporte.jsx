@@ -7,7 +7,7 @@ import {
   MdLiveHelp,
   MdHelp,
 } from "react-icons/md";
-import { BsHeadset, BsFileEarmarkText } from "react-icons/bs";
+import { BsHeadset, BsFileEarmarkText,BsQuestionDiamondFill } from "react-icons/bs";
 import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
 import { Header as HeaderAdulto } from "../components/Header_Adulto";
 import { Header as HeaderIndex } from "../components/Header_Index";
@@ -17,6 +17,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import questions from "../assets/json/faq_questions.json";
+import { Toaster } from "react-hot-toast";
+
 function CuadroDialogo({ open, setOpen }) {
   const style = {
     position: "absolute",
@@ -92,17 +94,25 @@ function Soporte() {
       ) : (
         <HeaderIndex></HeaderIndex>
       )}
+
+      <Toaster></Toaster>
+
       <div className="container">
         <div className="btns">
           {/*Bloque de botones*/}
           <div
             class="Guia"
             onClick={() => {
-              navigate("tyc");
+              if(url.includes("adult") || url.includes("volunter")){
+                navigate("consultas");
+              }
+              else{
+                navigate("tyc");
+              }
             }}
           >
-            <BsFileEarmarkText />
-            <p>TyC</p>
+            {url.includes("adult") || url.includes("volunter") ?  <BsQuestionDiamondFill/> : <BsFileEarmarkText /> }
+            <p>{url.includes("adult") || url.includes("volunter") ? "Mis Consultas" : "TyC"}</p>
           </div>
 
           <div

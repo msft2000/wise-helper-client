@@ -6,15 +6,54 @@ import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header_Adulto";
 import { Footer } from "../components/Footer";
+import { GeneralContext } from "../context";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+
+async function enviarComentario(id_adulto,id_voluntario,calificacion,comentario){
+  const toastID = toast.loading("Enviando comentario...");
+  let data = JSON.stringify({
+    "id_destino": id_voluntario,
+    "id_origen": id_adulto,
+    "calificacion": calificacion,
+    "comentario": comentario
+  });
+
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://wise-helper-backend.onrender.com/api/v1/auth/calificacion',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+
+  axios.request(config)
+  .then((response) => {
+    toast.success("Comentario Enviado");
+    toast.dismiss(toastID);
+    return true;
+  })
+  .catch((error) => {
+    console.log(error);
+    toast.error("Error al enviar el comentario. Intentelo después.");
+    toast.dismiss(toastID);
+    return false;
+  });
+
+}
 function TareaFinVoluntario() {
+  const {
+    usuario,
+    tarea,
+  } = React.useContext(GeneralContext);
   const navigate = useNavigate();
   const [rating, setRating] = React.useState(0);
   const [coment, setComent] = React.useState("");
-  const [name, setName] =React.useState("Nombre adulto");
   const sendComent= (event) =>{
-    console.log("Etra");
-    setComent("");
-    navigate("/volunter/tareas");
+    (rating===0) ? <></> :
+    enviarComentario(usuario._id,tarea.voluntario._id,rating,coment) ? navigate("/adult/tareas"): <div></div>;
   }
   return (
     <div className="TareaFin">
@@ -23,9 +62,9 @@ function TareaFinVoluntario() {
         <section className="content">
           <h1> Tarea Realizada</h1>
           <div>
-            <img id="foto" src={img7} alt=""/>
-            <label id="nombre" >
-              {name}
+            <img id="foto" src={tarea.voluntario.img} alt=""/>
+            <label id="nombre">
+              {tarea.voluntario.nombre+" "+tarea.voluntario.apellidos}
             </label>
           </div>
           <p> Califica a la persona por el trabajo realizado</p>

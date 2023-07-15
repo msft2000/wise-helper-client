@@ -94,11 +94,12 @@ function Tabla() {
     refPanel,
     setDetalleDisplay,
     setTarea,
+    setTareas,
     setSelectedIdx,
     setTareasDisplay,
     tareas,
   } = React.useContext(GeneralContext);
-
+  const [sort_type,setSortType]=React.useState(1);
   const handleOnClickFila = (tarea, index) => {
     if (selectedIdx === index) {
       //Deseleccionar un elemento ya seleccionado
@@ -118,7 +119,32 @@ function Tabla() {
     }
   };
 
-  const tareas_e=tareas.map((fila, index) => {
+  const sorting=(idx,field)=>{
+    setDetalleDisplay("none");
+    let tareas_copy=[...tareas];
+    let tareas_sorted=[];
+    if(idx===1){
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        if(a[field].toLowerCase() < b[field].toLowerCase()) return 1 * sort_type;
+        else if(a[field].toLowerCase()  > b[field].toLowerCase()) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    else{
+      tareas_sorted=tareas_copy.sort((a,b)=>{
+        let f_a=new Date(a[field]);
+        let f_b=new Date(b[field]);
+        if( f_a > f_b) return 1 * sort_type;
+        else if(f_a < f_b) return -1 * sort_type;
+        return 0;
+      });
+      setSortType(-1*sort_type);
+    }
+    setTareas(tareas_sorted);
+  }
+
+  let tareas_e=tareas.map((fila, index) => {
     //Recorrido de todas las tareas de los datos obtenidos y creación de cada tarea
     return (
       <tr
@@ -146,23 +172,18 @@ function Tabla() {
     <table>
       <thead>
         <tr>
-          <th>
+          <th onClick={()=>{sorting(1,"titulo")}}>
             <div>
               <AiFillFilter /> Tarea
             </div>
           </th>
-          <th>
+          <th onClick={()=>{sorting(2,"createdAt")}}>
             <div>
               <AiFillFilter />
               Fecha Publicación
             </div>
           </th>
-          <th>
-            <div>
-              <AiFillFilter />
-              Estado
-            </div>
-          </th>
+          <th>Estado</th>
           <th>Voluntario Asignado</th>
         </tr>
       </thead>
@@ -171,7 +192,7 @@ function Tabla() {
   );
 }
 
-async function getVoluntario(id_voluntario,tareas) {
+async function getVoluntario(id_voluntario) {
   const config = {
     headers: {
       "content-type": "application/json",
@@ -179,14 +200,11 @@ async function getVoluntario(id_voluntario,tareas) {
   };
   try{
     const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_voluntario}`, config);
-    tareas.forEach(tarea => {
-      if(tarea.id_voluntario===id_voluntario){
-        tarea.voluntario=response.data.user;
-      }
-    });
+    return response.data.user;
   }
   catch(error){
     console.log(error);
+    return null;
   }
 }
 
@@ -206,9 +224,18 @@ async function getTareas(user_id, user_token, setTareas) {
       tarea.voluntario={};
       if(tarea.hasOwnProperty('id_voluntario') && !voluntario_a.includes(tarea.id_voluntario)) voluntario_a=[...voluntario_a,tarea.id_voluntario]
     });
-    voluntario_a.map(a => getVoluntario(a,data));//Obtener los datos de los voluntarios por tarea
-    //localStorage.setItem("tarea", JSON.stringify(data));
-    setTareas(data);
+    for (let i=0; i<voluntario_a.length ; i++){//Recorrer la lista de voluntarios que han aceptado una tarea
+      let id_voluntario=voluntario_a[i];//id de voluntario a consultar
+      let data_voluntario=await getVoluntario(id_voluntario);//Obtener los datos del voluntario
+      if(data_voluntario !== null) {
+        data.forEach(tarea => {
+          if(tarea.id_voluntario===id_voluntario){
+            tarea.voluntario=data_voluntario;//Agregar los datos a cada objeto de tarea
+          }
+        });
+      }
+    }
+    setTareas(data);//Cambiar el estado de las tareas generadas;
     toast.dismiss(toastID);
     toast.success("Tareas Cargadas con éxito");
     return;

@@ -187,7 +187,7 @@
         padding: 8px 20px 8px 20px;
       }
 
-      & > div:nth-of-type(1) {
+      & div.detalles_voluntario {
         /*Bloque: Resumen de datos de voluntario*/
         display: flex;
         flex-direction: column;
@@ -272,7 +272,7 @@
         }
       }
 
-      & > div:nth-of-type(2) {
+      & div.descripcion_tarea {
         /*Bloque*/
         display: flex;
         flex-direction: column;
@@ -303,16 +303,89 @@
         }
       }
 
-      & div.chat_tarea{
+      & div.ubicacion {
         /*Bloque*/
         display: flex;
         flex-direction: column;
         width: 100%;
-        &.finalizada{
-          .wy-message-editor-inputs{
+        padding-bottom: 40px;
+        border-bottom: 1.5px solid $tertiary_color;
+        div.mapaApi {
+          .leaflet-container {
+            height: 200px;
+            width: 500px;
+          }
+          .leaflet-attribution-flag {
+            height: inherit !important;
+            width: inherit !important;
+          }
+        }
+
+        p:first-child {
+          /*Texto: Ubicación*/
+          margin-top: 20px;
+          font-weight: bold;
+          font-size: 17px;
+        }
+
+        svg {
+          /*Img: ubicación*/
+          width: 55px;
+          height: 55px;
+          color: red;
+        }
+
+        p:nth-child(2) {
+          /*Img: ubicación*/
+          font-weight: bold;
+          text-align: center;
+        }
+
+        > div {
+          /*Bloque: Img y ubicación*/
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+        > input {
+          /*Boton: Aceptar*/
+          width: fit-content;
+          height: fit-content;
+          color: $font_light_color;
+          font-weight: bold;
+          font-size: 18px;
+          background: $color_2;
+          border-radius: 15px;
+          cursor: pointer;
+          border: 0;
+          padding: 15px 20px 15px 20px;
+          display: flex;
+          align-self: center;
+          border: 0;
+          margin: 120px 0 0 0;
+          &:hover {
+            scale: 1.1;
+          }
+        }
+        > p:last-child {
+          margin-top: 29px;
+          font-weight: bold;
+          color: $tertiary_color;
+          text-align: center;
+        }
+      }
+
+      & div.chat_tarea {
+        /*Bloque*/
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        &.finalizada {
+          .wy-message-editor-inputs {
             display: none !important;
           }
-          .wy-scroll-y:not(.wy-scroll-x){
+          .wy-scroll-y:not(.wy-scroll-x) {
             min-height: 30vh;
           }
         }
@@ -327,23 +400,25 @@
           /*Bloque: contenido de comentarios*/
           height: 30vw;
           overflow: auto;
-          & *{
+          & * {
             font-weight: normal !important;
             z-index: 1;
           }
-          .wy-scroll-y{
-            will-change:inherit;
+          .wy-scroll-y {
+            will-change: inherit;
           }
-          .wy-message .wy-avatar-presence{
+          .wy-message .wy-avatar-presence {
             display: none;
           }
-          .wy-message-bubble .wy-likes, .wy-message-bubble .wy-reactions-line{
+          .wy-message-bubble .wy-likes,
+          .wy-message-bubble .wy-reactions-line {
             display: none;
           }
-          .wy-appbars > .wy-appbar, .wy-appbars > .wy-toolbar{
+          .wy-appbars > .wy-appbar,
+          .wy-appbars > .wy-toolbar {
             display: none;
           }
-          .wy-scroll-y:not(.wy-scroll-x){
+          .wy-scroll-y:not(.wy-scroll-x) {
             min-height: 30vh;
           }
         }
@@ -426,7 +501,7 @@
         }
       }
 
-      div.msgs{
+      div.msgs {
         height: 70vh !important;
       }
     }
