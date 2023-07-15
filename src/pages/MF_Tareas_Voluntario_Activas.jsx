@@ -22,6 +22,12 @@ import "../css/weavy.css";
 import { GeneralContext } from "../context";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { MapContainer } from 'react-leaflet/MapContainer'
+import { TileLayer } from 'react-leaflet/TileLayer'
+import { Marker } from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import { MdLocationOn } from "react-icons/md";
 
 const msg_finalizar_tarea =
   "Se finalizará la tarea seleccionada y no se podrán hacer cambios.";
@@ -55,6 +61,13 @@ function Detalle() {
     tareaV,
     setOpen,
   } = React.useContext(GeneralContext);
+
+  var myIcon = L.icon({//Icono de punto en el mapa
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
+    iconRetinaUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
+    popupAnchor:  [-0, -0],
+    iconSize: [32,40], 
+  });
 
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
@@ -107,6 +120,27 @@ function Detalle() {
           title={title_finalizar_tarea}
         />
       </div>
+
+      <div className="ubicacion">
+        <p>Ubicación</p>
+
+        <div>
+          <MdLocationOn />
+          <p>{tareaV.ubicacion}</p>
+        </div>
+
+        <div className="mapaApi">
+        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+            <TileLayer
+              attribution=''
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker icon={myIcon} position={[51.505, -0.09]}>
+            </Marker>
+        </MapContainer>
+        </div>
+      </div>
+
       <div className={tareaV.estado==="Finalizada" ? "chat_tarea finalizada" :"chat_tarea"}>
         <p>Mensajes</p>
         <Chat />

@@ -16,6 +16,7 @@
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "ec-dni-validator": "^1.5.0",
+    "leaflet": "^1.9.4",
     "popper.js": "^1.16.1",
     "primeicons": "^6.0.1",
     "primereact": "^9.5.0",
@@ -23,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "sass": "^1.62.1",
@@ -52,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.3"
   }
 }

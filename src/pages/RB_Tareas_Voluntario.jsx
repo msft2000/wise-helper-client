@@ -17,6 +17,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { GeneralContext } from "../context";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { MapContainer } from 'react-leaflet/MapContainer'
+import { TileLayer } from 'react-leaflet/TileLayer'
+import { Marker } from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 const mensaje_cuadroDialogo="Se aceptará la tarea seleccionada y no se podrán hacer cambios."
 const titulo_cuadroDialogo="Está seguro en querer aceptar la tarea seleccionada?"
@@ -273,7 +278,12 @@ function Tabla() {
 
 function Detalle() {
   const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tareaV, setOpen} = React.useContext(GeneralContext);
-
+  var myIcon = L.icon({//Icono de punto en el mapa
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
+    iconRetinaUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
+    popupAnchor:  [-0, -0],
+    iconSize: [32,40], 
+  });
   const cerrar_detalle = () => {
     //Funcion ejecutada cuando se presiona X en el detalle
     setDetalleDisplay("none"); //Se cierra el detalle de la tarea
@@ -316,6 +326,17 @@ function Detalle() {
         <div>
           <MdLocationOn />
           <p>{tareaV.ubicacion}</p>
+        </div>
+
+        <div className="mapaApi">
+        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+            <TileLayer
+              attribution=''
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker icon={myIcon} position={[51.505, -0.09]}>
+            </Marker>
+        </MapContainer>
         </div>
 
         <input
