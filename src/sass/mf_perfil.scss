@@ -16,7 +16,7 @@ div.perfil-adulto-mayor--page-container {
     }
 
     .perfil-datos--container {
-      height: 80vh;
+      height: auto;
       display: flex;
       flex-direction: column;
       width: 50%;
@@ -110,7 +110,8 @@ div.perfil-adulto-mayor--page-container {
         }
       }
       .resenias--container--resenias {
-        height: 60vh;
+        min-height: 60vh;
+        height: auto;
         margin-top: -50px;
         padding-top: 50px;
         overflow: scroll;
@@ -166,6 +167,18 @@ div.perfil-adulto-mayor--page-container {
           z-index: 2;
         }
       }
+    }
+  }
+}
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 480px) {
+  .perfil{
+    flex-direction: column !important;
+    .perfil-datos--container{
+      width: 100% !important;
+    }
+    .perfil-resenias--container{
+      width: 100% !important;
     }
   }
 }
