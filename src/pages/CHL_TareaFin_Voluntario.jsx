@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*Calificar a un voluntario de parte de adulto mayor*/
 import React from "react";
 import "../sass/chl_tareaFin.scss";
