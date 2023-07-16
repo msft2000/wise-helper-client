@@ -25,7 +25,7 @@ function Header() {
           }}
         />
         <ul>
-          <li className={path.includes("/adult") && (!path.includes("/adult/tareas") && !path.includes("/adult/support") && !path.includes("/adult/perfil") ) ? "selected" : ""}>
+          <li className={path.includes("/adult") && (!path.includes("/adult/tareas") && !path.includes("/adult/support") && !path.includes("/adult/perfil") && !path.includes("/adult/our_volunters") ) ? "selected" : ""}>
             <a
               href=""
               onClick={() => {
