@@ -62,7 +62,7 @@ function Login() {
       <div className="content">
         <section className="loginform">
           <h1>Voluntario</h1>
-          <form onSubmit={loginHandler} verified >
+          <form onSubmit={loginHandler} verified="true" >
             <h2>Correo Electrónico</h2>
             <div>
               <MdPerson />

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Header as HeaderVoluntario } from "../components/Header_Voluntario";
 import { Header as HeaderAdulto } from "../components/Header_Adulto";
 import { Header as HeaderIndex } from "../components/Header_Index";
-import img12 from "../assets/img/img12.png";
+// import img12 from "../assets/img/img12.png";
 import "../sass/mr_consultas.scss";
 import { Footer } from "../components/Footer";
 import toast, { Toaster } from "react-hot-toast";
