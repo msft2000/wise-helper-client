@@ -105,7 +105,7 @@ function Login() {
           </h3>
         </section>
       </div>
-      <Footer></Footer>
+      <Footer nombre="Renato Berrezueta"></Footer>
     </div>
   );
 }

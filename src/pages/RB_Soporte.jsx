@@ -194,7 +194,7 @@ function Soporte() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      <Footer nombre="Renato Berrezueta"></Footer>
       <CuadroDialogo open={open} setOpen={setOpen} />
     </div>
   );

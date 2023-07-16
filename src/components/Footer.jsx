@@ -6,7 +6,7 @@ import {GrMail} from 'react-icons/gr';
 import {ImLocation,ImPhone} from 'react-icons/im';
 import {MdWatchLater,MdKeyboardArrowRight} from 'react-icons/md';
 import '../sass/components/footer.scss';
-function Footer(){
+function Footer({nombre=""}){
     const navigate=useNavigate();//Para navegar entre paginas del sitio
     const path = window.location.pathname;
     const path2 = path.includes("/adult") ? "/adult/" : (path.includes("/volunter") ? "/volunter/" : "/");
@@ -16,6 +16,7 @@ function Footer(){
                 <img src={imgLogo} alt="" />
                 <h1>WiseHelpers</h1>
                 <h2>© 2023 Todos los Derechos Reservados</h2>
+                <p id="hecho_por">{`Realizado por: ${nombre}`}</p>
             </section>
 
             <section className="aboutUs">
