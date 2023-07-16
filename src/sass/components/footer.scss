@@ -17,6 +17,9 @@ footer.footer {
     border: 0;
   }
   section {
+    #hecho_por{
+      font-size: 13px;
+    }
     &.logo {
       display: flex;
       flex-direction: column;

@@ -85,7 +85,7 @@ function Login() {
                 }}
               />
             </div>
-            <p>¿Olvidaste tu contraseña?</p>
+            <p hidden="true">¿Olvidaste tu contraseña?</p>
             <button type="submit">INGRESAR</button>
           </form>
           <h3>O registrate</h3>
@@ -105,7 +105,7 @@ function Login() {
           </h3>
         </section>
       </div>
-      <Footer></Footer>
+      <Footer nombre="Renato Berrezueta"></Footer>
     </div>
   );
 }

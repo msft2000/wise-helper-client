@@ -22,7 +22,7 @@ function TerminosCondiciones() {
 
       <div className="con">
         <h1> Terminos y Condiciones</h1>
-        <img src={imgTerm} />
+        <img src={imgTerm} alt=""/>
         <div className="cuerpo">
           <p>
             Bienvenido a nuestra aplicación de atención a adultos mayores. Antes

@@ -274,7 +274,7 @@ function TareasHistorialAdulto() {
         {tarea !== null ? <Detalle /> : <></>}
       </div>
 
-      <Footer></Footer>
+      <Footer nombre="Renato Berrezueta"></Footer>
     </div>
   );
 }

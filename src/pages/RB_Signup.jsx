@@ -233,7 +233,7 @@ function Signup() {
         </div>
       </div>
 
-      <Footer></Footer>
+      <Footer nombre="Renato Berrezueta"></Footer>
     </div>
   );
 }

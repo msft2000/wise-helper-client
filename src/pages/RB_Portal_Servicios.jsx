@@ -38,7 +38,7 @@ function PortalServicios(){
         <div className="PortalServicios">
             <Header></Header>
             <Content></Content>
-            <Footer></Footer>
+            <Footer nombre="Renato Berrezueta"></Footer>
         </div>
     );
 }
