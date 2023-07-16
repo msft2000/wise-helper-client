@@ -292,8 +292,7 @@ function Detalle() {
     setTareasDisplay("flex"); //Se muestra la lista de tareas
   };
   return (
-    <section className="tarea_desc" style={{ display: detalleDisplay }}
-    >
+    <section className="tarea_desc" style={{ display: detalleDisplay }}>
       <section>
         <RxCross2 onClick={cerrar_detalle} />
       </section>
@@ -326,19 +325,25 @@ function Detalle() {
 
         <div>
           <MdLocationOn />
-          <p>{tareaV.ubicacion}</p>
+          {
+            tareaV.adulto.direccion.split("%").length === 3 ?
+            <p>{tareaV.adulto.direccion.split("%")[0]}</p> :
+            <p>Aún no se define una dirección</p>
+          }
         </div>
 
-        <div className="mapaApi">
-        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-            <TileLayer
-              attribution=''
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker icon={myIcon} position={[51.505, -0.09]}>
-            </Marker>
-        </MapContainer>
-        </div>
+        {
+          tareaV.adulto.direccion.split("%").length === 3 ? <div className="mapaApi">
+          <MapContainer center={[parseFloat(tareaV.adulto.direccion.split("%")[1]), parseFloat(tareaV.adulto.direccion.split("%")[2])]} zoom={13} scrollWheelZoom={true}>
+              <TileLayer
+                attribution='&copy; OpenStreetMap'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker icon={myIcon} position={[parseFloat(tareaV.adulto.direccion.split("%")[1]), parseFloat(tareaV.adulto.direccion.split("%")[2])]}>
+              </Marker>
+          </MapContainer>
+          </div> : <></>
+        }
 
         <input
           type="button"

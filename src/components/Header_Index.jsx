@@ -12,7 +12,7 @@ function Header(){
                 <img src={logo} alt="logo" onClick={()=>{navigate("/")}}/>
                 <ul>
                     <li className={path==="/" ? "selected" : ""}><a href="" onClick={()=>{navigate("/")}}>Inicio</a></li>
-                    <li className={path==="/aboutUs" ? "selected" : ""}><a href=""  onClick={()=>{navigate("/")}}>Sobre Nosotros</a></li>
+                    <li className={path==="/our_volunters" ? "selected" : ""}><a href=""  onClick={()=>{navigate("/our_volunters")}}>Nuestros Voluntarios</a></li>
                     <li className={path.includes("/support") ? "selected" : ""}><a href="" onClick={()=>{navigate("/support")}}>Soporte</a></li>
                 </ul>
             </nav>

@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { GeneralProvider } from "../context";
 import "../css/App.css";
 import { PerfilAdultoMayor } from "../pages/MF_Perfil_Adulto";
-import { Prueba } from "../pages/Prueba";
 import { TareasActivas } from "../pages/MF_Tareas_Voluntario_Activas";
 import { AgregarTarea } from "../pages/MF_Agregar_Tarea";
 import { Index } from "../pages/MR_Index";
@@ -32,7 +31,6 @@ function App() {
     <BrowserRouter>
       <GeneralProvider>
         <Routes>
-          <Route path="/prueba" element={<Prueba />} />
           {/* Paginas del index */}
           <Route path="/" element={<Index />} />
           <Route path="/portal" element={<PortalServicios />} />
