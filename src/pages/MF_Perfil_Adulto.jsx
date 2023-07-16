@@ -12,16 +12,20 @@ function PerfilAdultoMayor() {
   const [nombre, setNombre] = React.useState(usuario.user.nombre);
   const [apellidos, setApellidos] = React.useState(usuario.user.apellidos);
   const [email, setEmail] = React.useState(usuario.user.email);
-  const [direccion, setDireccion] = React.useState(usuario.user.direccion);
+  const [direccion, setDireccion] = React.useState(
+    usuario.user.direccion.includes("%")
+      ? usuario.user.direccion.split("%")[0]
+      : usuario.user.direccion
+  );
   const [edad, setEdad] = React.useState(usuario.user.edad);
   const [descripcion, setDescripcion] = React.useState(usuario.user.descripcion);
   const [img, setImg] = React.useState(undefined);
-  const save = async () => {
+  const save = async (direccionActualizada) => {
     let objetoAEnviar = {
       nombre,
       apellidos,
       email,
-      direccion,
+      direccion: direccionActualizada,
       edad,
       descripcion,
     };
@@ -33,11 +37,15 @@ function PerfilAdultoMayor() {
           data: {
             image: { src },
           },
-        } = await axios.post("https://wise-helper-backend.onrender.com/api/v1/auth/img-upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        } = await axios.post(
+          "https://wise-helper-backend.onrender.com/api/v1/auth/img-upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         objetoAEnviar = {
           ...objetoAEnviar,
           img: src,
@@ -66,14 +74,36 @@ function PerfilAdultoMayor() {
         };
         localStorage.setItem("usuario", JSON.stringify(auxObj));
         setUsuario(auxObj);
-        console.log(auxObj)
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  const calculoCoordenadas = async () => {
+    if (direccion.includes("%")) {
+      let aux = direccion.split("%");
+      await setDireccion(aux[0]);
+    }
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://api.mymappi.com/v2/geocoding/direct?apikey=1ea60b6e-dfcd-4aea-866c-73583c5e199e&country_code=ECU&limit=1&q=${direccion}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        save(
+          `${direccion}%${response.data.data[0].lat}%${response.data.data[0].lon}`
+        );
+      })
+      .catch((error) => {
+        toast.error("Error al encontrar la direccion");
+      });
+  };
   const notify = () => {
-    toast.promise(save(), {
+    toast.promise(calculoCoordenadas(), {
       loading: "Actualizando Informacion...",
       success: <b>Informacion Actualizada</b>,
       error: <b>No se actualizar informacion.</b>,
@@ -188,7 +218,7 @@ function PerfilAdultoMayor() {
                   );
                 })
               ) : (
-                <h2 style={{textAlign: "center"}}>Sin Calificaciones Aun</h2>
+                <h2 style={{ textAlign: "center" }}>Sin Calificaciones Aun</h2>
               )}
             </div>
             <button hidden>Agregar Reseña</button>
