@@ -122,54 +122,56 @@ function PerfilVoluntario() {
             </div>
             <div className="perfil-datos--container--datos">
               <div className="perfil-datos--container--datos--detalle">
-              <p>
-                  Nombre:{" "}
-                  <input
-                    type="text"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                  />
-                </p>
-                <p>
-                  Apellido:{" "}
-                  <input
-                    type="text"
-                    value={apellidos}
-                    onChange={(e) => setApellidos(e.target.value)}
-                  />
-                </p>
-                <p>
-                  Email:{" "}
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </p>
-                <p>
-                  Direccion:{" "}
-                  <input
-                    type="text"
-                    value={direccion}
-                    onChange={(e) => setDireccion(e.target.value)}
-                  />
-                </p>
-                <p>
-                  Edad:{" "}
-                  <input
-                    type="number"
-                    value={edad}
-                    onChange={(e) => setEdad(e.target.value)}
-                  />
-                </p>
-                <p>
-                  Nueva Foto de Perfil:{" "}
-                  <input type="file" style={{width: "100%"}} onChange={(e) => setImg(e.target.files[0])} />
-                </p>
-                <p>Calificacion: {usuarioV.user.calificacion_general}</p>
+              <div>
+                <p>Nombre:</p>
+                <input
+                  type="text"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                />
+              </div>
+              <div>
+                <p>Apellido:</p>
+                <input
+                  type="text"
+                  value={apellidos}
+                  onChange={(e) => setApellidos(e.target.value)}
+                />
+              </div>
+              <div>
+                <p>Email:</p>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <p>Direccion:</p>
+                <input
+                  type="text"
+                  value={direccion}
+                  onChange={(e) => setDireccion(e.target.value)}
+                />
+              </div>
+              <div>
+                <p>Edad:</p>
+                <input
+                  type="number"
+                  value={edad}
+                  onChange={(e) => setEdad(e.target.value)}
+                />
+              </div>
+              <div>
+                <p>Foto Perfil:</p>
+                <input type="file" onChange={(e) => setImg(e.target.files[0])} />
+              </div>
+              <div>
+                <p>Calificacion: {usuarioV.user.calificacion_general} </p>
                 <div>
                   <Rating value={usuarioV.calificacion_general} readOnly precision={0.05} />
                 </div>
+              </div>
               </div>
               <img src={usuarioV.user.img} alt="foto-perfil" />
             </div>

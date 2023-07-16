@@ -9,7 +9,8 @@ div.TareaFin {
     background: $bg_primary_color;
     width: 100%;
     height: auto;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     label {
       font-size: 20px;
     }
@@ -22,9 +23,8 @@ div.TareaFin {
       place-items: center;
       background: $bg_light_color;
       border-radius: 34px;
-      top: 50%;
-      left: 50%;
-      width: 410px;
+      width: 98%;
+      max-width: 410px;
       height: 520px;
       padding: 50px;
 
@@ -38,12 +38,15 @@ div.TareaFin {
       & > :nth-child(2) {
         background: $bg_primary_color;
         border-radius: 34px;
-        width: 250px;
-        height: 120px;
-
+        width: 50%;
+        max-width: 205px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
         img {
-          height: 80px;
-          width: 80px;
+          display: block;
+          max-width: 100px;
+          width: 30%;
           border-radius: 50%;
         }
       }

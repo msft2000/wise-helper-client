@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
-import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
+//import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import { Header } from "../components/Header_Adulto";
 import { Footer } from "../components/Footer";
 import toast, { Toaster } from "react-hot-toast";
 import { GeneralContext } from "../context";
+import Rating from "@mui/material/Rating";
 import "../sass/mf_perfil.scss";
 
 function PerfilAdultoMayor() {
@@ -173,6 +174,9 @@ function PerfilAdultoMayor() {
                   <StarRateRoundedIcon />
                   <StarRateRoundedIcon />
                 </div> */}
+                <div>
+                  <Rating value={parseFloat(usuario.calificacion_general)} readOnly precision={0.1} />
+                </div>
               </div>
               <img src={usuario.user.img} alt="foto-perfil" />
             </div>
@@ -205,14 +209,17 @@ function PerfilAdultoMayor() {
                       key={calificacion._id}
                     >
                       <img src={usuario.user.img} alt="foto-perfil-resenia" />
-                      <p>calificacion comentario</p>
+                      <p>{calificacion.comentario}</p>
                       <span>{calificacion.calificacion}</span>
-                      <div className="ratings">
+                      {/*<div className="ratings">
                         <StarRateRoundedIcon />
                         <StarRateRoundedIcon />
                         <StarRateRoundedIcon />
                         <StarRateRoundedIcon />
                         <StarRateRoundedIcon />
+                      </div>*/}
+                      <div>
+                        <Rating value={parseFloat(calificacion.calificacion)} readOnly precision={0.5} />
                       </div>
                     </div>
                   );
