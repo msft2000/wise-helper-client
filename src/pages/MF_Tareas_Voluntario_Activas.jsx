@@ -130,7 +130,7 @@ function Detalle() {
           <MdLocationOn />
           {
             tareaV.adulto.direccion.split("%").length === 3 ?
-            <p>{tareaV.adulto.direccion.split("%")[0]}</p> :
+            <p onClick={()=>window.open(`https://www.openstreetmap.org/?mlat=${tareaV.adulto.direccion.split("%")[1]}&mlon=${tareaV.adulto.direccion.split("%")[2]}`,'_blank')}>{tareaV.adulto.direccion.split("%")[0]}</p> :
             <p>Aún no se define una dirección</p>
           }
         </div>
