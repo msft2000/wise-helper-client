@@ -141,7 +141,7 @@ function PerfilVoluntario() {
                 <p>
                   Email:{" "}
                   <input
-                    type="text"
+                    type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -164,7 +164,7 @@ function PerfilVoluntario() {
                 </p>
                 <p>
                   Nueva Foto de Perfil:{" "}
-                  <input type="file" onChange={(e) => setImg(e.target.files[0])} />
+                  <input type="file" style={{width: "100%"}} onChange={(e) => setImg(e.target.files[0])} />
                 </p>
                 <p>Calificacion: {usuarioV.user.calificacion_general}</p>
                 <div>
