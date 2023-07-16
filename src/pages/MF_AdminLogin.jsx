@@ -47,6 +47,9 @@ function AdminLogin() {
         setUsuarioLogeado(true);
         setEmail("");
         setPass("");
+
+        toast.dismiss(toastID);
+        //toast.success();
         navigate("/admin");
       })
       .catch(function (error) {

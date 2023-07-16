@@ -75,6 +75,8 @@ function SoporteAdmin() {
 
   const { usuario, tickets, setTickets, setTicket, ticket } = React.useContext(GeneralContext);
 
+  const [seleccionada, setSeleccionada] = React.useState(false);
+
   let filaSeleccionada = null;
   useEffect(() => {
     
@@ -86,16 +88,23 @@ function SoporteAdmin() {
   }, []);
 
   useEffect(() => {
-    const filas = document.querySelectorAll("tr");
+    const filas = document.querySelectorAll("tbody > tr");
 
     filas.forEach(function (fila, index) {
-      fila.addEventListener("click", function () {
-        if (filaSeleccionada) {
-          filaSeleccionada.classList.remove("selected");
+      fila.addEventListener("click", function() {
+        if (fila.classList.contains("selected")) {
+            fila.classList.remove("selected");
+            filaSeleccionada = null;
+            setSeleccionada(false);
+        } else {
+          if (filaSeleccionada!=null) {
+              filaSeleccionada.classList.remove("selected");
+          }
+          fila.classList.add("selected");
+          filaSeleccionada=fila;
+          setSeleccionada(true);
+          setTicket(tickets[index]);
         }
-        fila.classList.add("selected");
-        filaSeleccionada = fila;
-        setTicket(tickets[index-1]);
       });
     });
 
@@ -151,8 +160,13 @@ function SoporteAdmin() {
               value="Eliminar" 
               className="btn btn-grey"
               onClick={async () => {
-                  await eliminarTicket(usuario.token, ticket._id);
-                  window.location.reload();
+                  if(seleccionada){
+                    await eliminarTicket(usuario.token, ticket._id);
+                    window.location.reload();
+                  } else {
+                    toast.error("Selecciona un ticket de la tabla para eliminarlo");
+                  } 
+
                 }
               }
             ></input>
@@ -160,7 +174,13 @@ function SoporteAdmin() {
               type="button"
               value="Responder"
               className="btn btn-orange"
-              onClick={() => navigate("/admin/respuesta/123")}
+              onClick={() => {
+                if(seleccionada){
+                  navigate("/admin/respuesta/123")
+                }else{
+                  toast.error("Selecciona un ticket de la tabla para responderlo"); 
+                }
+              }}
             ></input>
           </div>
 

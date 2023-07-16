@@ -12,11 +12,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 
 async function crearConsulta(asunto, detalles, user_id, user_token, setAsunto, setDetalles){
-  if(asunto==="" || detalles === ""){
-    toast.error("Todos los campos deben ser llenados");
-    return;
-  }
-
   return toast.promise(
     new Promise((resolve, reject) => {
       let data = JSON.stringify({
@@ -126,8 +121,12 @@ function SoporteMessage({ adultoMayor }) {
             value="Enviar" 
             className="btn btn-orange" 
             onClick={async() => {
-              await crearConsulta(asunto, detalles, usuario.user._id, usuario.token, setAsunto, setDetalles);
-              navigate(-1);
+              if(asunto==="" || detalles === ""){
+                toast.error("Todos los campos deben ser llenados");
+              }else{
+                await crearConsulta(asunto, detalles, usuario.user._id, usuario.token, setAsunto, setDetalles);
+                navigate(-1);
+              }
             }}/>
         </div>
       </section>

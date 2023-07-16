@@ -71,7 +71,8 @@ function ConsultasGeneradas() {
 
   const { usuario, consultas, setConsultas, setTicket, ticket } = React.useContext(GeneralContext);
 
-  let filaSeleccionada = null;
+  const [seleccionada, setSeleccionada] = React.useState(false);
+
   useEffect(() => {
     
     if(effect_exe===0){
@@ -82,23 +83,30 @@ function ConsultasGeneradas() {
   }, []);
 
   useEffect(() => {
-    const filas = document.querySelectorAll("tr");
+    const filas = document.querySelectorAll("tbody > tr");
+    let filaSeleccionada = null;
 
     filas.forEach(function (fila, index) {
-      fila.addEventListener("click", function () {
-        if (filaSeleccionada) {
-          filaSeleccionada.classList.remove("selected");
+      fila.addEventListener("click", function() {
+        if (fila.classList.contains("selected")) {
+            fila.classList.remove("selected");
+            filaSeleccionada = null;
+            setSeleccionada(false);
+        } else {
+          if (filaSeleccionada!=null) {
+              filaSeleccionada.classList.remove("selected");
+          }
+          fila.classList.add("selected");
+          filaSeleccionada=fila;
+          setSeleccionada(true);
+          setTicket(consultas[index]);
         }
-        fila.classList.add("selected");
-        filaSeleccionada = fila;
-        setTicket(consultas[index-1]);
       });
     });
-
   }, [consultas]);
 
   useEffect(() => {
-    
+    //console.log(ticket);
   }, [ticket]);
 
   return (
@@ -157,8 +165,12 @@ function ConsultasGeneradas() {
               value="Eliminar" 
               className="btn btn-grey"
               onClick={async () => {
-                  await eliminarConsulta(usuario.token, ticket._id);
-                  window.location.reload();
+                  if(seleccionada){
+                    await eliminarConsulta(usuario.token, ticket._id);
+                    window.location.reload();
+                  } else {
+                    toast.error("Selecciona una consulta de la tabla para eliminarla");
+                  } 
                 }
               }
             ></input>
@@ -166,7 +178,13 @@ function ConsultasGeneradas() {
               type="button"
               value="Detalles"
               className="btn btn-orange"
-              onClick={() => navigate("respuesta/123")}
+              onClick={() => {
+                if(seleccionada){
+                  navigate("respuesta/123")
+                }else{
+                  toast.error("Selecciona una consulta de la tabla para mostrar los detalles"); 
+                }
+              }}
             ></input>
           </div>
 

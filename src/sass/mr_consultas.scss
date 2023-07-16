@@ -71,6 +71,10 @@
         padding: 30px;
         border-bottom: 1px solid $dark_color;
       }
+
+      tr {
+        cursor: default;
+      }
     } 
 
     tbody {
@@ -83,6 +87,7 @@
       tr {
         /*Filas de la tabla*/
         height: 50px;
+        cursor: pointer;
 
         .selected {
           /*Estilo de fila seleccionada*/

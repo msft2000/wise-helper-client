@@ -52,7 +52,7 @@ function Respuesta() {
   const [respuesta, setRespuesta] = useState('');
 
   useEffect(() => {
-    console.log(ticket);
+    //console.log(ticket);
   }, [ticket]);
 
   return (
