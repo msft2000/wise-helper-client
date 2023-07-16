@@ -90,25 +90,47 @@ div.Index > section {
   }
 
   .paso {
+    width: 90%;
     display: flex;
     margin-top: 20px;
-    padding-left: 60px;
-    padding-right: 60px;
     margin-bottom: 0px;
 
-    > .txt {
+    .txt {
       display: flex;
       flex-direction: column;
-      margin-right: 20px;
-      margin-bottom: 0px;
+      width: 50%;
       h2, h3 {
         padding: 0px;
       }
     }
 
-    > img {
+    .img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 50%;
+      img{
+        width: 100%;
+      }
     }
   }
 
+}
+
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 480px) {
+  .paso{
+    width: 95% !important;
+    flex-direction: column !important;
+  div{
+    width: 100% !important;
+  }  
+}
+}
+
+/* Estilos para tabletas */
+@media screen and (min-width: 481px) and (max-width: 1104px) {
+  .paso{
+      width: 98% !important;
+  }
 }

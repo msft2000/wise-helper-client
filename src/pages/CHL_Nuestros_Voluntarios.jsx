@@ -18,7 +18,7 @@ import toast, { Toaster } from "react-hot-toast";
 function NuestrosVoluntarios() {
   const [volunters, setVolunters]=React.useState([]);
   const obtenerVoluntarios= async () =>  {
-    //const toastID = toast.loading("Obteniendo voluntarios...");
+    const toastID = toast.loading("Obteniendo voluntarios...");
     let data = '';
     let config = {
       method: 'get',
@@ -33,12 +33,13 @@ function NuestrosVoluntarios() {
       let voluntarios=data.filter(u => u.tipo==="voluntario");
       setVolunters(voluntarios);
       console.log(voluntarios);
-      //toast.dismiss(toastID);
+      toast.success("Voluntarios obtenidos.")
+      toast.dismiss(toastID);
     })
     .catch((error) => {
       console.log(error);
-      //toast.dismiss(toastID);
-      //toast.error("Error en el servidor.");
+      toast.dismiss(toastID);
+      toast.error("Error en el servidor.");
     });
   }
   const url = window.location.href;
@@ -81,7 +82,7 @@ function NuestrosVoluntarios() {
         <HeaderIndex />
       )}
 
-      <div className="container">
+      <div className="con">
         <div className="general">
           <h1> Nuestros Voluntarios </h1>
           <p>

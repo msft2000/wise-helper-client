@@ -1,38 +1,39 @@
 @import "./variables";
 
 div.nuestrosVoluntarios{   
-  .container{
+  .con{
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     height: auto;
     width: 100%;
-    padding: 10px;
+    margin: 10px;
     
     .general{
         display: flex;
         flex-direction: column;
         text-align: center;
-        width: 60%;
+        width: 80%;
     }
 
     .voluntarios{
         display: flex;
         flex-direction: column;
         text-align: center;
-        width: 60%;
+        width: 70%;
         .inicio{
             background-color: $bg_primary_color;
-            padding: 5px 0px;
+            padding: 5px;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
             color: $light_color;
         }
         .voluntario{
             display: flex;
-            div{
-                padding: 10px;
+            div {
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
             .informacion{
                 display: flex;
@@ -46,8 +47,10 @@ div.nuestrosVoluntarios{
                 justify-content: center;
                 img{
                     border-radius: 50%;
-                    max-height: 200px;
+                    max-height: 250px;
+                    max-width: 250px;
                     display: block;
+                    width: 90%;
                 }
             }
         }
@@ -72,11 +75,12 @@ div.nuestrosVoluntarios{
     }
 
     .voluntarios{
-        width: 100% !important;
+        width: 98% !important;
         .voluntario{
             
             div{
                 width: 100% !important;
+                height: auto !important;
             }
         }
         .v1{

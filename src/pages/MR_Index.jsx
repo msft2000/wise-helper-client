@@ -143,10 +143,11 @@ function Paso(props) {
         <h2>
           {props.h2}
         </h2>
-        <h3>{props.h3}</h3>
+        <p>{props.h3}</p>
       </div>
-      
-      <img src={props.png} alt="Roles" />
+      <div className="img">
+        <img src={props.png} alt="Roles" />
+      </div>
     </div>
 
   );
