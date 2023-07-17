@@ -310,7 +310,7 @@ function Detalle() {
             readOnly
             precision={0.1}
           />
-          <p>{tareaV.adulto.calificacion_general}</p>
+          <p>{Math.round(parseFloat(tareaV.adulto.calificacion_general)*10)/10}</p>
         </div>
       </div>
      

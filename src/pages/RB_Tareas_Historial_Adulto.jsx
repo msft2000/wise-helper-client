@@ -72,7 +72,7 @@ function Detalle() {
             readOnly
             precision={0.1}
           />
-          <p>{tarea.voluntario.calificacion_general}</p>
+          <p>{Math.round(parseFloat(tarea.voluntario.calificacion_general)*10)/10}</p>
         </div>
       </div>
 

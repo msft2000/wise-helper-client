@@ -235,7 +235,7 @@ function PerfilVoluntario() {
                       <p>{calificacion.comentario}</p>
                       <div>
                         <Rating value={calificacion.calificacion} readOnly precision={0.1} />
-                        {/* <span>{calificacion.calificacion}</span> */}
+                        {/* <span>{Math.round(parseFloat(calificacion.calificacion)*10)/10}</span> */}
                       </div>
                     </div>
                   );

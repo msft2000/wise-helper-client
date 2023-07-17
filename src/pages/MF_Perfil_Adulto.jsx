@@ -167,13 +167,6 @@ function PerfilAdultoMayor() {
                   <input type="file" onChange={(e) => setImg(e.target.files[0])} />
                 </p>
                 <p>Calificacion: {Math.round(parseFloat(usuario.user.calificacion_general)*10)/10}</p>
-                {/* <div className="ratings">
-                  <StarRateRoundedIcon />
-                  <StarRateRoundedIcon />
-                  <StarRateRoundedIcon />
-                  <StarRateRoundedIcon />
-                  <StarRateRoundedIcon />
-                </div> */}
                 <div>
                   <Rating value={parseFloat(usuario.user.calificacion_general)} readOnly precision={0.1} />
                 </div>
