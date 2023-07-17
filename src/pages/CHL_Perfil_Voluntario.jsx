@@ -7,6 +7,9 @@ import { GeneralContext } from "../context";
 import Rating from "@mui/material/Rating";
 import "../sass/mf_perfil.scss";
 
+
+
+
 function PerfilVoluntario() {
   const { usuarioV, setUsuarioV } = React.useContext(GeneralContext);
   const [nombre, setNombre] = React.useState(usuarioV.user.nombre);
@@ -102,6 +105,23 @@ function PerfilVoluntario() {
         toast.error("Error al encontrar la direccion");
       });
   };
+  const obtenerImagenPerfil = async (userId) => {
+    try {
+      const response = await axios.get(
+        `https://wise-helper-backend.onrender.com/api/v1/auth/user/${userId}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      return response.data.user.img;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+  
   const notify = () => {
     toast.promise(calculoCoordenadas(), {
       loading: "Actualizando Informacion...",
@@ -169,7 +189,7 @@ function PerfilVoluntario() {
               <div>
                 <p>Calificacion: {usuarioV.user.calificacion_general} </p>
                 <div>
-                  <Rating value={usuarioV.calificacion_general} readOnly precision={0.05} />
+                  <Rating value={usuarioV.calificacion_general} readOnly precision={0.5} />
                 </div>
               </div>
               </div>
@@ -197,16 +217,25 @@ function PerfilVoluntario() {
             <div className="resenias--container--resenias">
               {usuarioV.user.calificaciones.length > 0 ? (
                 usuarioV.user.calificaciones.map((calificacion) => {
+                  const imagenPerfilPromise = obtenerImagenPerfil(calificacion.id_origen);
+
                   return (
                     <div
                       className="resenias--inforesenia--container"
-                      key={calificacion._id}
+                      key={calificacion._id} 
                     >
-                      <img src={usuarioV.user.img} alt="foto-perfil-resenia" />
+                      <img 
+                        src={imagenPerfilPromise} 
+                        alt="foto-perfil-resenia" 
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "https://res.cloudinary.com/dj4ahbiqh/image/upload/v1688394029/UsuarioDefault.jpg";
+                        }}
+                      />
                       <p>{calificacion.comentario}</p>
-                      <span>{calificacion.calificacion}</span>
                       <div>
-                        <Rating value={calificacion.calificacion} readOnly precision={0.05} />
+                        <Rating value={calificacion.calificacion} readOnly precision={0.5} />
+                        {/* <span>{calificacion.calificacion}</span> */}
                       </div>
                     </div>
                   );
