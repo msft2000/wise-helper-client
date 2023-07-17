@@ -189,7 +189,7 @@ function PerfilVoluntario() {
               <div>
                 <p>Calificacion: {usuarioV.user.calificacion_general} </p>
                 <div>
-                  <Rating value={usuarioV.calificacion_general} readOnly precision={0.5} />
+                  <Rating value={parseFloat(usuarioV.user.calificacion_general)} readOnly precision={0.1} />
                 </div>
               </div>
               </div>

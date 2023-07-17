@@ -175,7 +175,7 @@ function PerfilAdultoMayor() {
                   <StarRateRoundedIcon />
                 </div> */}
                 <div>
-                  <Rating value={parseFloat(usuario.calificacion_general)} readOnly precision={0.1} />
+                  <Rating value={parseFloat(usuario.user.calificacion_general)} readOnly precision={0.1} />
                 </div>
               </div>
               <img src={usuario.user.img} alt="foto-perfil" />
