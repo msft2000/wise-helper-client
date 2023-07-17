@@ -279,6 +279,8 @@ function Tabla() {
 
 function Detalle() {
   const { setSelectedIdx, setTareasDisplay, detalleDisplay, setDetalleDisplay, tareaV, setOpen} = React.useContext(GeneralContext);
+  const [mapa,setMapa]=React.useState(false);
+
   var myIcon = L.icon({//Icono de punto en el mapa
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
     iconRetinaUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
@@ -291,6 +293,14 @@ function Detalle() {
     setSelectedIdx(null); //Se deselecciona la tarea
     setTareasDisplay("flex"); //Se muestra la lista de tareas
   };
+
+  React.useEffect(()=>{
+    setMapa(false);
+    setTimeout(function(){
+      setMapa(true);
+    }, 100);
+  },[tareaV]);
+
   return (
     <section className="tarea_desc" style={{ display: detalleDisplay }}>
       <section>
@@ -333,7 +343,7 @@ function Detalle() {
         </div>
 
         {
-          tareaV.adulto.direccion.split("%").length === 3 ? <div className="mapaApi">
+          mapa && detalleDisplay!=="none" && tareaV.adulto.direccion.split("%").length === 3 ? <div className="mapaApi">
           <MapContainer center={[parseFloat(tareaV.adulto.direccion.split("%")[1]), parseFloat(tareaV.adulto.direccion.split("%")[2])]} zoom={13} scrollWheelZoom={true}>
               <TileLayer
                 attribution='&copy; OpenStreetMap'

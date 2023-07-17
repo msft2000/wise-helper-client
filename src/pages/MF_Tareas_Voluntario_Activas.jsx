@@ -54,6 +54,15 @@ function Chat() {
   );
 }
 
+//create your forceUpdate hook
+function useForceUpdate(){
+  const [value, setValue] = React.useState(0); // integer state
+  return () => setValue(value => value + 1); // update state to force render
+  // A function that increment 👆🏻 the previous state like here 
+  // is better than directly setting `setValue(value + 1)`
+}
+
+
 function Detalle() {
   const {
     setSelectedIdx,
@@ -63,6 +72,8 @@ function Detalle() {
     tareaV,
     setOpen,
   } = React.useContext(GeneralContext);
+
+  const [mapa,setMapa]=React.useState(false);
 
   var myIcon = L.icon({//Icono de punto en el mapa
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/9131/9131546.png',
@@ -77,6 +88,14 @@ function Detalle() {
     setSelectedIdx(null); //Se deselecciona la tarea
     setTareasDisplay("flex"); //Se muestra la lista de tareas
   };
+
+  React.useEffect(()=>{
+    setMapa(false);
+    setTimeout(function(){
+      setMapa(true);
+    }, 100);
+  },[tareaV]);
+
   return (
     <section
       className={"tarea_desc"}
@@ -136,7 +155,8 @@ function Detalle() {
         </div>
 
         {
-          tareaV.adulto.direccion.split("%").length === 3 ? <div className="mapaApi">
+          mapa && tareaV.adulto.direccion.split("%").length === 3 ? 
+          <div className="mapaApi">
           <MapContainer center={[parseFloat(tareaV.adulto.direccion.split("%")[1]), parseFloat(tareaV.adulto.direccion.split("%")[2])]} zoom={13} scrollWheelZoom={true}>
               <TileLayer
                 attribution='&copy; OpenStreetMap'
