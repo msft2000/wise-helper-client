@@ -61,7 +61,7 @@ function NuestrosVoluntarios() {
         <h2>{v.nombre+" "+v.apellidos}</h2>
             <span>{v.descripcion}</span>
             <div>
-                <Rating value={parseFloat(v.calificacion_general)} readOnly precision={0.5} />
+                <Rating value={parseFloat(v.calificacion_general)} readOnly precision={0.1} />
             </div>
         </div>
         <div className="imagen">

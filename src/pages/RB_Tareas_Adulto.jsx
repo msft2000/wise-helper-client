@@ -165,7 +165,7 @@ function Detalle() {
             <Rating
               value={parseFloat(tarea.voluntario.calificacion_general)}
               readOnly
-              precision={0.5}
+              precision={0.1}
             />
             <p>{tarea.voluntario.calificacion_general}</p>
           </div>

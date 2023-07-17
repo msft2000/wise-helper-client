@@ -219,7 +219,7 @@ function PerfilAdultoMayor() {
                         <StarRateRoundedIcon />
                       </div>*/}
                       <div>
-                        <Rating value={parseFloat(calificacion.calificacion)} readOnly precision={0.5} />
+                        <Rating value={parseFloat(calificacion.calificacion)} readOnly precision={0.1} />
                       </div>
                     </div>
                   );

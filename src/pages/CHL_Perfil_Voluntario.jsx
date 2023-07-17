@@ -234,7 +234,7 @@ function PerfilVoluntario() {
                       />
                       <p>{calificacion.comentario}</p>
                       <div>
-                        <Rating value={calificacion.calificacion} readOnly precision={0.5} />
+                        <Rating value={calificacion.calificacion} readOnly precision={0.1} />
                         {/* <span>{calificacion.calificacion}</span> */}
                       </div>
                     </div>
