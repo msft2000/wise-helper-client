@@ -166,7 +166,7 @@ function PerfilAdultoMayor() {
                   Nueva Foto de Perfil:{" "}
                   <input type="file" onChange={(e) => setImg(e.target.files[0])} />
                 </p>
-                <p>Calificacion: {usuario.user.calificacion_general}</p>
+                <p>Calificacion: {Math.round(parseFloat(usuario.user.calificacion_general)*10)/10}</p>
                 {/* <div className="ratings">
                   <StarRateRoundedIcon />
                   <StarRateRoundedIcon />

@@ -187,7 +187,7 @@ function PerfilVoluntario() {
                 <input type="file" onChange={(e) => setImg(e.target.files[0])} />
               </div>
               <div>
-                <p>Calificacion: {usuarioV.user.calificacion_general} </p>
+                <p>Calificacion: {Math.round(parseFloat(usuarioV.user.calificacion_general)*10)/10} </p>
                 <div>
                   <Rating value={parseFloat(usuarioV.user.calificacion_general)} readOnly precision={0.1} />
                 </div>
