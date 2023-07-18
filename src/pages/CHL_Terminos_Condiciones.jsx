@@ -95,7 +95,7 @@ function TerminosCondiciones() {
           </p>
         </div>
       </div>
-    <Footer></Footer>
+      <Footer nombre="Luis Chusino"></Footer>
     </div>
   );
 }

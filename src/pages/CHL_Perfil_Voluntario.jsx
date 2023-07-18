@@ -251,7 +251,7 @@ function PerfilVoluntario() {
       </div>
 
       <Toaster />
-      <Footer></Footer>
+      <Footer nombre="Luis Chusino"></Footer>
     </div>
   );
 }

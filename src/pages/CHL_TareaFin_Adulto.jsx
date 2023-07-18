@@ -106,7 +106,7 @@ function TareaFinAdulto() {
           </div>
         </section>
       </div>
-      <Footer/>
+      <Footer nombre="Luis Chusino"></Footer>
     </div>
   );
 }
