@@ -76,7 +76,28 @@
     tbody tr {
       /*Filas de la tabla*/
       height: 50px;
-      cursor: poin;
+      cursor: pointer;
+    }
+
+    tbody > tr> td {
+      p.activo,
+      p.enproceso,
+      p.finalizada {
+        display: inline;
+        color: $font_light_color;
+        border-radius: 20px;
+        width: fit-content;
+        height: auto;
+        padding: 0px 20px 0px 20px;
+      }
+
+      p.activo {
+        background: green;
+      }
+
+      p.finalizada {
+        background: red;
+      }
     }
 
     tr.selected {

@@ -11,6 +11,32 @@ import { GeneralContext } from "../context";
 import toast, { Toaster } from "react-hot-toast";
 import axios from 'axios';
 
+async function actualizarEstado(id_ticket, user_token){
+  let data = JSON.stringify({
+    "estado": "Finalizada"
+  });
+
+  let config = {
+    method: 'patch',
+    maxBodyLength: Infinity,
+    url: `https://wise-helper-backend.onrender.com/api/v1/tickets/update/${id_ticket}`,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${user_token}`
+    },
+    data : data
+  };
+
+  axios.request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+}
+
 async function sendRespuesta(id_ticket, respuesta, user_token){
   return new Promise((resolve, reject) => {
     const toastID = toast.loading("Enviando Respuesta...");
@@ -31,8 +57,11 @@ async function sendRespuesta(id_ticket, respuesta, user_token){
     };
 
     axios.request(config)
-    .then((response) => {
+    .then(async (response) => {
       toast.dismiss(toastID);
+
+      await actualizarEstado(id_ticket, user_token); //Obtener los datos del voluntario
+
       toast.success("Respuesta Enviada con Éxito");
 
       resolve(response.data); // Resolvemos la promesa con los datos de respuesta
@@ -98,7 +127,6 @@ function Respuesta() {
               
               value={ticket.mensajes_usuario && ticket.mensajes_usuario.length > 0 ? ticket.mensajes_usuario[0].texto : undefined}
 
-
             ></textarea>
             <p className="ocultar">* Este campo es requerido</p>
           </div>
@@ -108,7 +136,7 @@ function Respuesta() {
               type="button"
               value="Enviar"
               className="btn btn-orange"
-              style={url.includes("adult") || url.includes("volunter") ? {display: 'none'} : {}}
+              style={url.includes("adult") || url.includes("volunter") || ticket.mensajes_usuario.length > 0 ? {display: 'none'} : {}}
               onClick={
                 async () => {
                   await sendRespuesta(ticket._id, respuesta, usuario.token);

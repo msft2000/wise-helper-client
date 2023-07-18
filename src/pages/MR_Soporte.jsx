@@ -42,6 +42,23 @@ async function eliminarTicket(user_token, ticket_id) {
   });
 }
 
+async function getUsuario(id_usuario) {
+  const config = {
+    headers: {
+      "content-type": "application/json",
+    }
+  };
+
+  try{
+    const response= await axios.get(`https://wise-helper-backend.onrender.com/api/v1/auth/user/${id_usuario}`, config);
+    return response.data.user;
+  }
+  catch(error){
+    console.log(error);
+    return null;
+  }
+}
+
 async function getTickets(user_token, setTickets){
   const toastID = toast.loading("Cargando Tickets...");
   let data = '';
@@ -58,8 +75,28 @@ async function getTickets(user_token, setTickets){
   };
 
   axios.request(config)
-  .then((response) => {
-    setTickets(response.data.tickets);
+  .then(async (response) => {
+    const data= response.data.tickets;
+
+    let usuario_a=[];
+    data.forEach(ticket => {
+      ticket.usuario={};
+      if(ticket.hasOwnProperty('id_usuario') && !usuario_a.includes(ticket.id_usuario)) usuario_a=[...usuario_a,ticket.id_usuario]
+    });
+
+    for (let i=0; i<usuario_a.length ; i++){ //Recorrer la lista de usuarios
+      let id_usuario=usuario_a[i];
+      let data_usuario=await getUsuario(id_usuario); //Obtener los datos del voluntario
+      if(data_usuario !== null) {
+        data.forEach(ticket => {
+          if(ticket.id_usuario===id_usuario){
+            ticket.usuario=data_usuario; //Agregar los datos a cada objeto de tarea
+          }
+        });
+      }
+    }
+
+    setTickets(data);
 
     toast.dismiss(toastID);
     toast.success("Tickets Cargadas con éxito");
@@ -125,8 +162,10 @@ function SoporteAdmin() {
             <table>
               <thead>
                 <tr>
-                  <th>Usuario</th>
+                  <th>Perfil</th>
+                  <th>Nombre</th>
                   <th>Fecha Petición</th>
+                  <th>Estado</th>
                   <th>Asunto</th>
                 </tr>
               </thead>
@@ -135,7 +174,10 @@ function SoporteAdmin() {
                   tickets.map((ticket) => {
                     return (
                       <tr>
-                        <td>{ticket.id_usuario}</td>
+                        <td><img src={ticket.usuario.img} alt="" /></td>
+                        <td>
+                          {ticket.usuario.nombre}
+                        </td>
                         <td>
                           {new Date(ticket.createdAt).toLocaleString("es-ES", {
                           year: "numeric",
@@ -144,6 +186,11 @@ function SoporteAdmin() {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
+                        </td>
+                        <td>
+                          <p className={ticket.estado.toLowerCase().replace(/ /g, "")}> 
+                            {ticket.estado}
+                          </p>
                         </td>
                         <td>{ticket.titulo}</td>
                       </tr>
